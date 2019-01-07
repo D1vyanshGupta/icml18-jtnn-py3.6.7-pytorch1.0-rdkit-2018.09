@@ -14,7 +14,7 @@ class JTNNDecoder(nn.Module):
     """
     Junction Tree Neural Network Decoder
     """
-    def __init__(self, vocab, hidden_size, latent_size, embedding=None):
+    def __init__(self, vocab, hidden_size, latent_size, vocab_embedding=None):
         """
         Constructor for the class.
 
@@ -22,7 +22,7 @@ class JTNNDecoder(nn.Module):
             vocab: The cluster vocabulary over the entire training dataset.
             hidden_size: Dimension of the vector encoding space.
             latent_size:
-            embedding: Embedding space for encoding vocabulary composition.
+            vocab_embedding: Embedding space for encoding vocabulary composition.
         """
 
         # invoke superclass constructor
@@ -37,10 +37,10 @@ class JTNNDecoder(nn.Module):
         # the entire vocabulary of clusters
         self.vocab = vocab
 
-        if embedding is None:
-            self.embedding = nn.Embedding(self.vocab_size, hidden_size)
+        if vocab_embedding is None:
+            self.vocab_embedding = nn.Embedding(self.vocab_size, hidden_size)
         else:
-            self.embedding = embedding
+            self.vocab_embedding = vocab_embedding
 
         # GRU weights
         self.W_z = nn.Linear(2 * hidden_size, hidden_size)
@@ -155,7 +155,7 @@ class JTNNDecoder(nn.Module):
 
             # cluster embedding
             cur_x = create_var(torch.LongTensor(cur_x))
-            cur_x = self.embedding(cur_x)
+            cur_x = self.vocab_embedding(cur_x)
 
             # implement message passing
             cur_h_nei = torch.stack(cur_h_nei, dim=0).view(-1, MAX_NUM_NEIGHBORS, self.hidden_size)
@@ -180,7 +180,7 @@ class JTNNDecoder(nn.Module):
                     pred_list.append(idx)
                 stop_target.append(direction)
 
-            # hidden states for stop prediction
+            # hidden states for stop / topological prediction
             cur_batch = create_var(torch.LongTensor(batch_list))
             cur_tree_vecs = tree_vecs.index_select(0, cur_batch)
             stop_hidden = torch.cat([cur_x, cur_o, cur_tree_vecs], dim=1)
@@ -208,7 +208,7 @@ class JTNNDecoder(nn.Module):
             cur_o_nei.extend([padding] * pad_len)
 
         cur_x = create_var(torch.LongTensor(cur_x))
-        cur_x = self.embedding(cur_x)
+        cur_x = self.vocab_embedding(cur_x)
         cur_o_nei = torch.stack(cur_o_nei, dim=0).view(-1, MAX_NUM_NEIGHBORS, self.hidden_size)
         cur_o = cur_o_nei.sum(dim=1)
 
@@ -270,7 +270,7 @@ class JTNNDecoder(nn.Module):
                 cur_h_nei = zero_pad
 
             cur_x = create_var(torch.LongTensor([node_x.wid]))
-            cur_x = self.embedding(cur_x)
+            cur_x = self.vocab_embedding(cur_x)
 
             # Predict stop
             cur_h = cur_h_nei.sum(dim=1)

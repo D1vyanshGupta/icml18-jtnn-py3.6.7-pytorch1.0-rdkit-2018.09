@@ -1,4 +1,3 @@
-import rdkit
 from rdkit import Chem
 from collections import defaultdict
 from scipy.sparse import csr_matrix

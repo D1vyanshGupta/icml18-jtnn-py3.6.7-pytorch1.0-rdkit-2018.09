@@ -9,6 +9,8 @@ class MolJuncTreeNode(object):
     This class, constructs a "cluster-node" for the junction tree, given a cluster (list of atom idx) in the original molecule.
     """
 
+    _global_node_count = 0
+
     def __init__(self, smiles, cluster=[]):
         """
         Constructor for the class.
@@ -32,6 +34,10 @@ class MolJuncTreeNode(object):
 
         # list to store neighbor nodes
         self.neighbors = []
+
+        self.global_idx = MolJuncTreeNode._global_node_count
+
+        MolJuncTreeNode._global_node_count += 1
 
     def add_neighbor(self, neighbor_node):
         """

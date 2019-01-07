@@ -6,6 +6,7 @@ from JTNN_Enc import JTNNEncoder
 from JTNN_Dec import JTNNDecoder
 from MessPassNet import MessPassNet
 from JTMessPassNet import JTMessPassNet
+from MolGraphEncoder import MolGraphEncoder
 
 from chemutils import enum_assemble, set_atom_map, copy_edit_mol, attach_mols, decode_stereo
 import rdkit.Chem as Chem
@@ -17,7 +18,7 @@ class JTNNVAE(nn.Module):
     This class is the implementation of the Junction Tree Variational Auto Encoder.
     """
 
-    def __init__(self, vocab, hidden_size, latent_size, depth):
+    def __init__(self, vocab, hidden_size, latent_size, depth, num_layers, use_graph_conv):
         """
         This is the constructor for the class.
 
@@ -27,10 +28,15 @@ class JTNNVAE(nn.Module):
             latent_size: Dimension of the latent space.
             depth: Number of timesteps for implementing message passing for encoding the junction tree and
             the molecular graph.
+
+            num_layers: int
+                The number of layers for the graph convolutional encoder.
         """
 
         # invoke superclass constructor
         super(JTNNVAE, self).__init__()
+
+        self.use_graph_conv = use_graph_conv
 
         # cluster vocabulary
         self.vocab = vocab
@@ -45,20 +51,25 @@ class JTNNVAE(nn.Module):
         self.depth = depth
 
         # embedding layer for encoding vocabulary composition
-        self.embedding = nn.Embedding(vocab.size(), hidden_size)
+        self.vocab_embedding = nn.Embedding(vocab.size(), hidden_size)
 
-        # encoder for producing tree encoding given batch of molecules
-        self.jtnn = JTNNEncoder(vocab, hidden_size, self.embedding)
+        # for encoding junction tree, to hidden vector representation
+        self.jtnn = JTNNEncoder(vocab, hidden_size, self.vocab_embedding)
 
-        # don't know yet
-        self.jtmpn = JTMessPassNet(hidden_size, depth)
+        # for decoding tree vector, back to junction tree
+        self.decoder = JTNNDecoder(vocab, hidden_size, latent_size // 2, self.vocab_embedding)
 
-        # encoder for producing the molecule graph encoding given batch of molecules
-        self.mpn = MessPassNet(hidden_size, depth)
+        if self.use_graph_conv is True:
+            # for encoding molecular graphs, to hidden vector representation
+            self.graph_enc = MolGraphEncoder(hidden_size, num_layers)
+        else:
+            # for encoding candidate subgraphs, in the graph decoding phase (section 2.5)
+            self.jtmpn = JTMessPassNet(hidden_size, depth)
 
-        # to decode back to molecule
-        self.decoder = JTNNDecoder(vocab, hidden_size, latent_size // 2, self.embedding)
+            # encoder for producing the molecule graph encoding given batch of molecules
+            self.mpn = MessPassNet(hidden_size, depth)
 
+        # weight matrices for calculating mean and log_var vectors, for implementing the VAE
         self.T_mean = nn.Linear(hidden_size, latent_size // 2)
 
         self.T_var = nn.Linear(hidden_size, latent_size // 2)
@@ -71,7 +82,7 @@ class JTNNVAE(nn.Module):
 
         self.stereo_loss = nn.CrossEntropyLoss(size_average=False)
 
-    def set_batch_nodeID(self, junc_tree_batch, vocab):
+    def set_batch_node_id(self, junc_tree_batch, vocab):
         """
         This method, given the junction trees for all the molecules in the training dataset,
         gives a unique idx to every node of all the junction trees.
@@ -111,21 +122,25 @@ class JTNNVAE(nn.Module):
         """
 
         # for each node, across all molecules in the dataset, give each node an id 
-        self.set_batch_nodeID(junc_tree_batch, self.vocab)
+        self.set_batch_node_id(junc_tree_batch, self.vocab)
 
         # list of all root nodes for the junction trees of all molecules in the dataset
         root_batch = [mol_tree.nodes[0] for mol_tree in junc_tree_batch]
 
         # tree_message dictionary, and tree_vectors for all molecules in the dataset
-        tree_mess, tree_vec = self.jtnn(root_batch)
+        tree_mess, tree_vecs = self.jtnn(root_batch)
 
         # SMILES representation of all the molecules in the dataset
         smiles_batch = [mol_tree.smiles for mol_tree in junc_tree_batch]
 
         # graph encoding vector for all the molecules in the dataset
-        mol_vec = self.mpn(smiles_batch)
+        if self.use_graph_conv:
+            mol_vecs = self.graph_enc(smiles_batch)
+            return tree_vecs, mol_vecs
 
-        return tree_mess, tree_vec, mol_vec
+        else:
+            mol_vecs = self.mpn(smiles_batch)
+            return tree_mess, tree_vecs, mol_vecs
 
     # def encode_latent_mean(self, smiles_list):
     #     mol_batch = [MolJuncTree(s) for s in smiles_list]
@@ -143,7 +158,12 @@ class JTNNVAE(nn.Module):
         # tree_message dictionary,
         # junction tree encoding vectors and
         # molecular graph encoding vectors for all molecules in the dataset
-        tree_mess, tree_vecs, mol_vecs = self.encode(junc_tree_batch)
+
+        if self.use_graph_conv:
+            tree_vecs, mol_vecs = self.encode(junc_tree_batch)
+
+        else:
+            tree_mess, tree_vecs, mol_vecs = self.encode(junc_tree_batch)
 
         tree_mean = self.T_mean(tree_vecs)
         tree_log_var = -torch.abs(self.T_var(tree_vecs))  # Following Mueller et al.
@@ -153,24 +173,35 @@ class JTNNVAE(nn.Module):
 
         z_mean = torch.cat([tree_mean, mol_mean], dim=1)
         z_log_var = torch.cat([tree_log_var, mol_log_var], dim=1)
+
+        # calculate KL divergence between q(z|x) and p(z)
         kl_loss = -0.5 * torch.sum(1.0 + z_log_var - z_mean * z_mean - torch.exp(z_log_var)) / batch_size
 
+        # reparameterization trick
         epsilon = create_var(torch.randn(batch_size, self.latent_size // 2), False)
         tree_vecs = tree_mean + torch.exp(tree_log_var // 2) * epsilon
+
+        # reparameterization trick
         epsilon = create_var(torch.randn(batch_size, self.latent_size // 2), False)
         mol_vecs = mol_mean + torch.exp(mol_log_var // 2) * epsilon
 
-        word_loss, topo_loss, word_acc, topo_acc = self.decoder(junc_tree_batch, tree_vecs)
-        assm_loss, assm_acc = self.assm(junc_tree_batch, mol_vecs, tree_mess)
+        label_pred_loss, topo_loss, label_pred_acc, topo_acc = self.decoder(junc_tree_batch, tree_vecs)
+
+        if self.use_graph_conv:
+            assm_loss, assm_acc = self.assm_new(junc_tree_batch, mol_vecs)
+
+        else:
+            assm_loss, assm_acc = self.assm_use_graph_conv(junc_tree_batch, mol_vecs, tree_mess)
+
         stereo_loss, stereo_acc = self.stereo(junc_tree_batch, mol_vecs)
-
         all_vec = torch.cat([tree_vecs, mol_vecs], dim=1)
-        loss = word_loss + topo_loss + assm_loss + 2 * stereo_loss + beta * kl_loss
+        loss = label_pred_loss + topo_loss + assm_loss + 2 * stereo_loss + beta * kl_loss
 
-        return loss, kl_loss.item(), word_acc, topo_acc, assm_acc, stereo_acc
+        # return loss, kl_loss.item(), label_pred_acc, topo_acc, assm_acc, stereo_acc
+        return loss, kl_loss.item(), label_pred_loss, topo_loss, assm_loss, stereo_loss
 
     # graph decoding loss
-    def assm(self, junc_tree_batch, mol_vecs, tree_mess):
+    def assm_use_graph_conv(self, junc_tree_batch, mol_vecs, tree_mess):
         candidates = []
         batch_idx = []
 
@@ -216,8 +247,57 @@ class JTNNVAE(nn.Module):
         all_loss = sum(all_loss) / len(junc_tree_batch)
         return all_loss, acc * 1.0 / count
 
+    def assm_new(self, junc_tree_batch, mol_vecs):
+        candidates = []
+        batch_idx = []
+
+        for idx, junc_tree in enumerate(junc_tree_batch):
+            for node in junc_tree.nodes:
+                # leaf node's attachment is determined by neighboring node's attachment
+                if node.is_leaf or len(node.candidates) == 1:
+                    continue
+
+                candidates.extend([candidate_smiles for candidate_smiles in node.candidates])
+
+                batch_idx.extend([idx] * len(node.candidates))
+
+        # encode all candidate assembly configurations, for all nodes, of all
+        # junction trees, across the entire dataset.
+
+        candidate_vecs = self.graph_enc(candidates)
+
+        candidate_vecs = self.G_mean(candidate_vecs)
+
+        batch_idx = create_var(torch.LongTensor(batch_idx))
+        mol_vecs = mol_vecs.index_select(0, batch_idx)
+        #
+        mol_vecs = mol_vecs.view(-1, 1, self.latent_size // 2)
+        candidate_vecs = candidate_vecs.view(-1, self.latent_size // 2, 1)
+        scores = torch.bmm(mol_vecs, candidate_vecs).squeeze()
+        #
+        count, tot, acc = 0, 0, 0
+        all_loss = []
+        for idx, junc_tree in enumerate(junc_tree_batch):
+            comp_nodes = [node for node in junc_tree.nodes if len(node.candidates) > 1 and not node.is_leaf]
+            count += len(comp_nodes)
+            for node in comp_nodes:
+                label_idx = node.candidates.index(node.label)
+                num_candidates = len(node.candidates)
+                cur_score = scores.narrow(0, tot, num_candidates)
+                tot += num_candidates
+
+                if cur_score.data[label_idx] >= cur_score.max().item():
+                    acc += 1
+
+                label_idx = create_var(torch.LongTensor([label_idx]))
+                all_loss.append(self.assm_loss(cur_score.view(1, -1), label_idx))
+
+        # all_loss = torch.stack(all_loss).sum() / len(mol_batch)
+        all_loss = sum(all_loss) / len(junc_tree_batch)
+        return all_loss, acc * 1.0 / count
+
     # stereo loss
-    def stereo(self, junc_tree_batch, mol_vec):
+    def stereo(self, junc_tree_batch, mol_vecs):
         stereo_candidates, batch_idx = [], []
         labels = []
         for idx, junc_tree in enumerate(junc_tree_batch):
@@ -234,10 +314,16 @@ class JTNNVAE(nn.Module):
             return create_var(torch.zeros(1)), 1.0
 
         batch_idx = create_var(torch.LongTensor(batch_idx))
-        stereo_candidates = self.mpn(stereo_candidates)
-        stereo_candidates = self.G_mean(stereo_candidates)
-        stereo_labels = mol_vec.index_select(0, batch_idx)
-        scores = torch.nn.CosineSimilarity()(stereo_candidates, stereo_labels)
+
+        if self.use_graph_conv:
+            stereo_candidates_vecs = self.graph_enc(stereo_candidates)
+
+        else:
+            stereo_candidates_vecs = self.mpn(stereo_candidates)
+
+        stereo_candidates_mean_vecs = self.G_mean(stereo_candidates_vecs)
+        stereo_labels = torch.index_select(input=mol_vecs, dim=0, index=batch_idx)
+        scores = torch.nn.CosineSimilarity()(stereo_candidates_mean_vecs, stereo_labels)
 
         st, acc = 0, 0
         all_loss = []

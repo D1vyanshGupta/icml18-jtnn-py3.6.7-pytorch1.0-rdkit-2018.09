@@ -7,12 +7,11 @@ from JTNN_Dec import JTNNDecoder
 from MessPassNet import MessPassNet
 from JTMessPassNet import JTMessPassNet
 
-from chemutils import enum_assemble, set_atom_map, copy_edit_mol, attach_mols, atom_equal, decode_stereo
-import rdkit
+from chemutils import enum_assemble, set_atom_map, copy_edit_mol, attach_mols, decode_stereo
 import rdkit.Chem as Chem
 from rdkit import DataStructs
 from rdkit.Chem import AllChem
-import copy, math
+import copy
 
 
 def set_batch_nodeID(mol_batch, vocab):

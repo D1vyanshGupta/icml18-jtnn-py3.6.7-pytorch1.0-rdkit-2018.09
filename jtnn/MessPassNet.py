@@ -73,16 +73,16 @@ class MessPassNet(nn.Module):
         """
         atom_feature_matrix, bond_feature_matrix, atom_graph, bond_graph, scope = self.smiles_batch_to_feat_matrices(smiles_batch)
 
-        # create pytorch Variables
+        # create PyTorch Variables
         atom_feature_matrix = create_var(atom_feature_matrix)
         bond_feature_matrix = create_var(bond_feature_matrix)
         atom_graph = create_var(atom_graph)
         bond_graph = create_var(bond_graph)
 
-        bond_features_synaptic_input = self.W_i(bond_feature_matrix)
+        static_messages = self.W_i(bond_feature_matrix)
 
         # apply ReLU activation for timestep, t = 0
-        message = nn.ReLU()(bond_features_synaptic_input)
+        message = nn.ReLU()(static_messages)
 
         # implement message passing for timesteps, t = 1 to T (depth)
         for timestep in range(self.depth - 1):
@@ -97,7 +97,7 @@ class MessPassNet(nn.Module):
             neighbor_message = self.W_h(neighbor_message_vec_sum)
 
             # message at timestep t + 1
-            message = nn.ReLU()(bond_features_synaptic_input + neighbor_message)
+            message = nn.ReLU()(static_messages + neighbor_message)
 
         # neighbor message vectors for each node from the message matrix
         neighbor_message_vecs = index_select_ND(message, 0, atom_graph)
@@ -108,6 +108,9 @@ class MessPassNet(nn.Module):
         # concatenate atom feature vector and message vector
         atom_input_matrix = torch.cat([atom_feature_matrix, neighbor_message_atom_matrix], dim=1)
         atom_hidden_layer_activation_matrix = nn.ReLU()(self.W_o(atom_input_matrix))
+
+        # implement graph convnet here
+
 
         # list to store the corresponding molecule vectors for each molecule
         mol_vecs = []
@@ -252,3 +255,7 @@ class MessPassNet(nn.Module):
                     bond_graph[bond_idx_1, neighbor_idx] = bond_idx_2
 
         return atom_feature_matrix, bond_feature_matrix, atom_graph, bond_graph, scope
+
+
+
+

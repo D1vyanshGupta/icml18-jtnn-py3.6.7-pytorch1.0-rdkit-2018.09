@@ -67,13 +67,13 @@ class JTNNEncoder(nn.Module):
         # dictionary for storing hidden messages along various edges
         h = {}
 
-        max_depth = max([len(traversal_order) for traversal_order in traversal_order_list])
+        max_iter = max([len(traversal_order) for traversal_order in traversal_order_list])
 
         # if no messages from any neighbor node, then use this vector of zeros as
         # neighbor message vector
         padding = create_var(torch.zeros(self.hidden_size), False)
 
-        for timestep in range(max_depth):
+        for iter in range(max_iter):
 
             edge_tuple_list = []
 
@@ -81,13 +81,13 @@ class JTNNEncoder(nn.Module):
                 # keep appending traversal orders for a particular depth level,
                 # from a given traversal_order list,
                 # until the list is not empty
-                if timestep < len(traversal_order):
-                    edge_tuple_list.extend(traversal_order[timestep])
+                if iter < len(traversal_order):
+                    edge_tuple_list.extend(traversal_order[iter])
 
-            # for each edge, list of wids (word_idx corresponding to the cluster vocabulary item) of the starting node.
+            # for each edge, list of wids (word_idx corresponding to the cluster vocabulary item) of the current node.
             cur_x = []
 
-            # hidden messages for the current timestep, for the junction trees, across the entire training dataset.
+            # hidden messages for the current iteration, for the junction trees, across the entire dataset.
             cur_h_nei = []
 
             for node_x, node_y in edge_tuple_list:
@@ -118,17 +118,17 @@ class JTNNEncoder(nn.Module):
                 cur_h_nei.extend(h_nei)
 
             # for each wid in the list, get the corresponding word embedding
-            cur_x = create_var(torch.LongTensor(cur_x))
+            cur_x = create_var((torch.tensor(cur_x)))
             cur_x = self.embedding(cur_x)
 
-            # hidden edge message vector for this timestep, for all the junction trees, across the entire
+            # hidden edge message vector for this iteration, for all the junction trees, across the entire
             # training dataset.
             cur_h_nei = torch.cat(cur_h_nei, dim=0).view(-1, MAX_NUM_NEIGHBORS, self.hidden_size)
 
-            # calculate the hidden messages for the next timestep, using the GRU operation.
+            # calculate the hidden messages for the next iteration, using the GRU operation.
             new_h = GRU(cur_x, cur_h_nei, self.W_z, self.W_r, self.U_r, self.W_h)
 
-            # put the hidden messages for the next timestep, in the dictionary.
+            # put the hidden messages for the next iteration, in the dictionary.
             for idx, edge in enumerate(edge_tuple_list):
                 x, y = edge[0].idx, edge[1].idx
                 h[(x, y)] = new_h[idx]
