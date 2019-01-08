@@ -14,8 +14,8 @@ import matplotlib.pyplot as plt
 
 import rdkit
 
+import torch
 import torch.nn as nn
-import torch.utils.data.distributed
 import torch.optim as optim
 import torch.optim.lr_scheduler as lr_scheduler
 from torch.utils.data import DataLoader
@@ -60,7 +60,7 @@ device = torch.device("cuda: 0")
 model = JTNNVAE(vocab, hidden_size, latent_size, depth, num_layers, use_graph_conv=use_graph_conv)
 model = nn.DataParallel(model)
 
-model.to(device)
+# model.to(device)
 
 # initilize all 1-dimensional parameters to 0
 # initialize all multi-dimensional parameters by xavier initialization
@@ -80,7 +80,6 @@ scheduler = lr_scheduler.ExponentialLR(optimizer, gamma=0.9)
 scheduler.step()
 
 dataset = MoleculeDataset(args.train_path)
-# dataset = MoleculeDataset(TRAIN_PATH)
 
 # MAX_EPOCH = 3
 NUM_EPOCHS = int(args.epochs)
@@ -100,18 +99,18 @@ for epoch in range(NUM_EPOCHS):
 
     for it, batch in enumerate(dataloader):
 
-        for junc_tree in batch:
-            for node in junc_tree.nodes:
-                if node.label not in node.candidates:
-                    node.candidates.append(node.label)
-                    node.candidate_mols.append(node.label_mol)
+        # for junc_tree in batch:
+        #     for node in junc_tree.nodes:
+        #         if node.label not in node.candidates:
+        #             node.candidates.append(node.label)
+        #             node.candidate_mols.append(node.label_mol)
 
         # flush the gradient buffer
         model.zero_grad()
 
         # obtain all the losses
         input = batch.to(device)
-        loss, kl_div, label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_ = model(input)
+        loss, kl_div, label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_ = model(batch)
 
         print("Epoch: {}, Iteration: {}, loss: {}, label_pred_loss: {}, topo_loss: {}, assm_loss: {}, stereo_loss: {}".format(
             epoch + 1, it + 1, loss.item(), label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_.item()

@@ -152,12 +152,31 @@ class JTNNVAE(nn.Module):
     #     mol_mean = self.G_mean(mol_vec)
     #     return torch.cat([tree_mean, mol_mean], dim=1)
 
-    def forward(self, junc_tree_batch, beta=0):
-        batch_size = len(junc_tree_batch)
+    def convert_tensor_batch_to_junc_tree_batch(self, tensor_batch):
+        junc_tree_batch = []
+        for tensor in tensor_batch:
+            smiles = ''.join(list(map(lambda x: chr(x), tensor)))
+            junc_tree = MolJuncTree(smiles)
+            junc_tree.recover()
+            junc_tree.assemble()
+            junc_tree_batch.append(junc_tree)
+
+        for junc_tree in junc_tree_batch:
+            for node in junc_tree.nodes:
+                if node.label not in node.candidates:
+                    node.candidates.append(node.label)
+                    node.candidate_mols.append(node.label_mol)
+
+        return junc_tree_batch
+
+    def forward(self, tensor_batch, beta=0):
+        batch_size = len(tensor_batch)
 
         # tree_message dictionary,
         # junction tree encoding vectors and
         # molecular graph encoding vectors for all molecules in the dataset
+
+        junc_tree_batch = self.convert_tensor_batch_to_junc_tree_batch(tensor_batch)
 
         if self.use_graph_conv:
             tree_vecs, mol_vecs = self.encode(junc_tree_batch)
