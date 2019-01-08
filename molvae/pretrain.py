@@ -33,7 +33,7 @@ def fun(lst):
     new_lst = []
     for x in lst:
         n_arr = np.array(x)
-        new_lst.append(torch.from_numpy(n_arr))
+        new_lst.append(torch.from_numpy(n_arr).cuda())
 
     new_lst = torch.stack(new_lst, dim=0)
 
@@ -63,10 +63,10 @@ parser.add_argument("-pt", "--plot_title", action='store', help='Title of the pl
 args = parser.parse_args()
 
 # read the cluster vocabulary from the vocab file
-VOCAB_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'vocab.txt')
-TRAIN_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'train_5.txt')
-# vocab = [x.strip("\r\n ") for x in open(args.vocab_path)]
-vocab = [x.strip("\r\n ") for x in open(VOCAB_PATH)]
+# VOCAB_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'vocab.txt')
+# TRAIN_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'train_5.txt')
+vocab = [x.strip("\r\n ") for x in open(args.vocab_path)]
+# vocab = [x.strip("\r\n ") for x in open(VOCAB_PATH)]
 vocab = ClusterVocab(vocab)
 
 batch_size = int(args.batch_size)
