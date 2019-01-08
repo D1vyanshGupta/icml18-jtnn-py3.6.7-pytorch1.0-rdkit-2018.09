@@ -65,7 +65,7 @@ for param in model.parameters():
     else:
         nn.init.xavier_normal_(param)
 
-# model = model.cuda()
+model = model.cuda()
 print("Model #Params: %dK" % (sum([x.nelement() for x in model.parameters()]) / 1000,))
 
 # use Adam optimizer (apparently the best)
@@ -74,8 +74,6 @@ optimizer = optim.Adam(model.parameters(), lr=1e-3)
 # exponential decay learning rate
 scheduler = lr_scheduler.ExponentialLR(optimizer, gamma=0.9)
 scheduler.step()
-
-print("learning rate: %.6f" % scheduler.get_lr()[0])
 
 dataset = MoleculeDataset(args.train_path)
 # dataset = MoleculeDataset(TRAIN_PATH)
