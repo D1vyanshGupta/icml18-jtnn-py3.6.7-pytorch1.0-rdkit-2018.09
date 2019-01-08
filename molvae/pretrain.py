@@ -55,7 +55,12 @@ depth = int(args.depth)
 num_layers = int(args.num_layers)
 use_graph_conv = args.use_graph_conv
 
+device = torch.device("cuda: 0")
+
 model = JTNNVAE(vocab, hidden_size, latent_size, depth, num_layers, use_graph_conv=use_graph_conv)
+model = nn.DataParallel(model)
+
+model.to(device)
 
 # initilize all 1-dimensional parameters to 0
 # initialize all multi-dimensional parameters by xavier initialization
@@ -65,7 +70,6 @@ for param in model.parameters():
     else:
         nn.init.xavier_normal_(param)
 
-model = model.cuda()
 print("Model #Params: %dK" % (sum([x.nelement() for x in model.parameters()]) / 1000,))
 
 # use Adam optimizer (apparently the best)
@@ -89,7 +93,7 @@ assm_loss_lst = []
 stereo_loss_lst = []
 
 for epoch in range(NUM_EPOCHS):
-    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=lambda x: x,
+    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=8, collate_fn=lambda x: x,
                             drop_last=True)
 
     loss_val, label_pred_loss, topo_loss, assm_loss, stereo_loss = 0, 0, 0, 0, 0

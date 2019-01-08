@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/nnutils.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/nnutils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/molvae/pretrain.py" beforeDir="false" afterPath="$PROJECT_DIR$/molvae/pretrain.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,23 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="JTVAE.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1860">
-              <caret line="136" column="31" selection-start-line="136" selection-start-column="31" selection-end-line="136" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pretrain.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="pretrain.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/molvae/pretrain.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-972">
-              <caret line="68" column="20" lean-forward="true" selection-start-line="68" selection-start-column="20" selection-end-line="68" selection-end-column="20" />
+            <state relative-caret-position="319">
+              <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -43,13 +30,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nnutils.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/jtnn/nnutils.py">
+      <file leaf-file-name="datautils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jtnn/datautils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="31" lean-forward="true" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+            <state relative-caret-position="240">
+              <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
               <folding>
-                <element signature="e#0#12#0" expanded="true" />
+                <element signature="e#0#36#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -163,8 +150,8 @@
         <option value="$PROJECT_DIR$/jtnn/MolGraphEncoder.py" />
         <option value="$PROJECT_DIR$/jtnn/__init__.py" />
         <option value="$PROJECT_DIR$/jtnn/JTVAE.py" />
-        <option value="$PROJECT_DIR$/molvae/pretrain.py" />
         <option value="$PROJECT_DIR$/jtnn/nnutils.py" />
+        <option value="$PROJECT_DIR$/molvae/pretrain.py" />
       </list>
     </option>
   </component>
@@ -204,12 +191,6 @@
               <item name="icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09" type="b2602c69:ProjectViewProjectNode" />
               <item name="icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09" type="462c0819:PsiDirectoryNode" />
               <item name="molvae" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09" type="b2602c69:ProjectViewProjectNode" />
-              <item name="icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09" type="462c0819:PsiDirectoryNode" />
-              <item name="molvae" type="462c0819:PsiDirectoryNode" />
-              <item name="pre_model" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -501,16 +482,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/train_50.txt" />
-    <entry file="file://$PROJECT_DIR$/jtnn/datautils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/MolJuncTreeNode.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-807">
@@ -529,6 +500,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1781">
           <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -574,6 +548,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="850">
           <caret line="120" column="50" selection-start-line="120" selection-start-column="50" selection-end-line="120" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -581,6 +558,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="226">
           <caret line="244" column="44" selection-start-line="244" selection-start-column="44" selection-end-line="244" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#373#1916#0" />
+            <element signature="e#2360#9577#0" />
+            <element signature="e#2989#3269#0" />
+            <element signature="e#3897#7576#0" />
+            <element signature="e#9632#13482#0" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -588,6 +573,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="521">
           <caret line="115" selection-start-line="115" selection-end-line="123" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -609,6 +597,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="27" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#6256#8470#0" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -623,6 +615,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
           <caret line="47" column="46" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#3692#13251#0" />
+            <element signature="e#13284#13559#0" />
+            <element signature="e#13593#13839#0" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -638,6 +636,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3555">
           <caret line="237" column="42" selection-start-line="237" selection-start-column="42" selection-end-line="237" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#10029#16483#0" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -648,9 +650,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/nnutils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="9" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1860">
+        <state relative-caret-position="826">
           <caret line="136" column="31" selection-start-line="136" selection-start-column="31" selection-end-line="136" selection-end-column="31" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
@@ -658,22 +670,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/molvae/pretrain.py">
+    <entry file="file://$PROJECT_DIR$/jtnn/datautils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-972">
-          <caret line="68" column="20" lean-forward="true" selection-start-line="68" selection-start-column="20" selection-end-line="68" selection-end-column="20" />
+        <state relative-caret-position="240">
+          <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/nnutils.py">
+    <entry file="file://$PROJECT_DIR$/molvae/pretrain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="31" lean-forward="true" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+        <state relative-caret-position="319">
+          <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
