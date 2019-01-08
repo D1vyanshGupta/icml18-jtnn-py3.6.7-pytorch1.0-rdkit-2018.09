@@ -171,7 +171,7 @@ class JTNNVAE(nn.Module):
         return junc_tree_batch
 
     def forward(self, tensor_batch, beta=0):
-        batch_size = len(tensor_batch)
+        batch_size = tensor_batch.shape[0]
 
         # tree_message dictionary,
         # junction tree encoding vectors and
