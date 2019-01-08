@@ -14,8 +14,8 @@ import matplotlib.pyplot as plt
 
 import rdkit
 
-import torch
 import torch.nn as nn
+import torch.utils.data.distributed
 import torch.optim as optim
 import torch.optim.lr_scheduler as lr_scheduler
 from torch.utils.data import DataLoader
@@ -110,7 +110,8 @@ for epoch in range(NUM_EPOCHS):
         model.zero_grad()
 
         # obtain all the losses
-        loss, kl_div, label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_ = model(batch, beta=0)
+        input = batch.to(device)
+        loss, kl_div, label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_ = model(input)
 
         print("Epoch: {}, Iteration: {}, loss: {}, label_pred_loss: {}, topo_loss: {}, assm_loss: {}, stereo_loss: {}".format(
             epoch + 1, it + 1, loss.item(), label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_.item()
