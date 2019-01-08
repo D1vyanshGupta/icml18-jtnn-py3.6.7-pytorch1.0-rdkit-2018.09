@@ -16,11 +16,29 @@ import rdkit
 
 import torch
 import torch.nn as nn
+from torch.nn.utils.rnn import pad_packed_sequence
 import torch.optim as optim
 import torch.optim.lr_scheduler as lr_scheduler
 from torch.utils.data import DataLoader
 
+
 from jtnn import *
+
+def fun(lst):
+    max_len = max([len(x) for x in lst])
+    for x in lst:
+        if len(x) < max_len:
+            num = max_len - len(x)
+            x.extend([-1] * num)
+    new_lst = []
+    for x in lst:
+        n_arr = np.array(x)
+        new_lst.append(torch.from_numpy(n_arr))
+
+    new_lst = torch.stack(new_lst, dim=0)
+
+    return new_lst
+
 
 # supress rdkit warnings
 lg = rdkit.RDLogger.logger()
@@ -45,7 +63,10 @@ parser.add_argument("-pt", "--plot_title", action='store', help='Title of the pl
 args = parser.parse_args()
 
 # read the cluster vocabulary from the vocab file
-vocab = [x.strip("\r\n ") for x in open(args.vocab_path)]
+VOCAB_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'vocab.txt')
+TRAIN_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'train_5.txt')
+# vocab = [x.strip("\r\n ") for x in open(args.vocab_path)]
+vocab = [x.strip("\r\n ") for x in open(VOCAB_PATH)]
 vocab = ClusterVocab(vocab)
 
 batch_size = int(args.batch_size)
@@ -55,12 +76,19 @@ depth = int(args.depth)
 num_layers = int(args.num_layers)
 use_graph_conv = args.use_graph_conv
 
+# batch_size = int(2)
+# hidden_size = int(450)
+# latent_size = int(56)
+# depth = int(3)
+# num_layers = int(2)
+# use_graph_conv = False
+
 device = torch.device("cuda: 0")
 
 model = JTNNVAE(vocab, hidden_size, latent_size, depth, num_layers, use_graph_conv=use_graph_conv)
 model = nn.DataParallel(model)
 
-# model.to(device)
+model.to(device)
 
 # initilize all 1-dimensional parameters to 0
 # initialize all multi-dimensional parameters by xavier initialization
@@ -80,9 +108,11 @@ scheduler = lr_scheduler.ExponentialLR(optimizer, gamma=0.9)
 scheduler.step()
 
 dataset = MoleculeDataset(args.train_path)
+# dataset = MoleculeDataset(TRAIN_PATH)
 
 # MAX_EPOCH = 3
 NUM_EPOCHS = int(args.epochs)
+# NUM_EPOCHS = 3
 # PRINT_ITER = 20
 
 loss_lst = []
@@ -109,8 +139,10 @@ for epoch in range(NUM_EPOCHS):
         model.zero_grad()
 
         # obtain all the losses
-        input = batch.to(device)
-        loss, kl_div, label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_ = model(batch)
+        new_batch = fun(batch)
+        # print(new_batch)
+        input = new_batch.to(device)
+        loss, kl_div, label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_ = model(new_batch)
 
         print("Epoch: {}, Iteration: {}, loss: {}, label_pred_loss: {}, topo_loss: {}, assm_loss: {}, stereo_loss: {}".format(
             epoch + 1, it + 1, loss.item(), label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_.item()

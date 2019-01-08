@@ -20,8 +20,8 @@ class MoleculeDataset(Dataset):
         # mol_tree.assemble()
         ascii_char_list = [ord(ch) for ch in smiles]
         np_arr = np.array(ascii_char_list)
-        torch_tensor = torch.from_numpy(np_arr)
-        return torch_tensor
+        # torch_tensor = torch.from_numpy(np_arr)
+        return ascii_char_list
 
 
 class PropDataset(Dataset):
