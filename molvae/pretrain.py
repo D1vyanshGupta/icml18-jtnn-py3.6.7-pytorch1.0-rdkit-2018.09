@@ -167,7 +167,7 @@ for epoch in range(NUM_EPOCHS):
         # print(new_batch.shape)
         # print(new_batch)
         # input = new_batch.to(device)
-        loss, kl_div, label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_ = model(new_batch)
+        loss, kl_div, label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_ = model(batch)
         # loss = model(input)
 
         print("Epoch: {}, Iteration: {}, loss: {}, label_pred_loss: {}, topo_loss: {}, assm_loss: {}, stereo_loss: {}".format(
