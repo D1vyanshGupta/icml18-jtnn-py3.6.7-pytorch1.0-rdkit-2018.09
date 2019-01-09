@@ -162,7 +162,7 @@ for epoch in range(NUM_EPOCHS):
 
         # obtain all the losses
         new_batch = fun(batch)
-        new_batch = new_batch.unsqueeze(0)
+        # new_batch = new_batch.unsqueeze(0)
         print('fun')
         print(new_batch.shape)
         # print(new_batch)
