@@ -60,7 +60,7 @@ parser.add_argument("-p", "--plot_name", action='store', help='Name of the matpl
 parser.add_argument("-e", "--epochs", action='store', help='Number of epochs for which to run the model.', dest="epochs", default = 3)
 parser.add_argument("-pt", "--plot_title", action='store', help='Title of the plot.', dest="plot_title")
 parser.add_argument("-m", "--model_name", action='store', help='Name of the Pytorch model.', dest="model_name")
-parser.add_argument("-l", "--load_model", action='store', help='Name of the file from which to load the model.', dest="load_model")
+parser.add_argument("-lo", "--load_model", action='store', help='Name of the file from which to load the model.', dest="load_model")
 
 # parse the command line arguments
 args = parser.parse_args()
