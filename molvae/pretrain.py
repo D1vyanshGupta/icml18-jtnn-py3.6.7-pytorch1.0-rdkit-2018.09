@@ -176,7 +176,7 @@ for epoch in range(NUM_EPOCHS):
 
         print(loss)
         print(loss.shape)
-        print("Epoch: {}, Iteration: {}, loss: {}".format(epoch + 1, it + 1, loss.item()))
+        print("Epoch: {}, Iteration: {}, loss: {}".format(epoch + 1, it + 1, loss.data))
 
         # loss_val += loss.item()
         # label_pred_loss += label_pred_loss_

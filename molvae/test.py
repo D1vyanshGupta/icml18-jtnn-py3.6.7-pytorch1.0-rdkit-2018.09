@@ -16,7 +16,6 @@ class RandomDataset(Dataset):
     def __init__(self, size, length):
         self.len = length
         self.data = torch.randn(length, size)
-        print(self.data)
 
     def __getitem__(self, index):
         return self.data[index]
@@ -36,9 +35,8 @@ class Model(nn.Module):
 
     def forward(self, input):
         output = self.fc(input)
-        print(input)
-        print("\tIn Model: input size", input.size(),
-              "output size", output.size())
+        # print("\tIn Model: input size", input.size(),
+        #       "output size", output.size())
 
         return output
 
@@ -51,7 +49,8 @@ if torch.cuda.device_count() > 1:
 model.to(device)
 
 for data in rand_loader:
+    print(data.shape)
     input = data.to(device)
     output = model(input)
-    print("Outside: input size", input.size(),
-          "output_size", output.size())
+    # print("Outside: input size", input.size(),
+    #       "output_size", output.size())
