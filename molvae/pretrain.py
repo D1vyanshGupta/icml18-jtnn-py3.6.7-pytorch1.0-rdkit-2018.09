@@ -79,12 +79,12 @@ depth = int(args.depth)
 num_layers = int(args.num_layers)
 use_graph_conv = args.use_graph_conv
 
-batch_size = int(2)
-hidden_size = int(450)
-latent_size = int(56)
-depth = int(3)
-num_layers = int(2)
-use_graph_conv = False
+# batch_size = int(2)
+# hidden_size = int(450)
+# latent_size = int(56)
+# depth = int(3)
+# num_layers = int(2)
+# use_graph_conv = False
 
 # device = torch.device("cuda: 0")
 
