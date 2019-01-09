@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/jtnn/JTVAE.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/JTVAE.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/molvae/pretrain.py" beforeDir="false" afterPath="$PROJECT_DIR$/molvae/pretrain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/molvae/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/molvae/test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,8 +22,8 @@
       <file leaf-file-name="JTVAE.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="139" lean-forward="true" selection-start-line="139" selection-end-line="139" />
+            <state relative-caret-position="188">
+              <caret line="158" column="19" selection-start-line="158" selection-start-column="19" selection-end-line="158" selection-end-column="19" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -32,22 +34,10 @@
       <file leaf-file-name="pretrain.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/molvae/pretrain.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-14">
-              <caret line="191" lean-forward="true" selection-start-line="191" selection-end-line="191" />
+            <state relative-caret-position="267">
+              <caret line="164" column="41" selection-start-line="164" selection-start-column="41" selection-end-line="164" selection-end-column="41" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/molvae/test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="54" selection-start-line="54" selection-end-line="55" selection-end-column="41" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -181,9 +171,9 @@
         <option value="$PROJECT_DIR$/jtnn/datautils.py" />
         <option value="$PROJECT_DIR$/jtnn/tafri.ipynb" />
         <option value="$PROJECT_DIR$/jtnn/nnutils.py" />
-        <option value="$PROJECT_DIR$/jtnn/JTVAE.py" />
         <option value="$PROJECT_DIR$/molvae/test.py" />
         <option value="$PROJECT_DIR$/molvae/pretrain.py" />
+        <option value="$PROJECT_DIR$/jtnn/JTVAE.py" />
       </list>
     </option>
   </component>
@@ -440,7 +430,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="501" />
+      <option name="time" value="502" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -729,8 +719,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/molvae/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="54" selection-start-line="54" selection-end-line="55" selection-end-column="41" />
+        <state relative-caret-position="810">
+          <caret line="54" selection-start-line="54" selection-end-line="55" selection-end-column="39" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -739,8 +729,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="139" lean-forward="true" selection-start-line="139" selection-end-line="139" />
+        <state relative-caret-position="188">
+          <caret line="158" column="19" selection-start-line="158" selection-start-column="19" selection-end-line="158" selection-end-column="19" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -749,8 +739,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/molvae/pretrain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-14">
-          <caret line="191" lean-forward="true" selection-start-line="191" selection-end-line="191" />
+        <state relative-caret-position="267">
+          <caret line="164" column="41" selection-start-line="164" selection-start-column="41" selection-end-line="164" selection-end-column="41" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>

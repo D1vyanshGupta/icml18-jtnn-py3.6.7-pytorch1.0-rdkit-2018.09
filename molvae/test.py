@@ -52,5 +52,5 @@ for data in rand_loader:
     print(data.shape)
     input = data.to(device)
     output = model(input)
-    # print("Outside: input size", input.size(),
-    #       "output_size", output.size())
+    print("Outside: input size", input.size(),
+          "output_size", output.size())
