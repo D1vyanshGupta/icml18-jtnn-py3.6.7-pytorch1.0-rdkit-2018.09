@@ -85,12 +85,12 @@ use_graph_conv = args.use_graph_conv
 # num_layers = int(2)
 # use_graph_conv = False
 
-# device = torch.device("cuda: 0")
+device = torch.device("cuda: 0")
 
 model = JTNNVAE(vocab, hidden_size, latent_size, depth, num_layers, use_graph_conv=use_graph_conv)
-# model = nn.DataParallel(model)
+model = nn.DataParallel(model)
 
-# model.to(device)
+model.to(device)
 
 # initilize all 1-dimensional parameters to 0
 # initialize all multi-dimensional parameters by xavier initialization
@@ -109,8 +109,8 @@ optimizer = optim.Adam(model.parameters(), lr=1e-3)
 scheduler = lr_scheduler.ExponentialLR(optimizer, gamma=0.9)
 scheduler.step()
 
-# dataset = MoleculeDataset(args.train_path)
-dataset = MoleculeDataset(TRAIN_PATH)
+dataset = MoleculeDataset(args.train_path)
+# dataset = MoleculeDataset(TRAIN_PATH)
 
 # MAX_EPOCH = 3
 # NUM_EPOCHS = int(args.epochs)
@@ -164,8 +164,9 @@ for epoch in range(NUM_EPOCHS):
         print('fun')
         print(new_batch.shape)
         # print(new_batch)
-        # input = new_batch.to(device)
-        loss, kl_div, label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_ = model(new_batch)
+        input = new_batch.to(device)
+        # loss, kl_div, label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_ = model(new_batch)
+        loss, kl_div, label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_ = model(input)
 
         print("Epoch: {}, Iteration: {}, loss: {}, label_pred_loss: {}, topo_loss: {}, assm_loss: {}, stereo_loss: {}".format(
             epoch + 1, it + 1, loss.item(), label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_.item()
