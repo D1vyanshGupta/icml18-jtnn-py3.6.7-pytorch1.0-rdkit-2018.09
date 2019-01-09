@@ -219,8 +219,8 @@ class JTNNVAE(nn.Module):
         loss = label_pred_loss + topo_loss + assm_loss + 2 * stereo_loss + beta * kl_loss
 
         # return loss, kl_loss.item(), label_pred_acc, topo_acc, assm_acc, stereo_acc
-        # return loss, kl_loss.item(), label_pred_loss, topo_loss, assm_loss, stereo_loss
-        return loss
+        return loss, kl_loss.item(), label_pred_loss, topo_loss, assm_loss, stereo_loss
+        # return loss
 
     # graph decoding loss
     def assm_use_graph_conv(self, junc_tree_batch, mol_vecs, tree_mess):
