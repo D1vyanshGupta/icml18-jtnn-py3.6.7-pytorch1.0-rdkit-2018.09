@@ -16,6 +16,7 @@ class RandomDataset(Dataset):
     def __init__(self, size, length):
         self.len = length
         self.data = torch.randn(length, size)
+        print(data)
 
     def __getitem__(self, index):
         return self.data[index]
@@ -35,6 +36,7 @@ class Model(nn.Module):
 
     def forward(self, input):
         output = self.fc(input)
+        print(input)
         print("\tIn Model: input size", input.size(),
               "output size", output.size())
 
