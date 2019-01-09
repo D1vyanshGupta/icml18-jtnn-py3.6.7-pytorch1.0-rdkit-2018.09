@@ -16,7 +16,7 @@ class RandomDataset(Dataset):
     def __init__(self, size, length):
         self.len = length
         self.data = torch.randn(length, size)
-        print(data)
+        print(self.data)
 
     def __getitem__(self, index):
         return self.data[index]
