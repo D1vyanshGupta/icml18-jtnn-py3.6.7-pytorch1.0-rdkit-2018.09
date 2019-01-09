@@ -60,6 +60,7 @@ parser.add_argument("-p", "--plot_name", action='store', help='Name of the matpl
 parser.add_argument("-e", "--epochs", action='store', help='Number of epochs for which to run the model.', dest="epochs", default = 3)
 parser.add_argument("-pt", "--plot_title", action='store', help='Title of the plot.', dest="plot_title")
 parser.add_argument("-m", "--model_name", action='store', help='Name of the Pytorch model.', dest="model_name")
+parser.add_argument("-l", "--load_model", action='store', help='Name of the file from which to load the model.', dest="load_model")
 
 # parse the command line arguments
 args = parser.parse_args()
@@ -89,6 +90,9 @@ use_graph_conv = args.use_graph_conv
 # device = torch.device("cuda: 0")
 
 model = JTNNVAE(vocab, hidden_size, latent_size, depth, num_layers, use_graph_conv=use_graph_conv)
+if args.load_model is not None:
+    load_path = args.save_path + "/" + args.load_model
+    model.load_state_dict(torch.load(load_path))
 model = model.cuda()
 # model = nn.DataParallel(model)
 
@@ -217,7 +221,7 @@ for epoch in range(NUM_EPOCHS):
 
     print("learning rate: %.6f" % scheduler.get_lr()[0])
 
-torch.save(model.state_dict(), args.save_path + "/" + args.model_name)
+    torch.save(model.state_dict(), args.save_path + "/" + args.model_name + '_epoch-' + str(epoch))
 
 # plot graphs
 figure = plt.figure(0, figsize=(15, 10))
