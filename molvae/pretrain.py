@@ -20,6 +20,7 @@ from torch.nn.utils.rnn import pad_packed_sequence
 import torch.optim as optim
 import torch.optim.lr_scheduler as lr_scheduler
 from torch.utils.data import DataLoader
+from torch.utils.data import Dataset, DataLoader
 
 
 from jtnn import *
@@ -33,7 +34,8 @@ def fun(lst):
     new_lst = []
     for x in lst:
         n_arr = np.array(x)
-        new_lst.append(torch.from_numpy(n_arr).cuda())
+        # new_lst.append(torch.from_numpy(n_arr).cuda())
+        new_lst.append(torch.from_numpy(n_arr))
 
     new_lst = torch.stack(new_lst, dim=0)
 
@@ -68,7 +70,7 @@ args = parser.parse_args()
 vocab = [x.strip("\r\n ") for x in open(args.vocab_path)]
 # vocab = [x.strip("\r\n ") for x in open(VOCAB_PATH)]
 vocab = ClusterVocab(vocab)
-
+#
 batch_size = int(args.batch_size)
 hidden_size = int(args.hidden_size)
 latent_size = int(args.latent_size)
@@ -83,12 +85,12 @@ use_graph_conv = args.use_graph_conv
 # num_layers = int(2)
 # use_graph_conv = False
 
-device = torch.device("cuda: 0")
+# device = torch.device("cuda: 0")
 
 model = JTNNVAE(vocab, hidden_size, latent_size, depth, num_layers, use_graph_conv=use_graph_conv)
-model = nn.DataParallel(model)
+# model = nn.DataParallel(model)
 
-model.to(device)
+# model.to(device)
 
 # initilize all 1-dimensional parameters to 0
 # initialize all multi-dimensional parameters by xavier initialization
@@ -107,12 +109,12 @@ optimizer = optim.Adam(model.parameters(), lr=1e-3)
 scheduler = lr_scheduler.ExponentialLR(optimizer, gamma=0.9)
 scheduler.step()
 
-dataset = MoleculeDataset(args.train_path)
-# dataset = MoleculeDataset(TRAIN_PATH)
+# dataset = MoleculeDataset(args.train_path)
+dataset = MoleculeDataset(TRAIN_PATH)
 
 # MAX_EPOCH = 3
-NUM_EPOCHS = int(args.epochs)
-# NUM_EPOCHS = 3
+# NUM_EPOCHS = int(args.epochs)
+NUM_EPOCHS = 3
 # PRINT_ITER = 20
 
 loss_lst = []
@@ -120,6 +122,25 @@ label_pred_loss_lst = []
 topo_loss_lst = []
 assm_loss_lst = []
 stereo_loss_lst = []
+
+# class RandomDataset(Dataset):
+#
+#     def __init__(self, size, length):
+#         self.len = length
+#         self.data = torch.randn(length, size)
+#
+#     def __getitem__(self, index):
+#         return self.data[index]
+#
+#     def __len__(self):
+#         return self.len
+#
+# rand_loader = DataLoader(dataset=RandomDataset(4, 2),
+#                          batch_size=2, shuffle=True)
+#
+# for data in rand_loader:
+#     print('rand_loader')
+#     print(data.shape)
 
 for epoch in range(NUM_EPOCHS):
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=8, collate_fn=lambda x: x,
@@ -140,8 +161,10 @@ for epoch in range(NUM_EPOCHS):
 
         # obtain all the losses
         new_batch = fun(batch)
+        print('fun')
+        print(new_batch.shape)
         # print(new_batch)
-        input = new_batch.to(device)
+        # input = new_batch.to(device)
         loss, kl_div, label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_ = model(new_batch)
 
         print("Epoch: {}, Iteration: {}, loss: {}, label_pred_loss: {}, topo_loss: {}, assm_loss: {}, stereo_loss: {}".format(
@@ -192,27 +215,27 @@ for epoch in range(NUM_EPOCHS):
 
     print("learning rate: %.6f" % scheduler.get_lr()[0])
 
-torch.save(model.state_dict(), args.save_path + "/model.pre_train")
+# torch.save(model.state_dict(), args.save_path + "/model.pre_train")
 
 # plot graphs
-figure = plt.figure(0, figsize=(15, 10))
-plt.plot(np.arange(NUM_EPOCHS), loss_lst, label='overall_loss')
-plt.plot(np.arange(NUM_EPOCHS), label_pred_loss_lst, label='label_pred_loss')
-plt.plot(np.arange(NUM_EPOCHS), topo_loss_lst, label='topo_loss')
-plt.plot(np.arange(NUM_EPOCHS), assm_loss_lst, label='assm_loss')
-plt.plot(np.arange(NUM_EPOCHS), stereo_loss_lst, label='stereo_loss')
-
-plt.xlabel('epochs', fontsize=20, labelpad=10)
-plt.ylabel('loss', fontsize=20, labelpad=10)
-
-plt.title(args.plot_title, fontsize=20, pad=10.0)
-
-plt.tick_params(labelsize=20)
-
-plt.legend()
-
-fig_path = os.path.join(os.path.dirname(os.getcwd()), 'plots', args.plot_name + '.png')
-
-plt.savefig(fig_path, dpi=200)
-
-plt.close(figure)
+# figure = plt.figure(0, figsize=(15, 10))
+# plt.plot(np.arange(NUM_EPOCHS), loss_lst, label='overall_loss')
+# plt.plot(np.arange(NUM_EPOCHS), label_pred_loss_lst, label='label_pred_loss')
+# plt.plot(np.arange(NUM_EPOCHS), topo_loss_lst, label='topo_loss')
+# plt.plot(np.arange(NUM_EPOCHS), assm_loss_lst, label='assm_loss')
+# plt.plot(np.arange(NUM_EPOCHS), stereo_loss_lst, label='stereo_loss')
+#
+# plt.xlabel('epochs', fontsize=20, labelpad=10)
+# plt.ylabel('loss', fontsize=20, labelpad=10)
+#
+# plt.title(args.plot_title, fontsize=20, pad=10.0)
+#
+# plt.tick_params(labelsize=20)
+#
+# plt.legend()
+#
+# fig_path = os.path.join(os.path.dirname(os.getcwd()), 'plots', args.plot_name + '.png')
+#
+# plt.savefig(fig_path, dpi=200)
+#
+# plt.close(figure)
