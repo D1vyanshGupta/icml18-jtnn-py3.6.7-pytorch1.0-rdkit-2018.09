@@ -171,14 +171,14 @@ class JTNNVAE(nn.Module):
 
         return junc_tree_batch
 
-    def forward(self, tensor_batch, beta=0):
-        batch_size = tensor_batch.shape[0]
+    def forward(self, junc_tree_batch, beta=0):
+        batch_size = len(junc_tree_batch)
 
         # tree_message dictionary,
         # junction tree encoding vectors and
         # molecular graph encoding vectors for all molecules in the dataset
 
-        junc_tree_batch = self.convert_tensor_batch_to_junc_tree_batch(tensor_batch)
+        # junc_tree_batch = self.convert_tensor_batch_to_junc_tree_batch(tensor_batch)
 
         if self.use_graph_conv:
             tree_vecs, mol_vecs = self.encode(junc_tree_batch)
