@@ -172,6 +172,8 @@ for epoch in range(NUM_EPOCHS):
         #     epoch + 1, it + 1, loss.item(), label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_.item()
         # ))
 
+        print(loss)
+        print(loss.shape)
         print("Epoch: {}, Iteration: {}, loss: {}".format(epoch + 1, it + 1, loss.item()))
 
         # loss_val += loss.item()
