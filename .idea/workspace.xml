@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/molvae/pretrain.py" beforeDir="false" afterPath="$PROJECT_DIR$/molvae/pretrain.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/molvae/test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,16 +29,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pretrain.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pretrain.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/molvae/pretrain.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="164" column="41" selection-start-line="164" selection-start-column="41" selection-end-line="164" selection-end-column="41" />
+            <state relative-caret-position="300">
+              <caret line="166" column="30" lean-forward="true" selection-start-line="166" selection-start-column="30" selection-end-line="166" selection-end-column="30" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/molvae/test.py">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file leaf-file-name="datautils.py" pinned="false" current-in-tab="false">
@@ -121,7 +126,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/jtnn/__init__py.py" />
         <option value="$PROJECT_DIR$/jupyter-notebooks/tafri.ipynb" />
         <option value="$PROJECT_DIR$/jtnn/MolTreeNode.py" />
         <option value="$PROJECT_DIR$/jtnn/MolTree.py" />
@@ -172,6 +176,7 @@
         <option value="$PROJECT_DIR$/jtnn/nnutils.py" />
         <option value="$PROJECT_DIR$/jtnn/JTVAE.py" />
         <option value="$PROJECT_DIR$/molvae/pretrain.py" />
+        <option value="$PROJECT_DIR$/molvae/test.py" />
       </list>
     </option>
   </component>
@@ -347,9 +352,9 @@
       <window_info anchor="bottom" id="Database Changes" order="2" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="1" />
       <window_info anchor="bottom" id="Python Console" order="3" weight="0.32908458" />
-      <window_info active="true" anchor="bottom" id="Run" order="8" visible="true" weight="0.3765933" />
+      <window_info anchor="bottom" id="Run" order="8" visible="true" weight="0.3765933" />
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.28041714" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.4980695" visible="true" weight="0.26434678" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.4980695" visible="true" weight="0.26434678" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="2" />
       <window_info anchor="right" id="SciView" order="0" />
@@ -411,7 +416,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/data/train_5.txt" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/idea.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -707,13 +711,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/molvae/pretrain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="164" column="41" selection-start-line="164" selection-start-column="41" selection-end-line="164" selection-end-column="41" />
+        <state relative-caret-position="300">
+          <caret line="166" column="30" lean-forward="true" selection-start-line="166" selection-start-column="30" selection-end-line="166" selection-end-column="30" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/molvae/test.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>
