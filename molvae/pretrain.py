@@ -24,21 +24,21 @@ from torch.utils.data import Dataset, DataLoader
 
 from jtnn import *
 
-def fun(lst):
-    max_len = max([len(x) for x in lst])
-    for x in lst:
-        if len(x) < max_len:
-            num = max_len - len(x)
-            x.extend([-1] * num)
-    new_lst = []
-    for x in lst:
-        n_arr = np.array(x)
-        # new_lst.append(torch.from_numpy(n_arr).cuda())
-        new_lst.append(torch.from_numpy(n_arr))
-
-    new_lst = torch.stack(new_lst, dim=0)
-
-    return new_lst
+# def fun(lst):
+#     max_len = max([len(x) for x in lst])
+#     for x in lst:
+#         if len(x) < max_len:
+#             num = max_len - len(x)
+#             x.extend([-1] * num)
+#     new_lst = []
+#     for x in lst:
+#         n_arr = np.array(x)
+#         # new_lst.append(torch.from_numpy(n_arr).cuda())
+#         new_lst.append(torch.from_numpy(n_arr))
+#
+#     new_lst = torch.stack(new_lst, dim=0)
+#
+#     return new_lst
 
 
 # supress rdkit warnings
@@ -59,24 +59,25 @@ parser.add_argument("-gc", "--graph_conv", action='store_true', help='Whether to
 parser.add_argument("-p", "--plot_name", action='store', help='Name of the matplotlib file.', dest="plot_name", required=True)
 parser.add_argument("-e", "--epochs", action='store', help='Number of epochs for which to run the model.', dest="epochs", default = 3)
 parser.add_argument("-pt", "--plot_title", action='store', help='Title of the plot.', dest="plot_title")
+parser.add_argument("-m", "--model_name", action='store', help='Name of the Pytorch model.', dest="model_name")
 
 # parse the command line arguments
 args = parser.parse_args()
 
 # read the cluster vocabulary from the vocab file
-VOCAB_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'vocab.txt')
-TRAIN_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'train_5.txt')
-# vocab = [x.strip("\r\n ") for x in open(args.vocab_path)]
-vocab = [x.strip("\r\n ") for x in open(VOCAB_PATH)]
+# VOCAB_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'vocab.txt')
+# TRAIN_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'train_5.txt')
+vocab = [x.strip("\r\n ") for x in open(args.vocab_path)]
+# vocab = [x.strip("\r\n ") for x in open(VOCAB_PATH)]
 vocab = ClusterVocab(vocab)
 #
-# batch_size = int(args.batch_size)
-# batch_size = int(args.batch_size)
-# hidden_size = int(args.hidden_size)
-# latent_size = int(args.latent_size)
-# depth = int(args.depth)
-# num_layers = int(args.num_layers)
-# use_graph_conv = args.use_graph_conv
+batch_size = int(args.batch_size)
+batch_size = int(args.batch_size)
+hidden_size = int(args.hidden_size)
+latent_size = int(args.latent_size)
+depth = int(args.depth)
+num_layers = int(args.num_layers)
+use_graph_conv = args.use_graph_conv
 
 batch_size = int(2)
 hidden_size = int(450)
@@ -109,13 +110,14 @@ optimizer = optim.Adam(model.parameters(), lr=1e-3)
 # exponential decay learning rate
 scheduler = lr_scheduler.ExponentialLR(optimizer, gamma=0.9)
 scheduler.step()
+print("learning rate: %.6f" % scheduler.get_lr()[0])
 
-# dataset = MoleculeDataset(args.train_path)
-dataset = MoleculeDataset(TRAIN_PATH)
+dataset = MoleculeDataset(args.train_path)
+# dataset = MoleculeDataset(TRAIN_PATH)
 
 # MAX_EPOCH = 3
-# NUM_EPOCHS = int(args.epochs)
-NUM_EPOCHS = 3
+NUM_EPOCHS = int(args.epochs)
+# NUM_EPOCHS = 3
 # PRINT_ITER = 20
 
 loss_lst = []
@@ -151,24 +153,17 @@ for epoch in range(NUM_EPOCHS):
 
     for it, batch in enumerate(dataloader):
 
-        # for junc_tree in batch:
-        #     for node in junc_tree.nodes:
-        #         if node.label not in node.candidates:
-        #             node.candidates.append(node.label)
-        #             node.candidate_mols.append(node.label_mol)
+        for junc_tree in batch:
+            for node in junc_tree.nodes:
+                if node.label not in node.candidates:
+                    node.candidates.append(node.label)
+                    node.candidate_mols.append(node.label_mol)
 
         # flush the gradient buffer
         model.zero_grad()
 
         # obtain all the losses
-        # new_batch = fun(batch)
-        # new_batch = new_batch.unsqueeze(1)
-        # print('fun')
-        # print(new_batch.shape)
-        # print(new_batch)
-        # input = new_batch.to(device)
         loss, kl_div, label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_ = model(batch)
-        # loss = model(input)
 
         print("Epoch: {}, Iteration: {}, loss: {}, label_pred_loss: {}, topo_loss: {}, assm_loss: {}, stereo_loss: {}".format(
             epoch + 1, it + 1, loss.item(), label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_.item()
@@ -178,11 +173,11 @@ for epoch in range(NUM_EPOCHS):
         # print(loss.shape)
         # print("Epoch: {}, Iteration: {}, loss: {}".format(epoch + 1, it + 1, loss.data))
 
-        # loss_val += loss.item()
-        # label_pred_loss += label_pred_loss_
-        # topo_loss += topo_loss_
-        # assm_loss += assm_loss_
-        # stereo_loss += stereo_loss_.item()
+        loss_val += loss.item()
+        label_pred_loss += label_pred_loss_
+        topo_loss += topo_loss_
+        assm_loss += assm_loss_
+        stereo_loss += stereo_loss_.item()
 
         # backpropagation
         loss.backward()
@@ -201,48 +196,48 @@ for epoch in range(NUM_EPOCHS):
         #     word_acc, topo_acc, assm_acc, steo_acc = 0, 0, 0, 0
         #     sys.stdout.flush()
 
-    # loss_val /= (it + 1)
-    # label_pred_loss /= (it + 1)
-    # topo_loss /= (it + 1)
-    # assm_loss /= (it + 1)
-    # stereo_loss /= (it + 1)
+    loss_val /= (it + 1)
+    label_pred_loss /= (it + 1)
+    topo_loss /= (it + 1)
+    assm_loss /= (it + 1)
+    stereo_loss /= (it + 1)
 
     # print()
     # print('Epoch: {}, loss: {}, label_pred_loss: {}, topo_loss: {}, assm_loss: {}, stereo_loss: {}'.format(
     #     epoch + 1, loss_val, label_pred_loss, topo_loss, assm_loss, stereo_loss
     # ))
 
-    # loss_lst.append(loss_val)
-    # label_pred_loss_lst.append(label_pred_loss)
-    # topo_loss_lst.append(topo_loss)
-    # assm_loss_lst.append(assm_loss)
-    # stereo_loss_lst.append(stereo_loss)
+    loss_lst.append(loss_val)
+    label_pred_loss_lst.append(label_pred_loss)
+    topo_loss_lst.append(topo_loss)
+    assm_loss_lst.append(assm_loss)
+    stereo_loss_lst.append(stereo_loss)
 
     scheduler.step()
 
-    # print("learning rate: %.6f" % scheduler.get_lr()[0])
+    print("learning rate: %.6f" % scheduler.get_lr()[0])
 
-# torch.save(model.state_dict(), args.save_path + "/model.pre_train")
+torch.save(model.state_dict(), args.save_path + "/" + args.model_name)
 
 # plot graphs
-# figure = plt.figure(0, figsize=(15, 10))
-# plt.plot(np.arange(NUM_EPOCHS), loss_lst, label='overall_loss')
-# plt.plot(np.arange(NUM_EPOCHS), label_pred_loss_lst, label='label_pred_loss')
-# plt.plot(np.arange(NUM_EPOCHS), topo_loss_lst, label='topo_loss')
-# plt.plot(np.arange(NUM_EPOCHS), assm_loss_lst, label='assm_loss')
-# plt.plot(np.arange(NUM_EPOCHS), stereo_loss_lst, label='stereo_loss')
-#
-# plt.xlabel('epochs', fontsize=20, labelpad=10)
-# plt.ylabel('loss', fontsize=20, labelpad=10)
-#
-# plt.title(args.plot_title, fontsize=20, pad=10.0)
-#
-# plt.tick_params(labelsize=20)
-#
-# plt.legend()
-#
-# fig_path = os.path.join(os.path.dirname(os.getcwd()), 'plots', args.plot_name + '.png')
-#
-# plt.savefig(fig_path, dpi=200)
-#
-# plt.close(figure)
+figure = plt.figure(0, figsize=(15, 10))
+plt.plot(np.arange(NUM_EPOCHS), loss_lst, label='overall_loss')
+plt.plot(np.arange(NUM_EPOCHS), label_pred_loss_lst, label='label_pred_loss')
+plt.plot(np.arange(NUM_EPOCHS), topo_loss_lst, label='topo_loss')
+plt.plot(np.arange(NUM_EPOCHS), assm_loss_lst, label='assm_loss')
+plt.plot(np.arange(NUM_EPOCHS), stereo_loss_lst, label='stereo_loss')
+
+plt.xlabel('epochs', fontsize=20, labelpad=10)
+plt.ylabel('loss', fontsize=20, labelpad=10)
+
+plt.title(args.plot_title, fontsize=20, pad=10.0)
+
+plt.tick_params(labelsize=20)
+
+plt.legend()
+
+fig_path = os.path.join(os.path.dirname(os.getcwd()), 'plots', args.plot_name + '.png')
+
+plt.savefig(fig_path, dpi=200)
+
+plt.close(figure)
