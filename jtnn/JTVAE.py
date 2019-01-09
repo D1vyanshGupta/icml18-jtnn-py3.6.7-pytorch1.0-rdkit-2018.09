@@ -156,7 +156,7 @@ class JTNNVAE(nn.Module):
         junc_tree_batch = []
         for tensor in tensor_batch:
             # q = tensor.unsqueeze(0)
-            # t = q[q != -1]
+            t = tensor[tensor != -1]
             smiles = ''.join(list(map(lambda x: chr(x), t)))
             junc_tree = MolJuncTree(smiles)
             junc_tree.recover()
