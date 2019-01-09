@@ -185,10 +185,10 @@ for epoch in range(NUM_EPOCHS):
         # stereo_loss += stereo_loss_.item()
 
         # backpropagation
-        loss.backward()
+        # loss.backward()
 
         # update parameters
-        optimizer.step()
+        # optimizer.step()
 
         # if (it + 1) % PRINT_ITER == 0:
         #     word_acc = word_acc / PRINT_ITER * 100
