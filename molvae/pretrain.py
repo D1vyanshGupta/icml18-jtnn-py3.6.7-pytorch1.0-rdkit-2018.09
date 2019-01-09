@@ -66,12 +66,13 @@ args = parser.parse_args()
 
 # read the cluster vocabulary from the vocab file
 # VOCAB_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'vocab.txt')
-# TRAIN_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'train_5.txt')
+TRAIN_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'train_5.txt')
 vocab = [x.strip("\r\n ") for x in open(args.vocab_path)]
 # vocab = [x.strip("\r\n ") for x in open(VOCAB_PATH)]
 vocab = ClusterVocab(vocab)
 #
-batch_size = int(args.batch_size)
+# batch_size = int(args.batch_size)
+batch_size = int(2)
 hidden_size = int(args.hidden_size)
 latent_size = int(args.latent_size)
 depth = int(args.depth)
@@ -109,8 +110,8 @@ optimizer = optim.Adam(model.parameters(), lr=1e-3)
 scheduler = lr_scheduler.ExponentialLR(optimizer, gamma=0.9)
 scheduler.step()
 
-dataset = MoleculeDataset(args.train_path)
-# dataset = MoleculeDataset(TRAIN_PATH)
+# dataset = MoleculeDataset(args.train_path)
+dataset = MoleculeDataset(TRAIN_PATH)
 
 # MAX_EPOCH = 3
 # NUM_EPOCHS = int(args.epochs)
@@ -161,6 +162,7 @@ for epoch in range(NUM_EPOCHS):
 
         # obtain all the losses
         new_batch = fun(batch)
+        new_batch = new_batch.unsqueeze(0)
         print('fun')
         print(new_batch.shape)
         # print(new_batch)
