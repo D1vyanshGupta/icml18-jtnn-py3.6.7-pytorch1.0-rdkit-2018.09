@@ -30,8 +30,8 @@
       <file leaf-file-name="pretrain.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/molvae/pretrain.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2414">
-              <caret line="49" selection-start-line="49" selection-end-line="61" selection-end-column="104" />
+            <state relative-caret-position="464">
+              <caret line="168" column="90" selection-start-line="168" selection-start-column="90" selection-end-line="168" selection-end-column="90" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -671,8 +671,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/molvae/pretrain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2414">
-          <caret line="49" selection-start-line="49" selection-end-line="61" selection-end-column="104" />
+        <state relative-caret-position="464">
+          <caret line="168" column="90" selection-start-line="168" selection-start-column="90" selection-end-line="168" selection-end-column="90" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>

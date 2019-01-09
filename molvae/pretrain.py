@@ -166,17 +166,19 @@ for epoch in range(NUM_EPOCHS):
         # print(new_batch)
         input = new_batch.to(device)
         # loss, kl_div, label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_ = model(new_batch)
-        loss, kl_div, label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_ = model(input)
+        loss = model(input)
 
-        print("Epoch: {}, Iteration: {}, loss: {}, label_pred_loss: {}, topo_loss: {}, assm_loss: {}, stereo_loss: {}".format(
-            epoch + 1, it + 1, loss.item(), label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_.item()
-        ))
+        # print("Epoch: {}, Iteration: {}, loss: {}, label_pred_loss: {}, topo_loss: {}, assm_loss: {}, stereo_loss: {}".format(
+        #     epoch + 1, it + 1, loss.item(), label_pred_loss_, topo_loss_, assm_loss_, stereo_loss_.item()
+        # ))
 
-        loss_val += loss.item()
-        label_pred_loss += label_pred_loss_
-        topo_loss += topo_loss_
-        assm_loss += assm_loss_
-        stereo_loss += stereo_loss_.item()
+        print("Epoch: {}, Iteration: {}, loss: {}".format(epoch + 1, it + 1, loss.item()))
+
+        # loss_val += loss.item()
+        # label_pred_loss += label_pred_loss_
+        # topo_loss += topo_loss_
+        # assm_loss += assm_loss_
+        # stereo_loss += stereo_loss_.item()
 
         # backpropagation
         loss.backward()
@@ -195,26 +197,26 @@ for epoch in range(NUM_EPOCHS):
         #     word_acc, topo_acc, assm_acc, steo_acc = 0, 0, 0, 0
         #     sys.stdout.flush()
 
-    loss_val /= (it + 1)
-    label_pred_loss /= (it + 1)
-    topo_loss /= (it + 1)
-    assm_loss /= (it + 1)
-    stereo_loss /= (it + 1)
+    # loss_val /= (it + 1)
+    # label_pred_loss /= (it + 1)
+    # topo_loss /= (it + 1)
+    # assm_loss /= (it + 1)
+    # stereo_loss /= (it + 1)
 
     # print()
     # print('Epoch: {}, loss: {}, label_pred_loss: {}, topo_loss: {}, assm_loss: {}, stereo_loss: {}'.format(
     #     epoch + 1, loss_val, label_pred_loss, topo_loss, assm_loss, stereo_loss
     # ))
 
-    loss_lst.append(loss_val)
-    label_pred_loss_lst.append(label_pred_loss)
-    topo_loss_lst.append(topo_loss)
-    assm_loss_lst.append(assm_loss)
-    stereo_loss_lst.append(stereo_loss)
+    # loss_lst.append(loss_val)
+    # label_pred_loss_lst.append(label_pred_loss)
+    # topo_loss_lst.append(topo_loss)
+    # assm_loss_lst.append(assm_loss)
+    # stereo_loss_lst.append(stereo_loss)
 
     scheduler.step()
 
-    print("learning rate: %.6f" % scheduler.get_lr()[0])
+    # print("learning rate: %.6f" % scheduler.get_lr()[0])
 
 # torch.save(model.state_dict(), args.save_path + "/model.pre_train")
 
