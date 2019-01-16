@@ -18,7 +18,6 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.optim.lr_scheduler as lr_scheduler
-from torch.utils.data import DataLoader
 from torch.utils.data import Dataset, DataLoader
 
 
@@ -46,54 +45,54 @@ lg = rdkit.RDLogger.logger()
 lg.setLevel(rdkit.RDLogger.CRITICAL)
 
 # instantiate the define the arguments of the ArgumentParser
-parser = ArgumentParser(description="Train JTVAE without KL Regularization.")
-parser.add_argument('-t', '--train', action='store', help='Path to the training data file', dest="train_path", required=True)
-parser.add_argument('-v', '--vocab', action='store', help='Path to the cluster vocabulary data file', dest="vocab_path", required=True)
-parser.add_argument('-s', '--save_dir', action='store', help='Path where the trained model has to be saved.', dest="save_path", required=True)
-parser.add_argument("-b", "--batch", action='store', help='The batch size to be used for mini-batch GD.', dest="batch_size", default=40)
-parser.add_argument("-w", "--hidden", action='store', help='The size of the hidden message vectors to be used in the model.', dest="hidden_size", default=200)
-parser.add_argument("-l", "--latent", action='store', help='The dimension of the latent space to be used.', dest="latent_size", default=56)
-parser.add_argument("-d", "--depth", action='store', help='The depth (number of timesteps) for which to run the message passing.', dest="depth", default=3)
-parser.add_argument("-n", "--num_layers", action='store', help='The number of layers in the graph convolutional network.', dest="num_layers", default=2)
-parser.add_argument("-gc", "--graph_conv", action='store_true', help='Whether to use graph convolutional network or the original JTVAE.', dest="use_graph_conv")
-parser.add_argument("-p", "--plot_name", action='store', help='Name of the matplotlib file.', dest="plot_name", required=True)
-parser.add_argument("-e", "--epochs", action='store', help='Number of epochs for which to run the model.', dest="epochs", default = 3)
-parser.add_argument("-pt", "--plot_title", action='store', help='Title of the plot.', dest="plot_title")
-parser.add_argument("-m", "--model_name", action='store', help='Name of the Pytorch model.', dest="model_name")
-parser.add_argument("-lo", "--load_model", action='store', help='Name of the file from which to load the model.', dest="load_model")
+# parser = ArgumentParser(description="Train JTVAE without KL Regularization.")
+# parser.add_argument('-t', '--train', action='store', help='Path to the training data file', dest="train_path", required=True)
+# parser.add_argument('-v', '--vocab', action='store', help='Path to the cluster vocabulary data file', dest="vocab_path", required=True)
+# parser.add_argument('-s', '--save_dir', action='store', help='Path where the trained model has to be saved.', dest="save_path", required=True)
+# parser.add_argument("-b", "--batch", action='store', help='The batch size to be used for mini-batch GD.', dest="batch_size", default=40)
+# parser.add_argument("-w", "--hidden", action='store', help='The size of the hidden message vectors to be used in the model.', dest="hidden_size", default=200)
+# parser.add_argument("-l", "--latent", action='store', help='The dimension of the latent space to be used.', dest="latent_size", default=56)
+# parser.add_argument("-d", "--depth", action='store', help='The depth (number of timesteps) for which to run the message passing.', dest="depth", default=3)
+# parser.add_argument("-n", "--num_layers", action='store', help='The number of layers in the graph convolutional network.', dest="num_layers", default=2)
+# parser.add_argument("-gc", "--graph_conv", action='store_true', help='Whether to use graph convolutional network or the original JTVAE.', dest="use_graph_conv")
+# parser.add_argument("-p", "--plot_name", action='store', help='Name of the matplotlib file.', dest="plot_name", required=True)
+# parser.add_argument("-e", "--epochs", action='store', help='Number of epochs for which to run the model.', dest="epochs", default = 3)
+# parser.add_argument("-pt", "--plot_title", action='store', help='Title of the plot.', dest="plot_title")
+# parser.add_argument("-m", "--model_name", action='store', help='Name of the Pytorch model.', dest="model_name")
+# parser.add_argument("-lo", "--load_model", action='store', help='Name of the file from which to load the model.', dest="load_model")
 
 # parse the command line arguments
-args = parser.parse_args()
+# args = parser.parse_args()
 
 # read the cluster vocabulary from the vocab file
-# VOCAB_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'vocab.txt')
-# TRAIN_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'train_5.txt')
-vocab = [x.strip("\r\n ") for x in open(args.vocab_path)]
-# vocab = [x.strip("\r\n ") for x in open(VOCAB_PATH)]
+VOCAB_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'vocab.txt')
+TRAIN_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'train_1000.txt')
+# vocab = [x.strip("\r\n ") for x in open(args.vocab_path)]
+vocab = [x.strip("\r\n ") for x in open(VOCAB_PATH)]
 vocab = ClusterVocab(vocab)
 #
-batch_size = int(args.batch_size)
-batch_size = int(args.batch_size)
-hidden_size = int(args.hidden_size)
-latent_size = int(args.latent_size)
-depth = int(args.depth)
-num_layers = int(args.num_layers)
-use_graph_conv = args.use_graph_conv
+# batch_size = int(args.batch_size)
+# batch_size = int(args.batch_size)
+# hidden_size = int(args.hidden_size)
+# latent_size = int(args.latent_size)
+# depth = int(args.depth)
+# num_layers = int(args.num_layers)
+# use_graph_conv = args.use_graph_conv
 
-# batch_size = int(2)
-# hidden_size = int(450)
-# latent_size = int(56)
-# depth = int(3)
-# num_layers = int(2)
-# use_graph_conv = False
+batch_size = int(20)
+hidden_size = int(450)
+latent_size = int(56)
+depth = int(3)
+num_layers = int(2)
+use_graph_conv = False
 
 # device = torch.device("cuda: 0")
 
 model = JTNNVAE(vocab, hidden_size, latent_size, depth, num_layers, use_graph_conv=use_graph_conv)
-if args.load_model is not None:
-    load_path = args.save_path + "/" + args.load_model
-    model.load_state_dict(torch.load(load_path))
-model = model.cuda()
+# if args.load_model is not None:
+#     load_path = args.save_path + "/" + args.load_model
+#     model.load_state_dict(torch.load(load_path))
+# model = model.cuda()
 # model = nn.DataParallel(model)
 
 # model.to(device)

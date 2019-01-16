@@ -5,25 +5,28 @@ from rdkit.Chem.EnumerateStereoisomers import EnumerateStereoisomers
 # this is the maximum number of molecular attachment configurations to be considered
 MAX_MOL_CANDIDATES = 2000
 
-
 def set_atom_map(mol, num=0):
     """
-    This function, given a molecule, sets the AtomMapNum of all atoms in the molecule, to the given num
+    Description: THhis function, given a molecule, sets the AtomMapNum of all atoms in the molecule, to the given num
+
+    Args:
+        mol: (object: rdkit)
     """
     for atom in mol.GetAtoms():
         atom.SetAtomMapNum(num)
 
-
 def get_kekulized_mol_from_smiles(smiles):
     """
-    This function, given the SMILES representation of a molecule,
-    return the kekulized molecule.
+    Description: This function, given the SMILES representation of a molecule,
+    returns the kekulized molecule.
 
     Args:
-        smiles: SMILES representation of the molecule to be kekulized.
+        smiles: str
+            SMILES representation of the molecule to be kekulized.
 
     Returns:
-        Kekulized representation of the molecule.
+        mol: (object: rdkit)
+            Kekulized representation of the molecule.
     """
     mol = Chem.MolFromSmiles(smiles)
     if mol is None:
@@ -31,30 +34,33 @@ def get_kekulized_mol_from_smiles(smiles):
     Chem.Kekulize(mol)
     return mol
 
-
 def get_smiles(mol):
     """
-    This function, given a molecule, returns the SMILES representation, which encodes the kekulized structure of the molecule
+    Description: This function, given a molecule, returns the SMILES representation,
+    which encodes the kekulized structure of the molecule
 
     Args:
-        mol: The molecule to be kekulized.
+        mol: (object: rdkit)
+            The molecule to be kekulized.
 
     Returns:
-        SMILES representation, encoding the kekulized structure of the molecule
+        SMILES: str
+            SMILES representation, encoding the kekulized structure of the molecule
     """
     return Chem.MolToSmiles(mol, kekuleSmiles=True)
 
-
 def decode_stereo(smiles2D):
     """
-    This function, given the SMILES representation of a molecule, encoding its 2D structure,
+    Description: This function, given the SMILES representation of a molecule, encoding its 2D structure,
     gives the list of SMILES representation of all stereoisomers of the molecule, encoding their 3D structure
 
     Args:
-        smiles2D: SMILES representation, encoding its 2D structure,
+        smiles2D: str
+            SMILES representation, encoding its 2D structure,
 
     Returns:
-        The list of SMILES representation of all stereoisomers of the molecule, encoding their 3D structure
+        smiles3D: List[str]
+            The list of SMILES representation of all stereoisomers of the molecule, encoding their 3D structure
     """
 
     # convert to molecular representation, from the SMILES representation
@@ -82,16 +88,17 @@ def decode_stereo(smiles2D):
 
     return smiles3D
 
-
 def kekulize_mol(mol):
     """
-    This function, given a molecule, returns the kekulized representation of the same molecule.
+    Description: This function, given a molecule, returns the kekulized representation of the same molecule.
 
     Args:
-        mol: The molecule to be kekulized.
+        mol: (object: rdkit)
+            The molecule to be kekulized.
 
     Returns:
-        The kekulized molecule.
+        mol: (object: rdkit)
+            The kekulized molecule.
     """
 
     try:
@@ -104,36 +111,38 @@ def kekulize_mol(mol):
         return None
     return mol
 
-
-def copy_atom(atom):
+def deep_copy_atom(atom):
     """
-    This function, given an atom, returns a new atom, which is a copy of the given atom
+    Description: This function, given an atom, returns a new atom, which is a "deep copy" of the given atom
 
     Args:
-        atom: The atom to be copied.
+        atom: (object: rdkit)
+            The atom to be copied.
 
     Returns:
-        New copy of the atom.
+        new_atom: (object: rdkit)
+            New copy of the atom.
     """
     new_atom = Chem.Atom(atom.GetSymbol())
     new_atom.SetFormalCharge(atom.GetFormalCharge())
     new_atom.SetAtomMapNum(atom.GetAtomMapNum())
     return new_atom
 
-
-def copy_edit_mol(mol):
+def deep_copy_mol(mol):
     """
-    This function, given a molecule, returns a new atom, which is a copy of the given atom
+    Description: This function, given a molecule, returns a new atom, which is a "deep copy" of the given molecule
 
     Args:
-        mol: The molecule to be copied.
+        mol: (object: rdkit)
+            The molecule to be copied.
 
     Returns:
-        New copy of the molecule.
+        new_mol: (object: rdkit)
+            New copy of the molecule.
     """
     new_mol = Chem.RWMol(Chem.MolFromSmiles(''))
     for atom in mol.GetAtoms():
-        new_atom = copy_atom(atom)
+        new_atom = deep_copy_atom(atom)
         new_mol.AddAtom(new_atom)
     for bond in mol.GetBonds():
         a1 = bond.GetBeginAtom().GetIdx()
@@ -142,18 +151,21 @@ def copy_edit_mol(mol):
         new_mol.AddBond(a1, a2, bt)
     return new_mol
 
-
 def get_cluster_mol(original_mol, cluster):
     """
-    This function, given the original molecule, and a cluster of atoms,
+    Description: This function, given the original molecule, and a cluster of atoms,
     returns the molecular fragment of the original molecule, corresponding to this cluster of atoms
 
     Args:
-        original_mol: The original molecule, of which this cluster is a part of.
-        cluster: List of atom_idx in this cluster
+        original_mol: (object: rdkit)
+            The original molecule, of which this cluster is a part of.
+
+        cluster: List[int]
+            List of atom_idx in this cluster
 
     Returns:
-        The valid molecular fragment corresponding to the given cluster of atoms.
+        mol: (object: rdkit)
+            The valid molecular fragment corresponding to the given cluster of atoms.
     """
 
     # get the SMILES representation of the given cluster of atoms in this molecule
@@ -163,25 +175,48 @@ def get_cluster_mol(original_mol, cluster):
     cluster_mol = Chem.MolFromSmiles(smiles, sanitize=False)
 
     # get a copy of the molecular fragment
-    cluster_mol = copy_edit_mol(cluster_mol).GetMol()
+    cluster_mol = deep_copy_mol(cluster_mol).GetMol()
 
     # obtain the kekulized representation of the molecular fragment
     cluster_mol = kekulize_mol(cluster_mol)
 
     return cluster_mol
 
-
 def atom_equal(a1, a2):
     """
-    This function, given two atoms, checks if they have the same symbol and the same formal charge.
+    Description: This function, given two atoms, checks if they have the same symbol and the same formal charge.
+
+    Args:
+        a1: (object: rdkit)
+            The first atom
+
+        a2: (object: rdkit)
+            The second atom
+
+    Returns:
+        Boolean:
+            Whether the two atoms have the same symbol and formal charge.
     """
     return a1.GetSymbol() == a2.GetSymbol() and a1.GetFormalCharge() == a2.GetFormalCharge()
 
-
 def ring_bond_equal(b1, b2, reverse=False):
     """
-    This function, given two ring bonds, checks if they are the same or not.
+    Description: This function, given two ring bonds, checks if they are the same or not.
+
     * bond type not considered because all bonds are aromatic i.e. ring bonds
+
+    Args:
+        b1: (object: rdkit)
+            The first bond.
+
+        b2: (object: rdkit)
+            The second bond.
+
+        reverse: Boolean
+            Whether b2 has be to checked in reverse for equality.
+    Returns:
+         Boolean:
+            Whether the bonds are same or not
     """
     b1 = (b1.GetBeginAtom(), b1.GetEndAtom())
     if reverse:
@@ -190,22 +225,33 @@ def ring_bond_equal(b1, b2, reverse=False):
         b2 = (b2.GetBeginAtom(), b2.GetEndAtom())
     return atom_equal(b1[0], b2[0]) and atom_equal(b1[1], b2[1])
 
-
 def attach_mols(ctr_mol, neighbors, prev_nodes, neighbor_atom_map_dict):
     """
-    This function, given the center / current molecular fragment, neighbor nodes and atom_map_dict,
+    Description: This function, given the center / current molecular fragment, neighbor nodes and atom_map_dict,
     constructs and returns the molecular attachment configuration as encoded in the atom_map_dict
 
-    Arguments:
-        ctr_mol:
-        neighbors:
-        prev_nodes:
-        neighbor_atom_map_dict:
+    Args:
+        ctr_mol: (object: rdkit)
+            The center / current molecular fragment
+
+        neighbors: List[MolJuncTreeNode]
+            The list of neighbor nodes in the junction tree of that node, to which the center / current molecular fragment
+            corresponds to.
+
+        prev_nodes: List[MolJuncTreeNode]
+            The list of nodes, already used in the center / current molecular fragment.
+
+        neighbor_atom_map_dict: Dict{int: Dict{int: int}}
+            A dictionary mapped to each neighbor node. For each neighbor node, the mapped dictionary
+            further maps the atom idx of atom in neighbor node's cluster to the atom idx of atom in center / current molecular fragment.
 
     Returns:
-         The molecule attachment configuration as specified in the atom_map.
+        ctr_mol: (object: rdkit)
+            The molecule attachment configuration as specified.
     """
+    # nids of nodes previously used in the center / current molecular fragment
     prev_nids = [node.nid for node in prev_nodes]
+
     for neighbor_node in prev_nodes + neighbors:
         # obtain the neighbor node's node idx and the corresponding molecular fragment
         neighbor_id, neighbor_mol = neighbor_node.nid, neighbor_node.mol
@@ -217,7 +263,7 @@ def attach_mols(ctr_mol, neighbors, prev_nodes, neighbor_atom_map_dict):
             # if the atoms neighbor node's molecular fragment are not already present in the center / current
             # molecular fragment, then add them
             if atom.GetIdx() not in atom_map:
-                new_atom = copy_atom(atom)
+                new_atom = deep_copy_atom(atom)
                 atom_map[atom.GetIdx()] = ctr_mol.AddAtom(new_atom)
 
         # if the neighbor node corresponds to a "singleton-cluster"
@@ -239,23 +285,34 @@ def attach_mols(ctr_mol, neighbors, prev_nodes, neighbor_atom_map_dict):
                     ctr_mol.AddBond(bond_begin_atom, bond_end_atom, bond.GetBondType())
     return ctr_mol
 
-
 def local_attach(ctr_mol, neighbors, prev_nodes, atom_map):
     """
-    This function, given the center / current molecular fragment, the current atom_map and multiple neighbor nodes,
-    returns the molecular attachment configuration as encoded in the given atom_map
+    Description: This function, given the center / current molecular fragment, the current atom_map and multiple neighbor nodes,
+    returns the molecular attachment configuration as encoded in the given atom_map.
 
-    Arguments:
-        ctr_mol: The current / center molecular fragment.
-        neighbors: The list of neighbor nodes to be considered for attachment with the above molecular fragment.
-        prev_nodes: Nodes that have been used previously in the molecular attachment.
-        atom_map: The atom_map encoding information about how the clusters corresponding to the neighbor clusters
-                  are attached to the current / center molecular fragment.
+    Args:
+        ctr_mol: (object: rdkit)
+            The center / current molecular fragment
+
+        neighbors: List[MolJuncTreeNode]
+            The list of neighbor nodes in the junction tree of that node, to which the center / current molecular fragment
+            corresponds to.
+
+        prev_nodes: List[MolJuncTreeNode]
+            The list of nodes, already used in the center / current molecular fragment.
+
+        atom_map: List[Tuple(int, int, int)]
+            The atom_map encoding information about how the clusters corresponding to the neighbor clusters
+            are attached to the current / center molecular fragment.
+
+    * An atom_map, constructed with respect to a center / curent cluster, is a list of tuples of the form
+    (neighbor_node.nid, idx of atom in center / current molecule, idx of atom in neighbor node's molecular fragment)
 
     Returns:
-        The molecule attachment configuration as specified in the atom_map.
+        ctr_mol: (object: rdkit)
+            The molecule attachment configuration as specified in the atom_map.
     """
-    ctr_mol = copy_edit_mol(ctr_mol)
+    ctr_mol = deep_copy_mol(ctr_mol)
     neighbor_atom_map_dict = {neighbor.nid: {} for neighbor in prev_nodes + neighbors}
 
     for neighbor_id, ctr_atom_idx, neighbor_atom_idx in atom_map:
@@ -264,24 +321,36 @@ def local_attach(ctr_mol, neighbors, prev_nodes, atom_map):
     ctr_mol = attach_mols(ctr_mol, neighbors, prev_nodes, neighbor_atom_map_dict)
     return ctr_mol.GetMol()
 
-
 def enum_attach(ctr_mol, neighbor_node, atom_map, singletons):
     """
-    This function, given the center / current molecular fragment, the current atom_map and neighbor node,
+    Description: This function, given the center / current molecular fragment, the current atom_map and neighbor node,
     enumerates all possible attachment configurations of the current molecular fragment
     with the neighbor node's molecular fragment.
 
-    An atom_map, constructed with respect to a center / curent cluster, is a list of tuples of the form
-    (neighbor_node.nid, idx of atom in center / current molecule, idx of atom in neighbor node's molecular fragment)
+    * An atom_map, constructed with respect to a center / curent cluster, is a list of tuples of the form
+    (neighbor_node.nid, idx of atom in center / current molecule, idx of atom in neighbor node's molecular fragment).
 
     Args:
-        ctr_mol: The current / center molecular fragment.
-        neighbor_node: The neighbor node to be considered for attachment with the current / center molecular fragment.
-        atom_map: The current atom map, which encodes the attachment configuration information.
-        singletons: The list of atom_idx of those atoms, which correspond to singleton clusters.
+        ctr_mol: (object: rdkit)
+            The center / current molecular fragment
+
+        neighbors: List[MolJuncTreeNode]
+            The list of neighbor nodes in the junction tree of that node, to which the center / current molecular fragment
+            corresponds to.
+
+        prev_nodes: List[MolJuncTreeNode]
+            The list of nodes, already used in the center / current molecular fragment.
+
+        atom_map: List[Tuple(int, int, int)]
+            The atom_map encoding information about how the clusters corresponding to the neighbor clusters
+            are attached to the current / center molecular fragments.
+
+        singletons: List[int]
+            The list of atom_idx of those atoms, which correspond to singleton clusters.
 
     Returns:
-         Returns atom_maps corresponding to all possible attachment configurations
+        att_confs: List[List[Tuple(int, int, int)]]
+         The list of atom_maps corresponding to all possible attachment configurations.
     """
 
     # obtain the neighbor node's molecular fragment and node id
@@ -362,25 +431,31 @@ def enum_attach(ctr_mol, neighbor_node, atom_map, singletons):
                         att_confs.append(new_atom_map)
     return att_confs
 
-
 def enum_assemble(node, neighbors, prev_nodes=[], prev_atom_map=[]):
     """
-    This function, given a node in the junction tree and its neighbor nodes,
+    Description: This function, given a node in the junction tree and its neighbor nodes,
     returns all the possible molecular attachment configurations
     of this node's cluster to with its neighbor nodes' clusters.
 
-    atom_maps incorporate information about how the clusters corresponding to nodes in the "cluster-graph"
+    * atom_maps incorporate information about how the clusters corresponding to nodes in the "cluster-graph"
     are attached together to form a valid molecular fragment
 
     Arguments:
-        node: the node in the junction tree, whose molecular attachment configurations have to be enumerated.
-        neighbors: the neighbors to be considered for molecular attachment.
-        prev_nodes: the nodes already considered for molecular attachment.
-        prev_atom_map: the previous atom map encoding information about the molecular attachment configuration with previously used neighbors.
+        node: (object: MolJuncTreeNode)
+            the node in the junction tree, whose molecular attachment configurations have to be enumerated.
+
+        neighbors: List[MolJuncTreeNode]
+            The neighbors to be considered for molecular attachment.
+
+        prev_nodes: List[MolJuncTreeNode]
+            The nodes already considered for molecular attachment.
+
+        prev_atom_map: List[Tuple(int, int, int)]
+            the previous atom map encoding information about the molecular attachment configuration with previously used neighbors.
 
     Returns:
-        List of tuples of all possible valid attachment configurations.
-        (smiles, molecule, atom_map)
+        all_attach_confs: List[Tuple(str, object: rdkit, List[Tuple(int, int, int)])]
+            List of tuples of all possible valid attachment configurations, of the form (smiles, molecule, atom_map).
     """
 
     # list of all possible valid, molecular attachment configurations of given node with its neighbor nodes

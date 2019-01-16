@@ -1,7 +1,8 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
-from nnutils import create_var
+from nnutils import create_var, index_select_ND
 
 class ConvNetLayer(nn.Module):
     """
@@ -54,116 +55,145 @@ class ConvNetLayer(nn.Module):
 
             self.C = nn.Linear(hidden_size, hidden_size, bias=True)
 
-    def forward(self, atom_feature_matrix, bond_feature_matrix, atom_adjacency_list, atom_bond_adjacency_list):
+    def forward(self, atom_layer_input, bond_layer_input, atom_adjacency_graph, atom_bond_adjacency_graph, bond_atom_adjacency_graph):
         """
-        Description: This method implements the forward pass, for the graph convolutional layer.
-
         Args:
-            atom_feature_matrix: torch.tensor (shape: batch_size x atom_feature_dim)
-                The matrix containing feature vectors, for all the atoms, across the entire dataset.
+            atom_layer_input: torch.tensor (shape: batch_size x atom_feature_dim)
+                The matrix containing feature vectors, for all the atoms, across the entire batch.
                 * atom_feature_dim = len(ELEM_LIST) + 6 + 5 + 4 + 1
 
-            bond_feature_matrix: torch.tensor (shape: batch_size x bond_feature_dim)
-                The matrix containing feature vectors, for all the bonds, across the entire dataset.
+            bond_layer_input: torch.tensor (shape: batch_size x bond_feature_dim)
+                The matrix containing feature vectors, for all the bonds, across the entire batch.
                 * bond_feature_dim = 5 + 6
 
-            atom_adjacency_list: List[torch.tensor]
-                The adjacency list, for all the atoms, across the entire dataset.
-                Each adjacency list contains the idxs of neighboring atoms.
+            atom_adjacency_graph: torch.tensor (shape: num_atoms x MAX_NUM_NEIGHBORS(=6))
+                For each atom, across the entire batch, the idxs of neighboring atoms.
 
-            atom_bond_adjacency_list: List[torch.tensor]
-                For each atom, across the entire dataset, the idxs of all the bonds, in which this atom is present.
-                * Role: For purposes of "edge gate" computation.
+            atom_bond_adjacency_graph: torch.tensor(shape: num_atoms x MAX_NUM_NEIGHBORS(=6))
+                For each atom, across the entire batch, the idxs of all the bonds, in which it is the initial atom.
 
-        Returns:
-
+            bond_atom_adjacency_graph: torch.tensor (shape num_bonds x 2)
+                For each bond, across the entire batch, the idxs of the 2 atoms, of which the bond is composed of.
         """
-        total_atoms = atom_feature_matrix.shape[0]
+        # implement edge gate computation
+        edge_gate_x = torch.index_select(input=atom_layer_input, dim=0, index=bond_atom_adjacency_graph[:, 0])
+        edge_gate_y = torch.index_select(input=atom_layer_input, dim=0, index=bond_atom_adjacency_graph[:, 1])
 
-        total_bonds = bond_feature_matrix.shape[0]
+        assert(bond_layer_input.shape[0] == edge_gate_x.shape[0])
+        assert (bond_layer_input.shape[0] == edge_gate_y.shape[0])
 
-        atom_layer_output = create_var(torch.zeros(total_atoms, self.hidden_size))
-        bond_layer_output = create_var(torch.zeros(total_bonds, self.hidden_size))
+        edge_gate_synaptic_input = self.A(bond_layer_input) + self.B(edge_gate_x) + self.C(edge_gate_y)
 
-        for atom_idx in range(total_atoms):
-            # feature vector for the current atom
-            atom_feature_vec = atom_feature_matrix[atom_idx]
+        # apply sigmoid activation for computing edge gates
+        edge_gates = F.sigmoid(edge_gate_synaptic_input)
 
-            # idxs of all the neighbor atoms, of current atom
-            neighbor_atom_idx = atom_adjacency_list[atom_idx]
+        # apply ReLU activation for computing new bond features
+        bond_layer_output = F.relu(edge_gate_synaptic_input)
 
-            # feature vectors of all the neighbor atoms.
-            neighbor_atom_feature_vecs = torch.index_select(input=atom_feature_matrix, dim=0, index=neighbor_atom_idx)
+        # implement node features computation
 
-            # idxs of all the bonds, in which this atom is that beginning atom
-            bond_atom_idx = atom_bond_adjacency_list[atom_idx]
+        # for each atom, aggregate the features vectors of neighboring atoms
+        atom_neighbor_features_tensor = self.V(index_select_ND(atom_layer_input, 0, atom_adjacency_graph))
 
-            # feature vectors of all the bonds, in which this atom is that beginning atom
-            bond_feature_vecs = torch.index_select(input=bond_feature_matrix, dim=0, index=bond_atom_idx)
+        # for each atom, get the edge gates for the corresponding neighbor atom features
+        atom_neighbor_edge_gates_tensor = index_select_ND(edge_gates, 0, atom_bond_adjacency_graph)
 
-            # compute new bond features, of all the bond, in which this atom, is the starting atom
-            bond_features_synaptic_input = self.evaluate_bond_features_synaptic_input(atom_feature_vec, bond_feature_vecs, neighbor_atom_feature_vecs)
+        assert(atom_neighbor_edge_gates_tensor.shape == atom_neighbor_features_tensor.shape)
 
-            # apply the ReLU activation onto the new edge
-            new_bond_features = nn.ReLU()(bond_features_synaptic_input)
+        # for each atom, multiply the edge gates with corresponding neighbor atom feature vectors
+        atom_neighbor_message_tensor = atom_neighbor_edge_gates_tensor * atom_neighbor_features_tensor
 
-            # update the feature vectors of all the bonds, in which this atom is the beginning atom
-            bond_layer_output[bond_atom_idx] = new_bond_features
+        atom_neighbor_message_sum = atom_neighbor_message_tensor.sum(dim=1)
 
-            # evaluate the edge gates, for all the edges in which this atom is the beginning atom
-            edge_gates = nn.Sigmoid()(bond_features_synaptic_input)
+        assert(atom_neighbor_message_sum.shape[0] == atom_layer_input.shape[0])
 
-            # implement point-wise multiplication (Hadamard Product)
-            edge_gate_prod_neighbor_vecs = edge_gates * self.V(neighbor_atom_feature_vecs)
+        atom_features_synaptic_input = self.U(atom_layer_input) + atom_neighbor_message_sum
 
-            # sum up the hadamard product of the edge gates and the neighbor atom feature vectors
-            neighbor_vec_edge_gate_sum = torch.sum(edge_gate_prod_neighbor_vecs, dim=0)
-
-            # evaluate the new feature vector for the atom
-            new_atom_vec_synaptic_input = self.U(atom_feature_vec) + neighbor_vec_edge_gate_sum
-
-            # apply ReLU activation
-            new_atom_vec = nn.ReLU()(new_atom_vec_synaptic_input)
-
-            # set the atom's feature vector to the new value
-            atom_layer_output[atom_idx] = new_atom_vec
+        # apply ReLU activation for computing new atom features
+        atom_layer_output = F.relu(atom_features_synaptic_input)
 
         return atom_layer_output, bond_layer_output
 
-    def evaluate_bond_features_synaptic_input(self, atom_feature_vec, bond_feature_vecs, neighbor_atom_feature_vecs):
-        """
-        Description: This method, in reference to atom with idx 'i', computes the new values (synaptic input)
-        for all the edges of the form e_(i,j), where j refers to idxs of all the atom, that are neighbors of
-        atom with idx i.
 
-        Args:
-            atom_feature_vec: torch.tensor (shape: atom_feature_dim)
-                The feature vector of atom with idx 'i'.
+        # for atom_idx in range(total_atoms):
+        #     # feature vector for the current atom
+        #     atom_feature_vec = atom_feature_matrix[atom_idx]
+        #
+        #     # idxs of all the neighbor atoms, of current atom
+        #     neighbor_atom_idx = atom_adjacency_list[atom_idx]
+        #
+        #     # feature vectors of all the neighbor atoms.
+        #     neighbor_atom_feature_vecs = torch.index_select(input=atom_feature_matrix, dim=0, index=neighbor_atom_idx)
+        #
+        #     # idxs of all the bonds, in which this atom is that beginning atom
+        #     bond_atom_idx = atom_bond_adjacency_list[atom_idx]
+        #
+        #     # feature vectors of all the bonds, in which this atom is that beginning atom
+        #     bond_feature_vecs = torch.index_select(input=bond_feature_matrix, dim=0, index=bond_atom_idx)
+        #
+        #     # compute new bond features, of all the bond, in which this atom, is the starting atom
+        #     bond_features_synaptic_input = self.evaluate_bond_features_synaptic_input(atom_feature_vec, bond_feature_vecs, neighbor_atom_feature_vecs)
+        #
+        #     # apply the ReLU activation onto the new edge
+        #     new_bond_features = nn.ReLU()(bond_features_synaptic_input)
+        #
+        #     # update the feature vectors of all the bonds, in which this atom is the beginning atom
+        #     bond_layer_output[bond_atom_idx] = new_bond_features
+        #
+        #     # evaluate the edge gates, for all the edges in which this atom is the beginning atom
+        #     edge_gates = nn.Sigmoid()(bond_features_synaptic_input)
+        #
+        #     # implement point-wise multiplication (Hadamard Product)
+        #     edge_gate_prod_neighbor_vecs = edge_gates * self.V(neighbor_atom_feature_vecs)
+        #
+        #     # sum up the hadamard product of the edge gates and the neighbor atom feature vectors
+        #     neighbor_vec_edge_gate_sum = torch.sum(edge_gate_prod_neighbor_vecs, dim=0)
+        #
+        #     # evaluate the new feature vector for the atom
+        #     new_atom_vec_synaptic_input = self.U(atom_feature_vec) + neighbor_vec_edge_gate_sum
+        #
+        #     # apply ReLU activation
+        #     new_atom_vec = nn.ReLU()(new_atom_vec_synaptic_input)
+        #
+        #     # set the atom's feature vector to the new value
+        #     atom_layer_output[atom_idx] = new_atom_vec
+        print('Jai Mata Di!! 2')
+        return atom_layer_output, bond_layer_output
 
-            bond_feature_vecs: torch.tensor (shape: num_neighbors x bond_feature_dim)
-                The feature vectors of all the bonds of the form e_(i,j).
-
-            neighbor_atom_feature_vecs: torch.tensor (shape: num_neighbors x atom_feature_dim)
-                The feature vectors of all the atoms with idxs 'j' i.e. idxs of neighboring atoms, of atom with idx 'i'.
-        """
-
-        # multiply the edge feature vectors with the A matrix
-        Ae = self.A(bond_feature_vecs)
-
-        # number of neighbors of atom with idx 'i'
-        num_neighbors = bond_feature_vecs.shape[0]
-
-        repeated_atom_feature_vecs = [atom_feature_vec for idx in range(num_neighbors)]
-        repeated_atom_feature_vecs = torch.stack(repeated_atom_feature_vecs , dim=0)
-
-        # multiply atom feature vectors with the B matrix
-        Bx = self.B(repeated_atom_feature_vecs)
-
-        # multiply the neighboring atom feature vectors with the C matrix
-        Cx = self.C(neighbor_atom_feature_vecs)
-
-        # as per Prof. Bresson's code
-        bond_features_synaptic_input = Ae + Bx + Cx
-
-        return bond_features_synaptic_input
+    # def evaluate_bond_features_synaptic_input(self, atom_feature_vec, bond_feature_vecs, neighbor_atom_feature_vecs):
+    #     """
+    #     Description: This method, in reference to atom with idx 'i', computes the new values (synaptic input)
+    #     for all the edges of the form e_(i,j), where j refers to idxs of all the atom, that are neighbors of
+    #     atom with idx i.
+    #
+    #     Args:
+    #         atom_feature_vec: torch.tensor (shape: atom_feature_dim)
+    #             The feature vector of atom with idx 'i'.
+    #
+    #         bond_feature_vecs: torch.tensor (shape: num_neighbors x bond_feature_dim)
+    #             The feature vectors of all the bonds of the form e_(i,j).
+    #
+    #         neighbor_atom_feature_vecs: torch.tensor (shape: num_neighbors x atom_feature_dim)
+    #             The feature vectors of all the atoms with idxs 'j' i.e. idxs of neighboring atoms, of atom with idx 'i'.
+    #     """
+    #
+    #     # multiply the edge feature vectors with the A matrix
+    #     Ae = self.A(bond_feature_vecs)
+    #
+    #     # number of neighbors of atom with idx 'i'
+    #     num_neighbors = bond_feature_vecs.shape[0]
+    #
+    #     repeated_atom_feature_vecs = [atom_feature_vec for idx in range(num_neighbors)]
+    #     repeated_atom_feature_vecs = torch.stack(repeated_atom_feature_vecs , dim=0)
+    #
+    #     # multiply atom feature vectors with the B matrix
+    #     Bx = self.B(repeated_atom_feature_vecs)
+    #
+    #     # multiply the neighboring atom feature vectors with the C matrix
+    #     Cx = self.C(neighbor_atom_feature_vecs)
+    #
+    #     # as per Prof. Bresson's code
+    #     bond_features_synaptic_input = Ae + Bx + Cx
+    #
+    #     return bond_features_synaptic_input
 

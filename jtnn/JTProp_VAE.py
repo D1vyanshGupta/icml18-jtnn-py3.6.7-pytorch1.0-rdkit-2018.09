@@ -2,12 +2,12 @@ import torch
 import torch.nn as nn
 from MolJuncTree import MolJuncTree
 from nnutils import create_var
-from JTNN_Enc import JTNNEncoder
-from JTNN_Dec import JTNNDecoder
+from JTNNEncoder import JTNNEncoder
+from JTNNDecoder import JTNNDecoder
 from MessPassNet import MessPassNet
 from JTMessPassNet import JTMessPassNet
 
-from chemutils import enum_assemble, set_atom_map, copy_edit_mol, attach_mols, decode_stereo
+from chemutils import enum_assemble, set_atom_map, deep_copy_mol, attach_mols, decode_stereo
 import rdkit.Chem as Chem
 from rdkit import DataStructs
 from rdkit.Chem import AllChem
@@ -102,16 +102,16 @@ class JTPropVAE(nn.Module):
         return loss, kl_loss.data[0], word_acc, topo_acc, assm_acc, stereo_acc, prop_loss.data[0]
 
     def assm(self, mol_batch, mol_vec, tree_mess):
-        cands = []
+        candidates = []
         batch_idx = []
         for i, mol_tree in enumerate(mol_batch):
             for node in mol_tree.nodes:
                 # Leaf node's attachment is determined by neighboring node's attachment
-                if node.is_leaf or len(node.cands) == 1: continue
-                cands.extend([(cand, mol_tree.nodes, node) for cand in node.cand_mols])
-                batch_idx.extend([i] * len(node.cands))
+                if node.is_leaf or len(node.candidates) == 1: continue
+                candidates.extend([(cand, mol_tree.nodes, node) for cand in node.cand_mols])
+                batch_idx.extend([i] * len(node.candidates))
 
-        cand_vec = self.jtmpn(cands, tree_mess)
+        cand_vec = self.jtmpn(candidates, tree_mess)
         cand_vec = self.G_mean(cand_vec)
 
         batch_idx = create_var(torch.LongTensor(batch_idx))
@@ -273,7 +273,7 @@ class JTPropVAE(nn.Module):
 
         tree_mess = self.jtnn([pred_root])[0]
 
-        cur_mol = copy_edit_mol(pred_root.mol)
+        cur_mol = deep_copy_mol(pred_root.mol)
         global_amap = [{}] + [{} for node in pred_nodes]
         global_amap[1] = {atom.GetIdx(): atom.GetIdx() for atom in cur_mol.GetAtoms()}
 
