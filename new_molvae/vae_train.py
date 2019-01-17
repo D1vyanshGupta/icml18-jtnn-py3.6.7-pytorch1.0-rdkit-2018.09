@@ -3,6 +3,7 @@ import sys
 import math
 import argparse
 import warnings
+from timeit import default_timer as timer
 
 import numpy as np
 
@@ -71,6 +72,8 @@ vocab = ClusterVocab(vocab)
 model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding)
 print(model)
 
+# for all multi-dimensional parameters, initialize them using xavier initialization
+# for one-dimensional parameters, initialize them to 0.
 for param in model.parameters():
     if param.dim() == 1:
         nn.init.constant_(param, 0)
@@ -82,7 +85,9 @@ if args.load_epoch > 0:
 
 print("Model #Params: %dK" % (sum([x.nelement() for x in model.parameters()]) / 1000,))
 
+# use adam optimizer
 optimizer = optim.Adam(model.parameters(), lr=args.lr)
+# exponentially decay the learning rate
 scheduler = lr_scheduler.ExponentialLR(optimizer, args.anneal_rate)
 scheduler.step()
 
@@ -91,46 +96,63 @@ grad_norm = lambda m: math.sqrt(sum([p.grad.norm().item() ** 2 for p in m.parame
 
 total_step = args.load_epoch
 beta = args.beta
-meters = np.zeros(4)
+meters = np.zeros(5)
 
 for epoch in range(args.epoch):
+    epoch_time = 0
+
     loader = MolTreeFolder(args.train, vocab, args.use_graph_conv, args.batch_size, num_workers=5)
     for idx, batch in enumerate(loader):
         total_step += 1
         try:
+            start = timer()
+
+            # reset the gradient buffer to 0.
             model.zero_grad()
-            loss, kl_div, wacc, tacc, sacc = model(batch, beta)
+            # implement forward pass
+            loss, kl_div, wacc, tacc, aacc, sacc = model(batch, beta)
+
+            # implement backpropagation
             loss.backward()
+
             nn.utils.clip_grad_norm_(model.parameters(), args.clip_norm)
+
+            # update model parameters
             optimizer.step()
+
+            end = timer()
+
+            time_for_iteration = (end - start)
+
         except Exception as e:
             print(e)
             continue
 
-        meters = meters + np.array([kl_div, wacc * 100, tacc * 100, sacc * 100])
+        meters = meters + np.array([kl_div, wacc * 100, tacc * 100, aacc * 100, sacc * 100])
 
-        print("Epoch:{}, Iteration: {} Beta: {:.3f}, KL: {:.2f}, Word: {:.2f}, Topo: {:.2f}, Assm: {:.2f}, PNorm: {:.2f}, GNorm: {:.2f}".format(
-            epoch + 1, idx + 1, beta, meters[0], meters[1], meters[2], meters[3], param_norm(model), grad_norm(model)))
+        print("Epoch:{}, Iteration: {} Beta: {:.3f}, KL: {:.2f}, Word: {:.2f}, Topo: {:.2f}, Assm: {:.2f}, Stereo: {:.2f}, PNorm: {:.2f}, GNorm: {:.2f}, Time: {:.2f} min".format(
+            epoch + 1, idx + 1, beta, meters[0], meters[1], meters[2], meters[3], meters[4], param_norm(model), grad_norm(model), time_for_iteration / 60))
         sys.stdout.flush()
         meters *= 0
 
-        # if total_step % args.print_iter == 0:
-        #     meters /= args.print_iter
-        #     print("[%d] Beta: {%.3f}, KL: {%.2f}, Word: {%.2f}, Topo: {%.2f}, Assm: {%.2f}, PNorm: {%.2f}, GNorm: {%.2f}".format(
-        #     total_step, beta, meters[0], meters[1], meters[2], meters[3], param_norm(model), grad_norm(model)))
-        #     sys.stdout.flush()
-        #     meters *= 0
+        if total_step % args.print_iter == 0:
+            meters /= args.print_iter
+            print("[%d] Beta: {%.3f}, KL: {%.2f}, Word: {%.2f}, Topo: {%.2f}, Assm: {%.2f}, PNorm: {%.2f}, GNorm: {%.2f}".format(
+            total_step, beta, meters[0], meters[1], meters[2], meters[3], param_norm(model), grad_norm(model)))
+            sys.stdout.flush()
+            meters *= 0
 
-        # if total_step % args.save_iter == 0:
-        #     torch.save(model.state_dict(), args.save_dir + "/model.iter-" + str(total_step))
-
-        scheduler.step()
+        if total_step % args.save_iter == 0:
+            torch.save(model.state_dict(), args.save_dir + "/model.iter-" + str(total_step))
 
         # implement learning-rate annealing
-        # if total_step % args.anneal_iter == 0:
-        #     scheduler.step()
-        #     print("learning rate: %.6f" % scheduler.get_lr()[0])
+        if total_step % args.anneal_iter == 0:
+            scheduler.step()
+            print("learning rate: %.6f" % scheduler.get_lr()[0])
 
         # implement kl-annealing
-        # if total_step % args.kl_anneal_iter == 0 and total_step >= args.warmup:
-        #     beta = min(args.max_beta, beta + args.step_beta)
+        if total_step % args.kl_anneal_iter == 0 and total_step >= args.warmup:
+            beta = min(args.max_beta, beta + args.step_beta)
+
+    epoch_time += time_for_iteration
+    print('Epoch: {} completed. Time taken: {} min'.format(epoch + 1, epoch_time / 60))

@@ -97,7 +97,7 @@ class JTNNVAE(nn.Module):
 
         # reconstruction loss
         self.assm_loss = nn.CrossEntropyLoss(size_average=False)
-        # self.stereo_loss = nn.CrossEntropyLoss(size_average=False)
+        self.stereo_loss = nn.CrossEntropyLoss(size_average=False)
 
     # def set_batch_node_id(self, junc_tree_batch, vocab):
     #     """
@@ -136,10 +136,12 @@ class JTNNVAE(nn.Module):
         batch_size = z_vecs.size(0)
         z_mean = W_mean(z_vecs)
         z_log_var = -torch.abs(W_var(z_vecs)) #Following Mueller et al.
+
+        # as per Kingma & Welling
         kl_loss = -0.5 * torch.sum(1.0 + z_log_var - z_mean * z_mean - torch.exp(z_log_var)) / batch_size
-        epsilon = create_var(torch.randn_like(z_mean))
 
         # reparameterization trick
+        epsilon = create_var(torch.randn_like(z_mean))
         z_vecs = z_mean + torch.exp(z_log_var / 2) * epsilon
 
         return z_vecs, kl_loss
@@ -198,7 +200,7 @@ class JTNNVAE(nn.Module):
 
     def forward(self, x_batch, beta):
         if self.use_graph_conv:
-            x_junc_tree_batch, x_jtenc_holder, x_molenc_holder, x_cand_molenc_holder = x_batch
+            x_junc_tree_batch, x_jtenc_holder, x_molenc_holder, x_cand_molenc_holder, x_stereo_molenc_holder = x_batch
             x_tree_vecs, x_mol_vecs = self.encode_graph_conv(x_jtenc_holder, x_molenc_holder)
             z_tree_vecs, tree_kl = self.rsample(x_tree_vecs, self.T_mean, self.T_var)
             z_mol_vecs, mol_kl = self.rsample(x_mol_vecs, self.G_mean, self.G_var)
@@ -206,10 +208,11 @@ class JTNNVAE(nn.Module):
             kl_div = tree_kl + mol_kl
             word_loss, topo_loss, word_acc, topo_acc = self.decoder(x_junc_tree_batch, z_tree_vecs)
             assm_loss, assm_acc = self.assm_graph_conv(x_junc_tree_batch, x_cand_molenc_holder, z_mol_vecs)
+            stereo_loss, stereo_acc = self.stereo_graph_conv(x_stereo_molenc_holder, z_mol_vecs)
 
-            return word_loss + topo_loss + assm_loss + beta * kl_div, kl_div.item(), word_acc, topo_acc, assm_acc
+            return word_loss + topo_loss + assm_loss + 2 * stereo_loss + beta * kl_div, kl_div.item(), word_acc, topo_acc, assm_acc, stereo_acc
         else:
-            x_junc_tree_batch, x_jtenc_holder, x_mpn_holder, x_jtmpn_holder = x_batch
+            x_junc_tree_batch, x_jtenc_holder, x_mpn_holder, x_jtmpn_holder, x_stereo_molenc_holder = x_batch
             x_tree_vecs, x_tree_mess, x_mol_vecs = self.encode(x_jtenc_holder, x_mpn_holder)
             z_tree_vecs, tree_kl = self.rsample(x_tree_vecs, self.T_mean, self.T_var)
             z_mol_vecs, mol_kl = self.rsample(x_mol_vecs, self.G_mean, self.G_var)
@@ -217,20 +220,21 @@ class JTNNVAE(nn.Module):
             kl_div = tree_kl + mol_kl
             word_loss, topo_loss, word_acc, topo_acc = self.decoder(x_junc_tree_batch, z_tree_vecs)
             assm_loss, assm_acc = self.assm(x_junc_tree_batch, x_jtmpn_holder, z_mol_vecs, x_tree_mess)
+            stereo_loss, stereo_acc = self.stereo(x_stereo_molenc_holder, z_mol_vecs)
 
-            return word_loss + topo_loss + assm_loss + beta * kl_div, kl_div.item(), word_acc, topo_acc, assm_acc
+            return word_loss + topo_loss + assm_loss + 2 * stereo_loss + beta * kl_div, kl_div.item(), word_acc, topo_acc, assm_acc, stereo_acc
 
     # graph decoder
-    def assm_graph_conv(self, junc_tree_batch, x_cand_molenc_holder, x_mol_vecs):
+    def assm_graph_conv(self, junc_tree_batch, x_cand_molenc_holder, z_mol_vecs):
         cand_molenc_holder, batch_idx = x_cand_molenc_holder
         batch_idx = create_var(batch_idx)
 
         candidate_vecs = self.graph_enc(*cand_molenc_holder)
 
-        x_mol_vecs = x_mol_vecs.index_select(0, batch_idx)
-        x_mol_vecs = self.A_assm(x_mol_vecs)  # bilinear
+        z_mol_vecs = z_mol_vecs.index_select(0, batch_idx)
+        z_mol_vecs = self.A_assm(z_mol_vecs)  # bilinear
         scores = torch.bmm(
-            x_mol_vecs.unsqueeze(1),
+            z_mol_vecs.unsqueeze(1),
             candidate_vecs.unsqueeze(-1)
         ).squeeze()
 
@@ -254,7 +258,7 @@ class JTNNVAE(nn.Module):
         all_loss = sum(all_loss) / len(junc_tree_batch)
         return all_loss, acc * 1.0 / cnt
 
-    def assm(self, junc_tree_batch, x_jtmpn_holder, x_mol_vecs, x_tree_mess):
+    def assm(self, junc_tree_batch, x_jtmpn_holder, z_mol_vecs, x_tree_mess):
         jtmpn_holder, batch_idx = x_jtmpn_holder
         atom_feature_matrix, bond_feature_matrix, atom_adjacency_graph, bond_adjacency_graph, scope = jtmpn_holder
 
@@ -262,10 +266,10 @@ class JTNNVAE(nn.Module):
 
         candidate_vecs = self.jtmpn(atom_feature_matrix, bond_feature_matrix, atom_adjacency_graph, bond_adjacency_graph, scope, x_tree_mess)
 
-        x_mol_vecs = x_mol_vecs.index_select(0, batch_idx)
-        x_mol_vecs = self.A_assm(x_mol_vecs)  # bilinear
+        z_mol_vecs = z_mol_vecs.index_select(0, batch_idx)
+        z_mol_vecs = self.A_assm(z_mol_vecs)  # bilinear
         scores = torch.bmm(
-            x_mol_vecs.unsqueeze(1),
+            z_mol_vecs.unsqueeze(1),
             candidate_vecs.unsqueeze(-1)
         ).squeeze()
 
@@ -288,6 +292,57 @@ class JTNNVAE(nn.Module):
 
         all_loss = sum(all_loss) / len(junc_tree_batch)
         return all_loss, acc * 1.0 / cnt
+
+    def stereo_graph_conv(self, x_stereo_molenc_holder, z_mol_vecs):
+        stereo_molenc_holder, stereo_batch_idx, labels = x_stereo_molenc_holder
+
+        if len(labels) == 0:
+            return create_var(torch.zeros(1)), 1.0
+
+        batch_idx = create_var(torch.LongTensor(stereo_batch_idx))
+        stereo_candidates_vecs = self.graph_enc(*stereo_molenc_holder)
+        stereo_labels = z_mol_vecs.index_select(0, batch_idx)
+        stereo_labels = self.A_assm(stereo_labels)
+        scores = torch.nn.CosineSimilarity()(stereo_candidates_vecs, stereo_labels)
+
+        st,acc = 0,0
+        all_loss = []
+        for label,le in labels:
+            cur_scores = scores.narrow(0, st, le)
+            if cur_scores.data[label] >= cur_scores.max().data[0]:
+                acc += 1
+            label = create_var(torch.LongTensor([label]))
+            all_loss.append( self.stereo_loss(cur_scores.view(1,-1), label) )
+            st += le
+        #all_loss = torch.cat(all_loss).sum() / len(labels)
+        all_loss = sum(all_loss) / len(stereo_labels)
+        return all_loss, acc * 1.0 / len(stereo_labels)
+
+    def stereo(self, x_stereo_molenc_holder, z_mol_vecs):
+        stereo_molenc_holder, stereo_batch_idx, labels = x_stereo_molenc_holder
+
+        if len(labels) == 0:
+            return create_var(torch.zeros(1)), 1.0
+
+        batch_idx = create_var(torch.LongTensor(stereo_batch_idx))
+        stereo_candidates_vecs = self.mpn(*stereo_molenc_holder)
+        stereo_labels = z_mol_vecs.index_select(0, batch_idx)
+        stereo_labels = self.A_assm(stereo_labels)
+        scores = torch.nn.CosineSimilarity()(stereo_candidates_vecs, stereo_labels)
+
+        st, acc = 0, 0
+        all_loss = []
+
+        for label, le in labels:
+            cur_scores = scores.narrow(0, st, le)
+            if cur_scores.data[label].item() >= cur_scores.max().item():
+                acc += 1
+            label = create_var(torch.LongTensor([label]))
+            all_loss.append( self.stereo_loss(cur_scores.view(1,-1), label) )
+            st += le
+        #all_loss = torch.cat(all_loss).sum() / len(labels)
+        all_loss = sum(all_loss) / len(stereo_labels)
+        return all_loss, acc * 1.0 / len(stereo_labels)
 
     def decode(self, x_tree_vecs, x_mol_vecs):
         #currently do not support batch decoding

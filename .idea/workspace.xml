@@ -2,33 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/jtnn/GraphGRU.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jtnn/new_datautils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/new_molvae/preprocess.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/new_molvae/sample.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/new_molvae/vae_train.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train_10_pct.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train_25_pct.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train_5.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train_5_pct.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/ConvNetLayer.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/ConvNetLayer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/JTMessPassNet.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/JTMessPassNet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/JTNN_Dec.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/JTNNDecoder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/JTNN_Enc.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/JTNNEncoder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/JTProp_VAE.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/JTProp_VAE.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/train_100.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/jtnn/JTVAE.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/JTVAE.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/MessPassNet.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/MessPassNet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/MolGraphEncoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/MolGraphEncoder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/chemutils.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/chemutils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/datautils.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/prev_datautils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/nnutils.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/nnutils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/tafri.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/tafri.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/01_molecule_qm9_regression_v1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jtnn/new_datautils.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/new_datautils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jupyter-notebooks/data_exploration.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/data_exploration.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/playing_around.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/molvae/pretrain.py" beforeDir="false" afterPath="$PROJECT_DIR$/molvae/pretrain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new_molvae/vae_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_molvae/vae_train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -38,17 +17,17 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/icml18_jtnn_py3_6_7_pytorch1_0_rdkit_2018_09$icml18_jtnn_py3_6_7_pytorch1_0_rdkit_2018_09.coverage" NAME="icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09 Coverage Results" MODIFIED="1547604561051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/icml18_jtnn_py3_6_7_pytorch1_0_rdkit_2018_09$icml18_jtnn_py3_6_7_pytorch1_0_rdkit_2018_09.coverage" NAME="icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09 Coverage Results" MODIFIED="1547702214683" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/icml18_jtnn_py3_6_7_pytorch1_0_rdkit_2018_09$pretrain.coverage" NAME="pretrain Coverage Results" MODIFIED="1546968148323" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/molvae" />
-    <SUITE FILE_PATH="coverage/icml18_jtnn_py3_6_7_pytorch1_0_rdkit_2018_09$vae_train.coverage" NAME="vae_train Coverage Results" MODIFIED="1547626408722" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/new_molvae" />
+    <SUITE FILE_PATH="coverage/icml18_jtnn_py3_6_7_pytorch1_0_rdkit_2018_09$vae_train.coverage" NAME="vae_train Coverage Results" MODIFIED="1547699732783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/new_molvae" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="vae_train.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="vae_train.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="61" column="75" selection-start-line="61" selection-start-column="75" selection-end-line="61" selection-end-column="75" />
+            <state relative-caret-position="944">
+              <caret line="156" column="36" selection-start-line="156" selection-start-column="36" selection-end-line="156" selection-end-column="36" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -56,62 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JTVAE.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2">
-              <caret line="22" column="123" lean-forward="true" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="123" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MolGraphEncoder.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jtnn/MolGraphEncoder.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="238" column="46" selection-start-line="238" selection-start-column="46" selection-end-line="238" selection-end-column="46" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-                <element signature="e#1173#1673#0" />
-                <element signature="e#1711#2590#0" />
-                <element signature="e#2628#3472#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MessPassNet.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jtnn/MessPassNet.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-718">
-              <caret line="209" column="8" selection-start-line="209" selection-start-column="8" selection-end-line="209" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConvNetLayer.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jtnn/ConvNetLayer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-121">
-              <caret line="97" column="88" selection-start-line="97" selection-start-column="88" selection-end-line="97" selection-end-column="88" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="new_datautils.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jtnn/new_datautils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="62" column="23" selection-start-line="62" selection-start-column="23" selection-end-line="62" selection-end-column="23" />
-              <folding>
-                <element signature="e#0#17#0" expanded="true" />
-              </folding>
+      <file leaf-file-name="data_exploration.ipynb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/jupyter-notebooks/data_exploration.ipynb">
+          <provider selected="true" editor-type-id="ipnb-editor">
+            <state>
+              <selected id="2" />
             </state>
           </provider>
         </entry>
@@ -128,7 +56,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>source</find>
       <find>LongTensor</find>
       <find>torch.tensor</find>
       <find>opts</find>
@@ -152,12 +79,13 @@
       <find>atom_feature_matrix, bond_feature_matrix, atom_adjacency_graph, atom_bond_adjacency_graph, bond_atom_adjacency_graph, scope</find>
       <find>MAX_NUM_NEIGHBORS</find>
       <find>tensorize</find>
-      <find>A_assm</find>
       <find>tensorize_pair</find>
       <find>atom_layer_output</find>
       <find>index_select</find>
       <find>bond_atom_adjacency_graph</find>
       <find>atom_adjacency_list</find>
+      <find>A_assm</find>
+      <find>stereo_loss</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -212,7 +140,6 @@
         <option value="$PROJECT_DIR$/jtnn/datautils.py" />
         <option value="$PROJECT_DIR$/jtnn/GraphGRU.py" />
         <option value="$PROJECT_DIR$/new_molvae/sample.py" />
-        <option value="$PROJECT_DIR$/jupyter-notebooks/data_exploration.ipynb" />
         <option value="$PROJECT_DIR$/jtnn/nnutils.py" />
         <option value="$PROJECT_DIR$/jtnn/__init__.py" />
         <option value="$PROJECT_DIR$/jtnn/JTMessPassNet.py" />
@@ -221,12 +148,13 @@
         <option value="$PROJECT_DIR$/jtnn/JTNNDecoder.py" />
         <option value="$PROJECT_DIR$/jtnn/MessPassNet.py" />
         <option value="$PROJECT_DIR$/jtnn/tafri.ipynb" />
-        <option value="$PROJECT_DIR$/jtnn/JTVAE.py" />
         <option value="$PROJECT_DIR$/new_molvae/preprocess.py" />
-        <option value="$PROJECT_DIR$/jtnn/new_datautils.py" />
         <option value="$PROJECT_DIR$/jtnn/ConvNetLayer.py" />
         <option value="$PROJECT_DIR$/jtnn/MolGraphEncoder.py" />
+        <option value="$PROJECT_DIR$/jtnn/new_datautils.py" />
+        <option value="$PROJECT_DIR$/jtnn/JTVAE.py" />
         <option value="$PROJECT_DIR$/new_molvae/vae_train.py" />
+        <option value="$PROJECT_DIR$/jupyter-notebooks/data_exploration.ipynb" />
       </list>
     </option>
   </component>
@@ -260,7 +188,7 @@
             <path>
               <item name="icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09" type="b2602c69:ProjectViewProjectNode" />
               <item name="icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09" type="462c0819:PsiDirectoryNode" />
-              <item name="jtnn" type="462c0819:PsiDirectoryNode" />
+              <item name="jupyter-notebooks" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -427,18 +355,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="960" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="12" weight="0.32908458" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="2" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="1" />
       <window_info anchor="bottom" id="Python Console" order="3" weight="0.32908458" />
-      <window_info active="true" anchor="bottom" id="Run" order="8" visible="true" weight="0.46002316" />
+      <window_info active="true" anchor="bottom" id="Run" order="8" visible="true" weight="0.4078795" />
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.21320973" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.4980695" visible="true" weight="0.2765568" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.4980695" visible="true" weight="0.23748474" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="2" />
-      <window_info anchor="bottom" id="Find" order="7" weight="0.32908458" />
       <window_info anchor="right" id="SciView" order="0" />
       <window_info id="Structure" order="2" sideWeight="0.5019305" side_tool="true" weight="0.22527473" />
       <window_info id="Favorites" order="0" side_tool="true" />
@@ -449,33 +377,34 @@
       <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
       <window_info anchor="right" x="0" y="0" width="370" height="760" id="Documentation" order="5" side_tool="true" weight="0.32967034" />
       <window_info anchor="bottom" id="Message" order="6" />
-      <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info active="true" anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.32908458" />
+      <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="7" weight="0.32908458" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
+      <window_info id="Favorites" order="0" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.4980695" visible="true" weight="0.25213677" />
       <window_info id="Structure" order="2" sideWeight="0.5019305" side_tool="true" weight="0.22527473" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="12" weight="0.32908458" />
-      <window_info anchor="bottom" id="Version Control" order="1" />
       <window_info anchor="bottom" id="Run" order="8" visible="true" weight="0.40903825" />
-      <window_info anchor="bottom" id="Find" order="7" weight="0.32908458" />
-      <window_info anchor="bottom" id="Python Console" order="3" weight="0.32908458" />
+      <window_info anchor="bottom" id="Message" order="6" />
       <window_info anchor="bottom" id="Debug" order="9" weight="0.39976826" />
       <window_info anchor="right" x="0" y="0" width="370" height="760" id="Documentation" order="5" side_tool="true" weight="0.32967034" />
       <window_info anchor="right" id="Database" order="2" />
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.29432213" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="2" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="1" />
       <window_info anchor="right" id="SciView" order="0" />
-      <window_info anchor="bottom" id="Message" order="6" />
+      <window_info anchor="bottom" id="Find" order="7" weight="0.32908458" />
       <window_info active="true" anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.32908458" />
-      <window_info id="Favorites" order="0" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="3" weight="0.32908458" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -486,6 +415,96 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/MessPassNet.py</url>
+          <line>303</line>
+          <option name="timeStamp" value="550" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/JTMessPassNet.py</url>
+          <line>317</line>
+          <option name="timeStamp" value="552" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/JTVAE.py</url>
+          <line>293</line>
+          <option name="timeStamp" value="571" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/JTVAE.py</url>
+          <line>344</line>
+          <option name="timeStamp" value="574" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/JTVAE.py</url>
+          <line>209</line>
+          <option name="timeStamp" value="580" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/JTVAE.py</url>
+          <line>231</line>
+          <option name="timeStamp" value="581" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/JTVAE.py</url>
+          <line>235</line>
+          <option name="timeStamp" value="582" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/MolGraphEncoder.py</url>
+          <line>195</line>
+          <option name="timeStamp" value="583" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/MolGraphEncoder.py</url>
+          <line>196</line>
+          <option name="timeStamp" value="584" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/ConvNetLayer.py</url>
+          <line>78</line>
+          <option name="timeStamp" value="585" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/ConvNetLayer.py</url>
+          <line>79</line>
+          <option name="timeStamp" value="586" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/ConvNetLayer.py</url>
+          <line>84</line>
+          <option name="timeStamp" value="587" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/ConvNetLayer.py</url>
+          <line>87</line>
+          <option name="timeStamp" value="588" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/ConvNetLayer.py</url>
+          <line>90</line>
+          <option name="timeStamp" value="589" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/ConvNetLayer.py</url>
+          <line>95</line>
+          <option name="timeStamp" value="590" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/ConvNetLayer.py</url>
+          <line>98</line>
+          <option name="timeStamp" value="591" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jtnn/ConvNetLayer.py</url>
+          <line>114</line>
+          <option name="timeStamp" value="594" />
+        </line-breakpoint>
+      </breakpoints>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -493,28 +512,14 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="526" />
+      <option name="time" value="595" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/molvae/sample.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///anaconda3/envs/pytorch/lib/python3.6/site-packages/torch/utils/data/sampler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
           <caret line="159" selection-start-line="159" selection-end-line="159" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///anaconda3/envs/pytorch/lib/python3.6/site-packages/torch/utils/data/dataloader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="137" selection-start-line="137" selection-end-line="137" />
         </state>
       </provider>
     </entry>
@@ -561,25 +566,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/jupyter-notebooks/01_molecule_qm9_regression_v1.py" />
-    <entry file="file:///anaconda3/envs/pytorch/lib/python3.6/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="308" selection-start-line="308" selection-end-line="308" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/plots/test.png" />
     <entry file="file:///anaconda3/envs/pytorch/lib/python3.6/site-packages/matplotlib/pyplot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="143">
           <caret line="405" column="4" selection-start-line="405" selection-start-column="4" selection-end-line="405" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///anaconda3/envs/pytorch/lib/python3.6/site-packages/torch/nn/modules/module.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="488" selection-start-line="488" selection-end-line="488" />
         </state>
       </provider>
     </entry>
@@ -601,11 +592,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="499">
           <caret line="182" column="20" selection-start-line="182" selection-start-column="20" selection-end-line="182" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-            <element signature="e#144#666#0" />
-            <element signature="e#702#1154#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -619,34 +605,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/MolJuncTreeNode.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1132">
-          <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/GraphGRU.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="58" column="34" lean-forward="true" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/new_molvae/sample.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/data_exploration.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="1" />
         </state>
       </provider>
     </entry>
@@ -678,16 +640,56 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" selection-start-line="7" selection-end-line="9" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/JTProp_VAE.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="113" column="25" selection-start-line="113" selection-start-column="25" selection-end-line="113" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/tafri.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/MolJuncTreeNode.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-691">
+          <caret line="50" column="8" selection-start-line="50" selection-start-column="8" selection-end-line="50" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/MolJuncTree.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="299" column="24" selection-start-line="299" selection-start-column="17" selection-end-line="299" selection-end-column="24" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#597#3590#0" />
+            <element signature="e#3692#13251#0" />
+            <element signature="e#13593#13839#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/new_molvae/preprocess.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-327">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/JTMessPassNet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1379">
-          <caret line="193" column="8" selection-start-line="193" selection-start-column="8" selection-end-line="193" selection-end-column="8" />
+        <state relative-caret-position="378">
+          <caret line="317" selection-start-line="317" selection-end-line="317" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
             <element signature="e#1000#1527#0" />
@@ -699,78 +701,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/JTNNDecoder.py">
+    <entry file="file://$PROJECT_DIR$/jtnn/GraphGRU.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="291" selection-start-line="291" selection-end-line="291" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#2403#3457#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/JTProp_VAE.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="113" column="25" selection-start-line="113" selection-start-column="25" selection-end-line="113" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/JTNNEncoder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1429">
-          <caret line="320" column="8" selection-start-line="320" selection-start-column="8" selection-end-line="320" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/new_molvae/preprocess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/tafri.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/new_datautils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="62" column="23" selection-start-line="62" selection-start-column="23" selection-end-line="62" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/MolJuncTree.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
-          <folding>
-            <element signature="e#597#3590#0" />
-            <element signature="e#3692#13251#0" />
-            <element signature="e#13284#13559#0" />
-            <element signature="e#13593#13839#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2">
-          <caret line="22" column="123" lean-forward="true" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="123" />
+        <state relative-caret-position="108">
+          <caret line="71" selection-start-line="71" selection-end-line="71" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -779,15 +713,53 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/MessPassNet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-718">
-          <caret line="209" column="8" selection-start-line="209" selection-start-column="8" selection-end-line="209" selection-end-column="8" />
+        <state relative-caret-position="232">
+          <caret line="195" selection-start-line="195" selection-end-line="195" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/new_datautils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="113" selection-start-line="113" selection-end-line="113" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///anaconda3/envs/pytorch/lib/python3.6/site-packages/torch/utils/data/dataloader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="137" selection-start-line="137" selection-end-line="137" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/JTNNEncoder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1932">
+          <caret line="296" selection-start-line="296" selection-end-line="296" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/JTNNDecoder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="458">
+          <caret line="291" selection-start-line="291" selection-end-line="291" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#2403#3457#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/ConvNetLayer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-121">
-          <caret line="97" column="88" selection-start-line="97" selection-start-column="88" selection-end-line="97" selection-end-column="88" />
+        <state relative-caret-position="397">
+          <caret line="114" selection-start-line="114" selection-end-line="114" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -796,8 +768,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/MolGraphEncoder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="238" column="46" selection-start-line="238" selection-start-column="46" selection-end-line="238" selection-end-column="46" />
+        <state relative-caret-position="277">
+          <caret line="208" selection-start-line="208" selection-end-line="208" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
             <element signature="e#1173#1673#0" />
@@ -807,13 +779,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="210" selection-start-line="210" selection-end-line="210" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///anaconda3/envs/pytorch/lib/python3.6/site-packages/torch/nn/modules/module.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="488" selection-start-line="488" selection-end-line="488" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///anaconda3/envs/pytorch/lib/python3.6/multiprocessing/process.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="92" selection-start-line="92" selection-end-line="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///anaconda3/envs/pytorch/lib/python3.6/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="308" selection-start-line="308" selection-end-line="308" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="61" column="75" selection-start-line="61" selection-start-column="75" selection-end-line="61" selection-end-column="75" />
+        <state relative-caret-position="944">
+          <caret line="156" column="36" selection-start-line="156" selection-start-column="36" selection-end-line="156" selection-end-column="36" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/data_exploration.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="2" />
         </state>
       </provider>
     </entry>
