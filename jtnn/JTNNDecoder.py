@@ -150,7 +150,6 @@ class JTNNDecoder(nn.Module):
         # for the root node of all junction trees, across the entire dataset.
         pred_targets.extend([junc_tree.nodes[0].wid for junc_tree in junc_tree_batch])
 
-        #
         pred_contexts.append(create_var(torch.LongTensor(range(batch_size))))
 
         # number of traversals to go through, to ensure that dfs traversal is completed for the
