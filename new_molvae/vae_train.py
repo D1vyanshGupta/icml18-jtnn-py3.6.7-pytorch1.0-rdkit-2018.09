@@ -1,6 +1,5 @@
 import os
 import sys
-import math
 import argparse
 import warnings
 from timeit import default_timer as timer
@@ -75,8 +74,8 @@ print(args)
 vocab = [x.strip("\r\n ") for x in open(args.vocab)]
 vocab = ClusterVocab(vocab)
 
-# model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.share_embedding).cuda()
-model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding)
+# model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding)
+model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding).cuda()
 print(model)
 
 # for all multi-dimensional parameters, initialize them using xavier initialization
@@ -96,8 +95,9 @@ print("Model #Params: %dK" % (sum([x.nelement() for x in model.parameters()]) / 
 optimizer = optim.Adam(model.parameters(), lr=args.lr)
 
 # exponentially decay the learning rate
-scheduler = lr_scheduler.ExponentialLR(optimizer, args.anneal_rate)
-scheduler.step()
+if args.enable_lr_anneal:
+    scheduler = lr_scheduler.ExponentialLR(optimizer, args.anneal_rate)
+    scheduler.step()
 
 # param_norm = lambda m: math.sqrt(sum([p.norm().item() ** 2 for p in m.parameters()]))
 # grad_norm = lambda m: math.sqrt(sum([p.grad.norm().item() ** 2 for p in m.parameters() if p.grad is not None]))
@@ -179,20 +179,30 @@ for epoch in range(args.epoch):
 
     print('Epoch: {} completed. Time taken: {:.2f} min'.format(epoch + 1, epoch_time / 60))
 
+
+# create model info
+model_info_line_1 = "Hidden Size: {}, Latent Size: {}, DepthG: {}, DepthT: {}".format(args.hidden_size, args.latent_size, args.depthG, args.depthT)
+model_info_line_2 = "Batch Size: {}, Initial LR: {}, Initial Beta: {}, Max Beta: {}".format(args.batch_size, args.lr, args.beta, args.max_beta)
+
+if args.enable_lr_anneal:
+    model_info_line_3 = "LR Anneal Rate: {}, LR Anneal Iter: {}".format(args.anneal_rate, args.anneal_iter)
+else:
+    model_info_line_3 = "LR Annealing Disabled"
+
+if args.enable_beta_anneal:
+    model_info_line_4 = "Step Beta: {}, Beta Anneal Iter: {}".format(args.step_beta, args.beta_anneal_iter)
+else:
+    model_info_line_4 = "Beta Annealing Disabled"
+
+model_info = "\n" + model_info_line_1 + "\n" + model_info_line_2 + "\n" + model_info_line_3 + "\n" + model_info_line_4
+
 # figure for loss and kl-divergence
 # plot graphs
 fig = plt.figure(0, figsize=(15, 10))
 plt.plot(np.arange(total_step), loss_lst, label='Overall Loss')
 plt.plot(np.arange(total_step), kl_div_lst, label='KL-Divergence')
 
-# args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding)
-
-model_info_line_1 = "Hidden Size: {}, Latent Size: {}, DepthG: {}, DepthT: {}".format(args.hidden_size, args.latent_size, args.depthG, args.depthT)
-model_info_line_2 = "Batch Size: {}, Initial LR: {}, Initial Beta: {}, Max Beta: {}".format(args.batch_size, args.lr, args.beta, args.max_beta)
-model_info_line_3 = "LR Anneal Rate: {}, LR Anneal Iter: {}".format(args.anneal_rate, args.anneal_iter)
-model_info_line_4 = "Step Beta: {}, Beta Anneal Iter: {}".format(args.step_beta, args.beta_anneal_iter)
-
-plt.title(args.model_name + " " + "Losses", fontsize=20, pad=10.0)
+plt.title(args.model_name + " " + "Losses" + model_info, fontsize=10, pad=15.0)
 
 plt.xlabel('Iterations', fontsize=20, labelpad=10)
 plt.ylabel('Loss', fontsize=20, labelpad=10)
@@ -212,7 +222,7 @@ plt.plot(np.arange(total_step), wacc_lst, label='Label Accuracy')
 plt.plot(np.arange(total_step), sacc_lst, label='Stereo Accuracy')
 plt.plot(np.arange(total_step), aacc_lst, label='Assembly Accuracy')
 
-plt.title(args.model_name + " " + "Accuracies", fontsize=20, pad=10.0)
+plt.title(args.model_name + " " + "Accuracies" + model_info, fontsize=10, pad=15.0)
 
 plt.xlabel('Iterations', fontsize=20, labelpad=10)
 plt.ylabel('Accuracy', fontsize=20, labelpad=10)
