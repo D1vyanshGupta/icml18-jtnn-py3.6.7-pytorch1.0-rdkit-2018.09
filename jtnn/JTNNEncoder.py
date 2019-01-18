@@ -318,7 +318,7 @@ class JTNNEncoder(nn.Module):
         return tree_vecs, messages
 
     @staticmethod
-    def tensorize(junc_tree_batch, cuda_device):
+    def tensorize(junc_tree_batch):
         """
         Args:
             junc_tree_batch: List[MolJuncTree]
@@ -344,10 +344,10 @@ class JTNNEncoder(nn.Module):
             # append the nodes of this junction-tree to list
             node_batch.extend(junc_tree.nodes)
 
-        return JTNNEncoder.tensorize_nodes(node_batch, scope, cuda_device)
+        return JTNNEncoder.tensorize_nodes(node_batch, scope)
 
     @staticmethod
-    def tensorize_nodes(node_batch, scope, cuda_device):
+    def tensorize_nodes(node_batch, scope):
         """
         Args:
             node_batch: List[MolJuncTreeNode]
@@ -446,10 +446,5 @@ class JTNNEncoder(nn.Module):
         mess_adjacency_graph = torch.LongTensor(mess_adjacency_graph)
         edge_node_idx_list = torch.LongTensor(edge_node_idx_list)
         node_wid_list = torch.LongTensor(node_wid_list)
-
-        node_message_graph.to(cuda_device)
-        mess_adjacency_graph.to(cuda_device)
-        edge_node_idx_list.to(cuda_device)
-        node_wid_list.to(cuda_device)
 
         return (node_wid_list, edge_node_idx_list, node_message_graph, mess_adjacency_graph, scope), mess_dict

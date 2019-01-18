@@ -207,7 +207,7 @@ class MessPassNet(nn.Module):
         return mol_vecs
 
     @staticmethod
-    def tensorize(smiles_batch, cuda_device):
+    def tensorize(smiles_batch):
         """
         Description: This method, given a batch of SMILES representations,
         constructs the feature vectors for the corresponding molecules
@@ -300,11 +300,6 @@ class MessPassNet(nn.Module):
                 # bond again i.e. (y, x)
                 if all_bonds[bond_idx_2][0] != y:
                     bond_adjacency_graph[bond_idx_1, neighbor_idx] = bond_idx_2
-
-        atom_feature_matrix.to(cuda_device)
-        bond_feature_matrix.to(cuda_device)
-        atom_adjacency_graph.to(cuda_device)
-        bond_adjacency_graph.to(cuda_device)
 
         return (atom_feature_matrix, bond_feature_matrix, atom_adjacency_graph, bond_adjacency_graph, scope)
 

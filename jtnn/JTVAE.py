@@ -221,8 +221,7 @@ class JTNNVAE(nn.Module):
             assm_loss, assm_acc = self.assm(x_junc_tree_batch, x_jtmpn_holder, z_mol_vecs, x_tree_mess)
             stereo_loss, stereo_acc = self.stereo(x_stereo_molenc_holder, z_mol_vecs)
 
-            # return word_loss + topo_loss + assm_loss + stereo_loss + beta * kl_div, kl_div.item(), word_acc, topo_acc, assm_acc, stereo_acc
-            return word_loss + topo_loss + assm_loss + stereo_loss + beta * kl_div
+            return word_loss + topo_loss + assm_loss + stereo_loss + beta * kl_div, kl_div.item(), word_acc, topo_acc, assm_acc, stereo_acc
 
     # graph decoder
     def assm_graph_conv(self, junc_tree_batch, x_cand_molenc_holder, z_mol_vecs):

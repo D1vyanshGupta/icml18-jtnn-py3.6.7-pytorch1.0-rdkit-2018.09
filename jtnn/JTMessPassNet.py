@@ -191,7 +191,7 @@ class JTMessPassNet(nn.Module):
         return mol_vecs
 
     @staticmethod
-    def tensorize(candidate_batch, mess_dict, cuda_device):
+    def tensorize(candidate_batch, mess_dict):
         """
         Args:
             candidate_batch: List[Tuple(str, List[MolJuncTreeNode], object: rdkit)]
@@ -315,9 +315,5 @@ class JTMessPassNet(nn.Module):
                 if b2 < total_mess or all_bonds[b2 - total_mess][0] != y:
                     bond_adjacency_graph[b1, i] = b2
 
-        atom_feature_matrix.to(cuda_device)
-        bond_feature_matrix.to(cuda_device)
-        atom_adjacency_graph.to(cuda_device)
-        bond_adjacency_graph.to(cuda_device)
 
         return (atom_feature_matrix, bond_feature_matrix, atom_adjacency_graph, bond_adjacency_graph, scope)
