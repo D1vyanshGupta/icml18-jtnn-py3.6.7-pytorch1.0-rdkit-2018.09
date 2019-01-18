@@ -26,6 +26,7 @@ def tensorize(smiles, assm=True):
     for node in junc_tree.nodes:
         del node.mol
 
+    print('Done')
     return junc_tree
 
 # def tensorize_pair(smiles_pair):
