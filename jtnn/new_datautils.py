@@ -71,8 +71,8 @@ class MolTreeFolder(object):
                 random.shuffle(data)
 
             batches = [data[idx : idx + self.batch_size] for idx in range(0, len(data), self.batch_size)]
-            if len(batches[-1]) < self.batch_size:
-                batches.pop()
+            # if len(batches[-1]) < self.batch_size:
+            #     batches.pop()
 
             dataset = MolTreeDataset(batches, self.vocab, self.use_graph_conv, self.assm)
             dataloader = DataLoader(dataset, batch_size=1, shuffle=False, num_workers=self.num_workers, collate_fn=lambda x:x[0])
