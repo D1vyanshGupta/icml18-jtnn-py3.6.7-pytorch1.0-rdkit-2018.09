@@ -50,11 +50,11 @@ if __name__ == "__main__":
     with open(opts.train_path) as f:
         data = [line.strip("\r\n ").split()[0] for line in f]
 
-    all_data = pool.map(tensorize, data)
-
     print('Before Pooling')
-    le = (len(all_data) + num_splits - 1) // num_splits
+    all_data = pool.map(tensorize, data)
     print('After Pooling')
+
+    le = (len(all_data) + num_splits - 1) // num_splits
 
     for split_id in range(num_splits):
         print("Split: {} created".format(split_id))
