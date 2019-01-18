@@ -133,7 +133,8 @@ for epoch in range(args.epoch):
             # reset the gradient buffer to 0.
             model.zero_grad()
             # implement forward pass
-            loss, kl_div, wacc, tacc, aacc, sacc = model(batch, beta)
+            # loss, kl_div, wacc, tacc, aacc, sacc = model(batch, beta)
+            loss = model(batch, beta)
 
             # append items to list
             # loss_lst.append(loss.item())

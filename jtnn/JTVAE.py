@@ -201,7 +201,6 @@ class JTNNVAE(nn.Module):
         if self.use_graph_conv:
             x_junc_tree_batch, x_jtenc_holder, x_molenc_holder, x_cand_molenc_holder, x_stereo_molenc_holder = x_batch
             x_tree_vecs, x_mol_vecs = self.encode_graph_conv(x_jtenc_holder, x_molenc_holder)
-            print('Cuda Device: {}'.format(x_mol_vecs.get_device()))
             z_tree_vecs, tree_kl = self.rsample(x_tree_vecs, self.T_mean, self.T_var)
             z_mol_vecs, mol_kl = self.rsample(x_mol_vecs, self.G_mean, self.G_var)
 
@@ -222,7 +221,8 @@ class JTNNVAE(nn.Module):
             assm_loss, assm_acc = self.assm(x_junc_tree_batch, x_jtmpn_holder, z_mol_vecs, x_tree_mess)
             stereo_loss, stereo_acc = self.stereo(x_stereo_molenc_holder, z_mol_vecs)
 
-            return word_loss + topo_loss + assm_loss + stereo_loss + beta * kl_div, kl_div.item(), word_acc, topo_acc, assm_acc, stereo_acc
+            # return word_loss + topo_loss + assm_loss + stereo_loss + beta * kl_div, kl_div.item(), word_acc, topo_acc, assm_acc, stereo_acc
+            return word_loss + topo_loss + assm_loss + stereo_loss + beta * kl_div
 
     # graph decoder
     def assm_graph_conv(self, junc_tree_batch, x_cand_molenc_holder, z_mol_vecs):

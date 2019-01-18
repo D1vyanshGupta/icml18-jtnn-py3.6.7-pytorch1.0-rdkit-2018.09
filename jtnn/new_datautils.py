@@ -46,10 +46,11 @@ from MolGraphEncoder import MolGraphEncoder
 
 class MolTreeFolder(object):
 
-    def __init__(self, data_folder, vocab, use_graph_conv, batch_size, num_workers=4, shuffle=True, assm=True, replicate=None):
+    def __init__(self, data_folder, vocab, use_graph_conv, batch_size, cuda_device, num_workers=4, shuffle=True, assm=True, replicate=None):
         self.data_folder = data_folder
         self.data_files = [fn for fn in os.listdir(data_folder)]
         self.batch_size = batch_size
+        self.cuda_device = cuda_device
         self.vocab = vocab
         self.use_graph_conv = use_graph_conv
         self.num_workers = num_workers
@@ -74,7 +75,7 @@ class MolTreeFolder(object):
             if len(batches[-1]) < self.batch_size:
                 batches.pop()
 
-            dataset = MolTreeDataset(batches, self.vocab, self.use_graph_conv, self.assm)
+            dataset = MolTreeDataset(batches, self.vocab, self.use_graph_conv, self.cuda_device, self.assm)
             dataloader = DataLoader(dataset, batch_size=1, shuffle=False, num_workers=self.num_workers, collate_fn=lambda x:x[0])
 
             for b in dataloader:
@@ -101,22 +102,23 @@ class MolTreeFolder(object):
 
 class MolTreeDataset(Dataset):
 
-    def __init__(self, data, vocab, use_graph_conv, assm=True):
+    def __init__(self, data, vocab, use_graph_conv, cuda_device, assm=True):
         self.data = data
         self.vocab = vocab
         self.use_graph_conv = use_graph_conv
+        self.cuda_device = cuda_device
         self.assm = assm
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
-        return tensorize(self.data[idx], self.vocab, self.use_graph_conv, assm=self.assm)
+        return tensorize(self.data[idx], self.vocab, self.use_graph_conv, self.cuda_device, assm=self.assm)
 
-def tensorize(junc_tree_batch, vocab, use_graph_conv, assm=True):
+def tensorize(junc_tree_batch, vocab, use_graph_conv, cuda_device, assm=True):
     set_batch_nodeID(junc_tree_batch, vocab)
     smiles_batch = [junc_tree.smiles for junc_tree in junc_tree_batch]
-    jtenc_holder, mess_dict = JTNNEncoder.tensorize(junc_tree_batch)
+    jtenc_holder, mess_dict = JTNNEncoder.tensorize(junc_tree_batch, cuda_device)
 
     if use_graph_conv:
         molenc_holder = MolGraphEncoder.tensorize(smiles_batch)
@@ -159,7 +161,7 @@ def tensorize(junc_tree_batch, vocab, use_graph_conv, assm=True):
         return junc_tree_batch, jtenc_holder, molenc_holder, (cand_molenc_holder, cand_batch_idx), (stereo_molenc_holder, stereo_batch_idx, stereo_labels)
 
     else:
-        mpn_holder = MessPassNet.tensorize(smiles_batch)
+        mpn_holder = MessPassNet.tensorize(smiles_batch, cuda_device)
 
         if assm is False:
             return junc_tree_batch, jtenc_holder, mpn_holder
@@ -174,7 +176,7 @@ def tensorize(junc_tree_batch, vocab, use_graph_conv, assm=True):
                 candidates.extend([(candidate, junc_tree.nodes, node) for candidate in node.candidates])
                 cand_batch_idx.extend([idx] * len(node.candidates))
 
-        jtmpn_holder = JTMessPassNet.tensorize(candidates, mess_dict)
+        jtmpn_holder = JTMessPassNet.tensorize(candidates, mess_dict, cuda_device)
         cand_batch_idx = torch.LongTensor(cand_batch_idx)
 
         stereo_candidates = []
@@ -193,8 +195,10 @@ def tensorize(junc_tree_batch, vocab, use_graph_conv, assm=True):
 
         stereo_molenc_holder = None
         if len(stereo_labels) > 0:
-            stereo_molenc_holder = MessPassNet.tensorize(stereo_candidates)
+            stereo_molenc_holder = MessPassNet.tensorize(stereo_candidates, cuda_device)
         stereo_batch_idx = torch.LongTensor(stereo_batch_idx)
+
+        stereo_batch_idx.to(stereo_batch_idx)
 
         return junc_tree_batch, jtenc_holder, mpn_holder, (jtmpn_holder, cand_batch_idx), (stereo_molenc_holder, stereo_batch_idx, stereo_labels)
 

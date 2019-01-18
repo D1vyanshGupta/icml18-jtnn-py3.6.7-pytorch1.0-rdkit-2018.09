@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/jtnn/JTMessPassNet.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/JTMessPassNet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jtnn/JTNNEncoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/JTNNEncoder.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jtnn/JTVAE.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/JTVAE.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jtnn/MessPassNet.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/MessPassNet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jtnn/new_datautils.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/new_datautils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/new_molvae/vae_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_molvae/vae_train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,8 +26,8 @@
       <file leaf-file-name="vae_train.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="763">
-              <caret line="164" column="82" selection-start-line="164" selection-start-column="82" selection-end-line="164" selection-end-column="82" />
+            <state relative-caret-position="329">
+              <caret line="136" column="19" selection-start-line="136" selection-start-column="19" selection-end-line="136" selection-end-column="19" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -31,11 +35,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JTVAE.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="new_datautils.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/jtnn/new_datautils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="341">
+              <caret line="200" column="44" selection-start-line="200" selection-start-column="44" selection-end-line="200" selection-end-column="44" />
+              <folding>
+                <element signature="e#0#17#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JTVAE.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="203" column="66" selection-start-line="203" selection-start-column="66" selection-end-line="203" selection-end-column="66" />
+            <state relative-caret-position="221">
+              <caret line="224" column="82" selection-start-line="224" selection-start-column="82" selection-end-line="224" selection-end-column="82" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -43,13 +59,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="new_datautils.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jtnn/new_datautils.py">
+      <file leaf-file-name="MessPassNet.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jtnn/MessPassNet.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1438">
-              <caret line="198" column="145" lean-forward="true" selection-start-line="198" selection-start-column="15" selection-end-line="198" selection-end-column="145" />
+            <state relative-caret-position="193">
+              <caret line="209" column="8" selection-start-line="209" selection-start-column="8" selection-end-line="209" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JTMessPassNet.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jtnn/JTMessPassNet.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="474">
+              <caret line="320" column="44" selection-start-line="320" selection-start-column="44" selection-end-line="320" selection-end-column="44" />
               <folding>
-                <element signature="e#0#17#0" expanded="true" />
+                <element signature="e#0#12#0" expanded="true" />
+                <element signature="e#1000#1527#0" />
+                <element signature="e#1565#2273#0" />
+                <element signature="e#2311#2874#0" />
+                <element signature="e#2961#3640#0" />
+                <element signature="e#3777#7616#0" />
               </folding>
             </state>
           </provider>
@@ -153,21 +183,21 @@
         <option value="$PROJECT_DIR$/jtnn/GraphGRU.py" />
         <option value="$PROJECT_DIR$/new_molvae/sample.py" />
         <option value="$PROJECT_DIR$/jtnn/__init__.py" />
-        <option value="$PROJECT_DIR$/jtnn/JTMessPassNet.py" />
         <option value="$PROJECT_DIR$/jtnn/JTProp_VAE.py" />
-        <option value="$PROJECT_DIR$/jtnn/JTNNEncoder.py" />
-        <option value="$PROJECT_DIR$/jtnn/MessPassNet.py" />
         <option value="$PROJECT_DIR$/jtnn/tafri.ipynb" />
         <option value="$PROJECT_DIR$/new_molvae/preprocess.py" />
         <option value="$PROJECT_DIR$/jtnn/ConvNetLayer.py" />
-        <option value="$PROJECT_DIR$/jtnn/new_datautils.py" />
         <option value="$PROJECT_DIR$/jtnn/JTNNDecoder.py" />
         <option value="$PROJECT_DIR$/jtnn/MolGraphEncoder.py" />
         <option value="$PROJECT_DIR$/jupyter-notebooks/data_exploration.ipynb" />
         <option value="$PROJECT_DIR$/jtnn/nnutils.py" />
         <option value="$PROJECT_DIR$/molvae/test.py" />
-        <option value="$PROJECT_DIR$/new_molvae/vae_train.py" />
         <option value="$PROJECT_DIR$/jtnn/JTVAE.py" />
+        <option value="$PROJECT_DIR$/new_molvae/vae_train.py" />
+        <option value="$PROJECT_DIR$/jtnn/JTNNEncoder.py" />
+        <option value="$PROJECT_DIR$/jtnn/MessPassNet.py" />
+        <option value="$PROJECT_DIR$/jtnn/JTMessPassNet.py" />
+        <option value="$PROJECT_DIR$/jtnn/new_datautils.py" />
       </list>
     </option>
   </component>
@@ -440,13 +470,8 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/jtnn/MessPassNet.py</url>
-          <line>303</line>
-          <option name="timeStamp" value="550" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/jtnn/JTMessPassNet.py</url>
-          <line>317</line>
+          <line>322</line>
           <option name="timeStamp" value="552" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -711,37 +736,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/JTNNEncoder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="296" selection-start-line="296" selection-end-line="296" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/ConvNetLayer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="551">
           <caret line="114" selection-start-line="114" selection-end-line="114" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/JTMessPassNet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="317" selection-start-line="317" selection-end-line="317" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-            <element signature="e#1000#1527#0" />
-            <element signature="e#1565#2273#0" />
-            <element signature="e#2311#2874#0" />
-            <element signature="e#2961#3640#0" />
-            <element signature="e#3777#7616#0" />
           </folding>
         </state>
       </provider>
@@ -771,13 +771,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/MessPassNet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2628">
-          <caret line="273" column="4" selection-start-line="273" selection-start-column="4" selection-end-line="273" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/chemutils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -795,32 +788,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/new_datautils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1438">
-          <caret line="198" column="145" lean-forward="true" selection-start-line="198" selection-start-column="15" selection-end-line="198" selection-end-column="145" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="763">
-          <caret line="164" column="82" selection-start-line="164" selection-start-column="82" selection-end-line="164" selection-end-column="82" />
+        <state relative-caret-position="329">
+          <caret line="136" column="19" selection-start-line="136" selection-start-column="19" selection-end-line="136" selection-end-column="19" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
+    <entry file="file://$PROJECT_DIR$/jtnn/JTNNEncoder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="203" column="66" selection-start-line="203" selection-start-column="66" selection-end-line="203" selection-end-column="66" />
+        <state relative-caret-position="476">
+          <caret line="454" column="21" lean-forward="true" selection-start-line="454" selection-start-column="21" selection-end-line="454" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/JTMessPassNet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="320" column="44" selection-start-line="320" selection-start-column="44" selection-end-line="320" selection-end-column="44" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#1000#1527#0" />
+            <element signature="e#1565#2273#0" />
+            <element signature="e#2311#2874#0" />
+            <element signature="e#2961#3640#0" />
+            <element signature="e#3777#7616#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/MessPassNet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="209" column="8" selection-start-line="209" selection-start-column="8" selection-end-line="209" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="224" column="82" selection-start-line="224" selection-start-column="82" selection-end-line="224" selection-end-column="82" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/new_datautils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="200" column="44" selection-start-line="200" selection-start-column="44" selection-end-line="200" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
           </folding>
         </state>
       </provider>
