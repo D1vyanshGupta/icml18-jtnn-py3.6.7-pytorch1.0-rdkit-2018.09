@@ -124,7 +124,7 @@ meters = np.zeros(6)
 for epoch in range(args.epoch):
     epoch_time = 0
     print('Jai Mata Di!!')
-    loader = MolTreeFolder(args.train, vocab, args.use_graph_conv, args.batch_size, num_workers=5)
+    loader = MolTreeFolder(args.train, vocab, args.use_graph_conv, args.batch_size, device, num_workers=5)
     for idx, batch in enumerate(loader):
         total_step += 1
         try:
