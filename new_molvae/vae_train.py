@@ -126,7 +126,6 @@ for epoch in range(args.epoch):
 
     loader = MolTreeFolder(args.train, vocab, args.use_graph_conv, args.batch_size, num_workers=5)
     for idx, batch in enumerate(loader):
-        input = batch.to(device)
         print(device)
         total_step += 1
         # try:

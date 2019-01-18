@@ -21,10 +21,22 @@
       <file leaf-file-name="vae_train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1492">
-              <caret line="129" selection-start-line="129" selection-end-line="129" />
+            <state relative-caret-position="463">
+              <caret line="130" column="12" selection-start-line="130" selection-start-column="12" selection-end-line="130" selection-end-column="12" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="new_datautils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jtnn/new_datautils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-399">
+              <caret line="113" selection-start-line="113" selection-end-line="113" />
+              <folding>
+                <element signature="e#0#17#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -172,6 +184,11 @@
             <path>
               <item name="icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09" type="b2602c69:ProjectViewProjectNode" />
               <item name="icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09" type="b2602c69:ProjectViewProjectNode" />
+              <item name="icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09" type="462c0819:PsiDirectoryNode" />
+              <item name="jtnn" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09" type="b2602c69:ProjectViewProjectNode" />
@@ -537,13 +554,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/molvae/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="48" column="16" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/new_molvae/sample.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -599,16 +609,6 @@
           <caret line="71" selection-start-line="71" selection-end-line="71" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/new_datautils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="113" selection-start-line="113" selection-end-line="113" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -780,10 +780,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/molvae/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="458">
+          <caret line="48" column="16" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/new_datautils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-399">
+          <caret line="113" selection-start-line="113" selection-end-line="113" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1492">
-          <caret line="129" selection-start-line="129" selection-end-line="129" />
+        <state relative-caret-position="463">
+          <caret line="130" column="12" selection-start-line="130" selection-start-column="12" selection-end-line="130" selection-end-column="12" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
