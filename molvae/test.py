@@ -48,6 +48,7 @@ model.to(device)
 
 for data in rand_loader:
     input = data.to(device)
+    print('Input Cuda Device: {}'.format(input.get_device()))
     output = model(input)
-    print("Outside: input size", input.size(),
-          "output_size", output.size())
+    print('Output Cuda Device: {}'.format(output.get_device()))
+    print("Outside: input size: {}, output_size: {}".format(input.size(), output.size()))
