@@ -35,7 +35,7 @@ class Model(nn.Module):
 
     def forward(self, input):
         output = self.fc(input)
-        print("\tIn Model: input size: {}, output size, Cuda Device: {}".format(input.size(), output.size(), input.get_device()))
+        print("\tIn Model: input size: {}, output size: {}, Cuda Device: {}".format(input.size(), output.size(), input.get_device()))
         return output
 
 model = Model(input_size, output_size)
