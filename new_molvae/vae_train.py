@@ -74,9 +74,16 @@ print(args)
 vocab = [x.strip("\r\n ") for x in open(args.vocab)]
 vocab = ClusterVocab(vocab)
 
-# model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding)
-model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding).cuda()
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding)
+# model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding).cuda()
 print(model)
+
+if torch.cuda.device_count() > 1:
+    model = nn.DataParallel(model)
+
+model.to(device)
 
 # for all multi-dimensional parameters, initialize them using xavier initialization
 # for one-dimensional parameters, initialize them to 0.
@@ -107,131 +114,133 @@ beta = args.beta
 meters = np.zeros(6)
 
 # list to store loss and accuracies
-loss_lst = []
-kl_div_lst = []
-wacc_lst = []
-tacc_lst = []
-aacc_lst = []
-sacc_lst = []
+# loss_lst = []
+# kl_div_lst = []
+# wacc_lst = []
+# tacc_lst = []
+# aacc_lst = []
+# sacc_lst = []
 
 for epoch in range(args.epoch):
     epoch_time = 0
 
     loader = MolTreeFolder(args.train, vocab, args.use_graph_conv, args.batch_size, num_workers=5)
     for idx, batch in enumerate(loader):
+        input = batch.to(device)
+        print(device)
         total_step += 1
-        try:
-            start = timer()
+        # try:
+        #     start = timer()
 
             # reset the gradient buffer to 0.
-            model.zero_grad()
+            # model.zero_grad()
             # implement forward pass
-            loss, kl_div, wacc, tacc, aacc, sacc = model(batch, beta)
+            # loss, kl_div, wacc, tacc, aacc, sacc = model(batch, beta)
 
             # append items to list
-            loss_lst.append(loss.item())
-            kl_div_lst.append(kl_div)
-            wacc_lst.append(wacc)
-            tacc_lst.append(tacc)
-            aacc_lst.append(aacc)
-            sacc_lst.append(sacc)
+            # loss_lst.append(loss.item())
+            # kl_div_lst.append(kl_div)
+            # wacc_lst.append(wacc)
+            # tacc_lst.append(tacc)
+            # aacc_lst.append(aacc)
+            # sacc_lst.append(sacc)
 
             # implement backpropagation
-            loss.backward()
+            # loss.backward()
 
             # implement gradient clipping
             # nn.utils.clip_grad_norm_(model.parameters(), args.clip_norm)
 
             # update model parameters
-            optimizer.step()
+            # optimizer.step()
 
-            end = timer()
+            # end = timer()
 
-            time_for_iteration = (end - start)
+            # time_for_iteration = (end - start)
 
-            epoch_time += time_for_iteration
+            # epoch_time += time_for_iteration
 
-        except Exception as e:
-            print(e)
-            continue
+        # except Exception as e:
+        #     print(e)
+        #     continue
 
-        meters = meters + np.array([loss.item(), kl_div, wacc * 100, tacc * 100, aacc * 100, sacc * 100])
-
-        if total_step % args.print_iter == 0:
-            meters /= args.print_iter
-            print("Epoch:{}, Iteration: {}, Step: {}, Beta: {:.3f}, Loss:{}, KL: {:.2f}, Word: {:.2f}, Topo: {:.2f}, Assm: {:.2f}, Stereo: {:.2f}, Time: {:.2f} min".format(
-                    epoch + 1, idx + 1, total_step, beta, meters[0], meters[1], meters[2], meters[3], meters[4], meters[5], time_for_iteration / 60))
-            sys.stdout.flush()
-            meters *= 0
-
-        if total_step % args.save_iter == 0:
-            model_name = (args.model_name).lower().replace(' ', '_')
-            torch.save(model.state_dict(), args.save_dir + "/{}.iter-".format(model_name) + str(total_step))
-
-        # implement learning-rate annealing
-        if args.enable_lr_anneal and total_step % args.anneal_iter == 0:
-            scheduler.step()
-            print("learning rate: %.6f" % scheduler.get_lr()[0])
-
-        # implement beta-annealing
-        if args.enable_beta_anneal and total_step % args.beta_anneal_iter == 0 and total_step >= args.warmup:
-            beta = min(args.max_beta, beta + args.step_beta)
-
-    print('Epoch: {} completed. Time taken: {:.2f} min'.format(epoch + 1, epoch_time / 60))
+    #     meters = meters + np.array([loss.item(), kl_div, wacc * 100, tacc * 100, aacc * 100, sacc * 100])
+    #
+    #     if total_step % args.print_iter == 0:
+    #         meters /= args.print_iter
+    #         print("Epoch:{}, Iteration: {}, Step: {}, Beta: {:.3f}, Loss:{}, KL: {:.2f}, Word: {:.2f}, Topo: {:.2f}, Assm: {:.2f}, Stereo: {:.2f}, Time: {:.2f} min".format(
+    #                 epoch + 1, idx + 1, total_step, beta, meters[0], meters[1], meters[2], meters[3], meters[4], meters[5], time_for_iteration / 60))
+    #         sys.stdout.flush()
+    #         meters *= 0
+    #
+    #     if total_step % args.save_iter == 0:
+    #         model_name = (args.model_name).lower().replace(' ', '_')
+    #         torch.save(model.state_dict(), args.save_dir + "/{}.iter-".format(model_name) + str(total_step))
+    #
+    #     # implement learning-rate annealing
+    #     if args.enable_lr_anneal and total_step % args.anneal_iter == 0:
+    #         scheduler.step()
+    #         print("learning rate: %.6f" % scheduler.get_lr()[0])
+    #
+    #     # implement beta-annealing
+    #     if args.enable_beta_anneal and total_step % args.beta_anneal_iter == 0 and total_step >= args.warmup:
+    #         beta = min(args.max_beta, beta + args.step_beta)
+    #
+    # print('Epoch: {} completed. Time taken: {:.2f} min'.format(epoch + 1, epoch_time / 60))
 
 
 # create model info
-model_info_line_1 = "Hidden Size: {}, Latent Size: {}, DepthG: {}, DepthT: {}".format(args.hidden_size, args.latent_size, args.depthG, args.depthT)
-model_info_line_2 = "Batch Size: {}, Initial LR: {}, Initial Beta: {}, Max Beta: {}".format(args.batch_size, args.lr, args.beta, args.max_beta)
-
-if args.enable_lr_anneal:
-    model_info_line_3 = "LR Anneal Rate: {}, LR Anneal Iter: {}".format(args.anneal_rate, args.anneal_iter)
-else:
-    model_info_line_3 = "LR Annealing Disabled"
-
-if args.enable_beta_anneal:
-    model_info_line_4 = "Beta Annealing Begins at: {}, Step Beta: {}, Beta Anneal Iter: {}".format(args.warmup, args.step_beta, args.beta_anneal_iter)
-else:
-    model_info_line_4 = "Beta Annealing Disabled"
-
-model_info = "\n" + model_info_line_1 + "\n" + model_info_line_2 + "\n" + model_info_line_3 + "\n" + model_info_line_4
-
-# figure for loss and kl-divergence
-# plot graphs
-fig = plt.figure(0, figsize=(15, 10))
-plt.plot(np.arange(total_step), loss_lst, label='Overall Loss')
-plt.plot(np.arange(total_step), kl_div_lst, label='KL-Divergence')
-
-plt.title(args.model_name + " " + "Losses" + model_info, fontsize=10, pad=15.0)
-
-plt.xlabel('Iterations', fontsize=20, labelpad=10)
-plt.ylabel('Loss', fontsize=20, labelpad=10)
-
-plt.tick_params(labelsize=20)
-plt.legend()
-
-plot_name = (args.model_name).lower().replace(' ', '_') + "_loss"
-
-fig_path = os.path.join(PARENT_DIR_PATH, 'plots', plot_name + '.png')
-plt.savefig(fig_path, dpi=200)
-plt.close(fig)
-
-fig = plt.figure(0, figsize=(15, 10))
-plt.plot(np.arange(total_step), tacc_lst, label='Topological Accuracy')
-plt.plot(np.arange(total_step), wacc_lst, label='Label Accuracy')
-plt.plot(np.arange(total_step), sacc_lst, label='Stereo Accuracy')
-plt.plot(np.arange(total_step), aacc_lst, label='Assembly Accuracy')
-
-plt.title(args.model_name + " " + "Accuracies" + model_info, fontsize=10, pad=15.0)
-
-plt.xlabel('Iterations', fontsize=20, labelpad=10)
-plt.ylabel('Accuracy', fontsize=20, labelpad=10)
-
-plt.tick_params(labelsize=20)
-plt.legend()
-
-plot_name = (args.model_name).lower().replace(' ', '_') + "_acc"
-
-fig_path = os.path.join(args.plot_dir, plot_name + '.png')
-plt.savefig(fig_path, dpi=200)
-plt.close(fig)
+# model_info_line_1 = "Hidden Size: {}, Latent Size: {}, DepthG: {}, DepthT: {}".format(args.hidden_size, args.latent_size, args.depthG, args.depthT)
+# model_info_line_2 = "Batch Size: {}, Initial LR: {}, Initial Beta: {}, Max Beta: {}".format(args.batch_size, args.lr, args.beta, args.max_beta)
+#
+# if args.enable_lr_anneal:
+#     model_info_line_3 = "LR Anneal Rate: {}, LR Anneal Iter: {}".format(args.anneal_rate, args.anneal_iter)
+# else:
+#     model_info_line_3 = "LR Annealing Disabled"
+#
+# if args.enable_beta_anneal:
+#     model_info_line_4 = "Beta Annealing Begins at: {}, Step Beta: {}, Beta Anneal Iter: {}".format(args.warmup,   args.step_beta, args.beta_anneal_iter)
+# else:
+#     model_info_line_4 = "Beta Annealing Disabled"
+#
+# model_info = "\n" + model_info_line_1 + "\n" + model_info_line_2 + "\n" + model_info_line_3 + "\n" + model_info_line_4
+#
+# # figure for loss and kl-divergence
+# # plot graphs
+# fig = plt.figure(0, figsize=(15, 10))
+# plt.plot(np.arange(total_step), loss_lst, label='Overall Loss')
+# plt.plot(np.arange(total_step), kl_div_lst, label='KL-Divergence')
+#
+# plt.title(args.model_name + " " + "Losses" + model_info, fontsize=10, pad=15.0)
+#
+# plt.xlabel('Iterations', fontsize=20, labelpad=10)
+# plt.ylabel('Loss', fontsize=20, labelpad=10)
+#
+# plt.tick_params(labelsize=20)
+# plt.legend()
+#
+# plot_name = (args.model_name).lower().replace(' ', '_') + "_loss"
+#
+# fig_path = os.path.join(PARENT_DIR_PATH, 'plots', plot_name + '.png')
+# plt.savefig(fig_path, dpi=200)
+# plt.close(fig)
+#
+# fig = plt.figure(0, figsize=(15, 10))
+# plt.plot(np.arange(total_step), tacc_lst, label='Topological Accuracy')
+# plt.plot(np.arange(total_step), wacc_lst, label='Label Accuracy')
+# plt.plot(np.arange(total_step), sacc_lst, label='Stereo Accuracy')
+# plt.plot(np.arange(total_step), aacc_lst, label='Assembly Accuracy')
+#
+# plt.title(args.model_name + " " + "Accuracies" + model_info, fontsize=10, pad=15.0)
+#
+# plt.xlabel('Iterations', fontsize=20, labelpad=10)
+# plt.ylabel('Accuracy', fontsize=20, labelpad=10)
+#
+# plt.tick_params(labelsize=20)
+# plt.legend()
+#
+# plot_name = (args.model_name).lower().replace(' ', '_') + "_acc"
+#
+# fig_path = os.path.join(args.plot_dir, plot_name + '.png')
+# plt.savefig(fig_path, dpi=200)
+# plt.close(fig)
