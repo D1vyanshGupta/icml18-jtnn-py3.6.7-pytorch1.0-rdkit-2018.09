@@ -190,7 +190,7 @@ else:
     model_info_line_3 = "LR Annealing Disabled"
 
 if args.enable_beta_anneal:
-    model_info_line_4 = "Step Beta: {}, Beta Anneal Iter: {}".format(args.step_beta, args.beta_anneal_iter)
+    model_info_line_4 = "Beta Annealing Begins at: {}, Step Beta: {}, Beta Anneal Iter: {}".format(args.warmup, args.step_beta, args.beta_anneal_iter)
 else:
     model_info_line_4 = "Beta Annealing Disabled"
 
