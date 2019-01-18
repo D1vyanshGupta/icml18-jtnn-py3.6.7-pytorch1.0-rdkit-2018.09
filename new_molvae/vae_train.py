@@ -114,6 +114,8 @@ tacc_lst = []
 aacc_lst = []
 sacc_lst = []
 
+total_training_time = 0
+
 for epoch in range(args.epoch):
     epoch_time = 0
     loader = MolTreeFolder(args.train, vocab, args.use_graph_conv, args.batch_size, num_workers=5)
@@ -153,12 +155,12 @@ for epoch in range(args.epoch):
         except Exception as e:
             print(e)
             continue
-            
+
         meters = meters + np.array([loss.item(), kl_div, wacc * 100, tacc * 100, aacc * 100, sacc * 100])
 
         if total_step % args.print_iter == 0:
             meters /= args.print_iter
-            print("Epoch:{}, Iteration: {}, Step: {}, Beta: {:.3f}, Loss:{}, KL: {:.2f}, Word: {:.2f}, Topo: {:.2f}, Assm: {:.2f}, Stereo: {:.2f}, Time: {:.2f} min".format(
+            print("Epoch:{}, Iteration: {}, Step: {}, Beta: {:.3f}, Loss:{:.2f}, KL: {:.2f}, Word: {:.2f}, Topo: {:.2f}, Assm: {:.2f}, Stereo: {:.2f}, Time: {:.2f} min".format(
                     epoch + 1, idx + 1, total_step, beta, meters[0], meters[1], meters[2], meters[3], meters[4], meters[5], time_for_iteration / 60))
             sys.stdout.flush()
             meters *= 0
@@ -176,9 +178,11 @@ for epoch in range(args.epoch):
         if args.enable_beta_anneal and total_step % args.beta_anneal_iter == 0 and total_step >= args.warmup:
             beta = min(args.max_beta, beta + args.step_beta)
 
-    print('Epoch: {} completed. Time taken: {:.2f} min'.format(epoch + 1, epoch_time / 60))
+    print('Epoch: {} completed. Time taken: {:.2f} min.'.format(epoch + 1, epoch_time / 60))
 
+    total_training_time += epoch_time
 
+print('Total Training Time: {:.2f} min.'.format(total_training_time / 60))
 # create model info
 model_info_line_1 = "Hidden Size: {}, Latent Size: {}, DepthG: {}, DepthT: {}".format(args.hidden_size, args.latent_size, args.depthG, args.depthT)
 model_info_line_2 = "Batch Size: {}, Initial LR: {}, Initial Beta: {}, Max Beta: {}".format(args.batch_size, args.lr, args.beta, args.max_beta)
