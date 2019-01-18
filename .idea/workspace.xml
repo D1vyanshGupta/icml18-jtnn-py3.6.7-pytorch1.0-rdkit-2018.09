@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/new_molvae/vae_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_molvae/vae_train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/molvae/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/molvae/test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="vae_train.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="vae_train.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="463">
-              <caret line="130" column="12" selection-start-line="130" selection-start-column="12" selection-end-line="130" selection-end-column="12" />
+            <state relative-caret-position="-587">
+              <caret line="83" column="20" selection-start-line="83" selection-start-column="15" selection-end-line="83" selection-end-column="20" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -30,11 +30,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="test.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/molvae/test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="331">
+              <caret line="37" column="115" selection-start-line="37" selection-start-column="115" selection-end-line="37" selection-end-column="115" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="new_datautils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jtnn/new_datautils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-399">
-              <caret line="113" selection-start-line="113" selection-end-line="113" />
+            <state relative-caret-position="423">
+              <caret line="198" column="145" lean-forward="true" selection-start-line="198" selection-start-column="15" selection-end-line="198" selection-end-column="145" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -54,7 +63,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Jai</find>
       <find>cands</find>
       <find>Jai Mata</find>
       <find>Jai mata</find>
@@ -84,6 +92,7 @@
       <find>enable_beta_anneal</find>
       <find>cuda</find>
       <find>.cuda</find>
+      <find>DataP</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -134,7 +143,6 @@
         <option value="$PROJECT_DIR$/jtnn/MolEncoder.py" />
         <option value="$PROJECT_DIR$/jtnn/JTNN_Dec.py" />
         <option value="$PROJECT_DIR$/jtnn/JTNN_Enc.py" />
-        <option value="$PROJECT_DIR$/molvae/test.py" />
         <option value="$PROJECT_DIR$/molvae/pretrain.py" />
         <option value="$PROJECT_DIR$/jtnn/chemutils.py" />
         <option value="$PROJECT_DIR$/jtnn/datautils.py" />
@@ -155,6 +163,7 @@
         <option value="$PROJECT_DIR$/jtnn/JTVAE.py" />
         <option value="$PROJECT_DIR$/jtnn/nnutils.py" />
         <option value="$PROJECT_DIR$/new_molvae/vae_train.py" />
+        <option value="$PROJECT_DIR$/molvae/test.py" />
       </list>
     </option>
   </component>
@@ -188,7 +197,7 @@
             <path>
               <item name="icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09" type="b2602c69:ProjectViewProjectNode" />
               <item name="icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09" type="462c0819:PsiDirectoryNode" />
-              <item name="jtnn" type="462c0819:PsiDirectoryNode" />
+              <item name="molvae" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09" type="b2602c69:ProjectViewProjectNode" />
@@ -780,17 +789,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/molvae/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="48" column="16" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/new_datautils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-399">
-          <caret line="113" selection-start-line="113" selection-end-line="113" />
+        <state relative-caret-position="423">
+          <caret line="198" column="145" lean-forward="true" selection-start-line="198" selection-start-column="15" selection-end-line="198" selection-end-column="145" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
           </folding>
@@ -799,11 +801,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="130" column="12" selection-start-line="130" selection-start-column="12" selection-end-line="130" selection-end-column="12" />
+        <state relative-caret-position="-587">
+          <caret line="83" column="20" selection-start-line="83" selection-start-column="15" selection-end-line="83" selection-end-column="20" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/molvae/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="37" column="115" selection-start-line="37" selection-start-column="115" selection-end-line="37" selection-end-column="115" />
         </state>
       </provider>
     </entry>
