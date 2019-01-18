@@ -153,9 +153,7 @@ for epoch in range(args.epoch):
         except Exception as e:
             print(e)
             continue
-
-        print('Epoch: {}, Iteration: {}, Loss: {}'.format(epoch + 1, idx + 1, loss))
-
+            
         meters = meters + np.array([loss.item(), kl_div, wacc * 100, tacc * 100, aacc * 100, sacc * 100])
 
         if total_step % args.print_iter == 0:
