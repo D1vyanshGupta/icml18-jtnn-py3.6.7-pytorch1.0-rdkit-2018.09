@@ -126,15 +126,14 @@ for epoch in range(args.epoch):
 
     loader = MolTreeFolder(args.train, vocab, args.use_graph_conv, args.batch_size, num_workers=5)
     for idx, batch in enumerate(loader):
-        print(device)
         total_step += 1
-        # try:
-        #     start = timer()
+        try:
+            start = timer()
 
             # reset the gradient buffer to 0.
-            # model.zero_grad()
+            model.zero_grad()
             # implement forward pass
-            # loss, kl_div, wacc, tacc, aacc, sacc = model(batch, beta)
+            loss, kl_div, wacc, tacc, aacc, sacc = model(batch, beta)
 
             # append items to list
             # loss_lst.append(loss.item())
@@ -145,23 +144,25 @@ for epoch in range(args.epoch):
             # sacc_lst.append(sacc)
 
             # implement backpropagation
-            # loss.backward()
+            loss.backward()
 
             # implement gradient clipping
             # nn.utils.clip_grad_norm_(model.parameters(), args.clip_norm)
 
             # update model parameters
-            # optimizer.step()
+            optimizer.step()
 
-            # end = timer()
+            end = timer()
 
-            # time_for_iteration = (end - start)
+            time_for_iteration = (end - start)
 
-            # epoch_time += time_for_iteration
+            epoch_time += time_for_iteration
 
-        # except Exception as e:
-        #     print(e)
-        #     continue
+        except Exception as e:
+            print(e)
+            continue
+
+        print('Epoch: {}, Iteration: {}, Loss: {}'.format(epoch + 1, idx + 1, loss))
 
     #     meters = meters + np.array([loss.item(), kl_div, wacc * 100, tacc * 100, aacc * 100, sacc * 100])
     #
