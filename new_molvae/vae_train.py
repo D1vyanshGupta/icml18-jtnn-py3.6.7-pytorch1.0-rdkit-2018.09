@@ -1,5 +1,6 @@
 import os
 import sys
+import pickle
 import argparse
 import warnings
 from timeit import default_timer as timer
@@ -35,6 +36,7 @@ parser.add_argument('--vocab', required=True)
 parser.add_argument('--save_dir', required=True)
 parser.add_argument('--plot_dir', required=True)
 parser.add_argument('--model_name', required=True)
+parser.add_argument('--log_dir', required=True)
 parser.add_argument('--load_epoch', type=int, default=0)
 
 parser.add_argument('--hidden_size', type=int, default=450)
@@ -49,7 +51,7 @@ parser.add_argument('--clip_norm', type=float, default=50.0)
 parser.add_argument('--beta', type=float, default=0.0)
 parser.add_argument('--warmup', type=int, default=20000)
 
-parser.add_argument('--epoch', type=int, default=3)
+parser.add_argument('--epochs', type=int, default=3)
 
 parser.add_argument('--enable_lr_anneal', action='store_true')
 parser.add_argument('--anneal_rate', type=float, default=0.9)
@@ -60,8 +62,7 @@ parser.add_argument('--step_beta', type=float, default=0.01)
 parser.add_argument('--beta_anneal_iter', type=int, default=5000)
 parser.add_argument('--max_beta', type=float, default=1.0)
 
-parser.add_argument('--print_iter', type=int, default=50)
-
+parser.add_argument('--print_iter', type=int, default=1)
 parser.add_argument('--num_layers', type=int, default=2)
 parser.add_argument('--use_graph_conv', action='store_true')
 
@@ -73,8 +74,8 @@ print(args)
 vocab = [x.strip("\r\n ") for x in open(args.vocab)]
 vocab = ClusterVocab(vocab)
 
-# model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding)
-model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding).cuda()
+model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding)
+# model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding).cuda()
 print(model)
 
 # for all multi-dimensional parameters, initialize them using xavier initialization
@@ -115,7 +116,7 @@ sacc_lst = []
 
 total_training_time = 0
 
-for epoch in range(args.epoch):
+for epoch in range(args.epochs):
     epoch_time = 0
     loader = MolTreeFolder(args.train, vocab, args.use_graph_conv, args.batch_size, num_workers=5)
     for idx, batch in enumerate(loader):
@@ -236,3 +237,24 @@ plot_name = (args.model_name).lower().replace(' ', '_') + "_acc"
 fig_path = os.path.join(args.plot_dir, plot_name + '.png')
 plt.savefig(fig_path, dpi=200)
 plt.close(fig)
+
+# save various lists
+model_name = (args.model_name).lower().replace(' ', '_')
+
+with open(args.log_dir + '/{}_loss_lst.pkl'.format(model_name), 'wb') as f:
+    pickle.dump(loss_lst, f, pickle.HIGHEST_PROTOCOL)
+
+with open(args.log_dir + '/{}_kl_div_lst.pkl'.format(model_name), 'wb') as f:
+    pickle.dump(kl_div_lst, f, pickle.HIGHEST_PROTOCOL)
+
+with open(args.log_dir + '/{}_wacc_lst.pkl'.format(model_name), 'wb') as f:
+    pickle.dump(wacc_lst, f, pickle.HIGHEST_PROTOCOL)
+
+with open(args.log_dir + '/{}_tacc_lst.pkl'.format(model_name), 'wb') as f:
+    pickle.dump(tacc_lst, f, pickle.HIGHEST_PROTOCOL)
+
+with open(args.log_dir + '/{}_aacc_lst.pkl'.format(model_name), 'wb') as f:
+    pickle.dump(aacc_lst, f, pickle.HIGHEST_PROTOCOL)
+
+with open(args.log_dir + '/{}_sacc_lst.pkl'.format(model_name), 'wb') as f:
+    pickle.dump(sacc_lst, f, pickle.HIGHEST_PROTOCOL)

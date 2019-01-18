@@ -6,7 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/experiments" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/jtnn" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.6 (pytorch)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.6 (jtvae-pytorch)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">

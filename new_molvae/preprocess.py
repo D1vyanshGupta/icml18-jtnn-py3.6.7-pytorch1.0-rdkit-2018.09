@@ -26,7 +26,6 @@ def tensorize(smiles, assm=True):
     for node in junc_tree.nodes:
         del node.mol
 
-    print('Done')
     return junc_tree
 
 # def tensorize_pair(smiles_pair):
@@ -51,9 +50,8 @@ if __name__ == "__main__":
     with open(opts.train_path) as f:
         data = [line.strip("\r\n ").split()[0] for line in f]
 
-    print('Before Pooling')
     all_data = pool.map(tensorize, data)
-    print('After Pooling')
+
 
     le = (len(all_data) + num_splits - 1) // num_splits
 
