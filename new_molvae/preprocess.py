@@ -52,9 +52,12 @@ if __name__ == "__main__":
 
     all_data = pool.map(tensorize, data)
 
+    print('Before Pooling')
     le = (len(all_data) + num_splits - 1) // num_splits
+    print('After Pooling')
 
     for split_id in range(num_splits):
+        print("Split: {} created".format(split_id))
         st = split_id * le
         sub_data = all_data[st : st + le]
 

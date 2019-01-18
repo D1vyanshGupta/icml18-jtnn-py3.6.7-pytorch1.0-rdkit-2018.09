@@ -61,7 +61,6 @@ parser.add_argument('--beta_anneal_iter', type=int, default=5000)
 parser.add_argument('--max_beta', type=float, default=1.0)
 
 parser.add_argument('--print_iter', type=int, default=50)
-parser.add_argument('--save_iter', type=int, default=5000)
 
 parser.add_argument('--num_layers', type=int, default=2)
 parser.add_argument('--use_graph_conv', action='store_true')
@@ -87,7 +86,7 @@ for param in model.parameters():
         nn.init.xavier_normal_(param)
 
 if args.load_epoch > 0:
-    model.load_state_dict(torch.load(args.save_dir + "/model.iter-" + str(args.load_epoch)))
+    model.load_state_dict(torch.load(args.save_dir + "/model.epoch-" + str(args.load_epoch)))
 
 print("Model #Params: %dK" % (sum([x.nelement() for x in model.parameters()]) / 1000,))
 
@@ -165,10 +164,6 @@ for epoch in range(args.epoch):
             sys.stdout.flush()
             meters *= 0
 
-        if total_step % args.save_iter == 0:
-            model_name = (args.model_name).lower().replace(' ', '_')
-            torch.save(model.state_dict(), args.save_dir + "/{}.iter-".format(model_name) + str(total_step))
-
         # implement learning-rate annealing
         if args.enable_lr_anneal and total_step % args.anneal_iter == 0:
             scheduler.step()
@@ -178,8 +173,11 @@ for epoch in range(args.epoch):
         if args.enable_beta_anneal and total_step % args.beta_anneal_iter == 0 and total_step >= args.warmup:
             beta = min(args.max_beta, beta + args.step_beta)
 
-    print('Epoch: {} completed. Time taken: {:.2f} min.'.format(epoch + 1, epoch_time / 60))
+    # save the model after this epoch
+    model_name = (args.model_name).lower().replace(' ', '_')
+    torch.save(model.state_dict(), args.save_dir + "/{}.epoch-".format(model_name) + str(epoch + args.load_epoch + 1))
 
+    print('Epoch: {} completed. Time taken: {:.2f} min.'.format(epoch + args.load_epoch + 1, epoch_time / 60))
     total_training_time += epoch_time
 
 print('Total Training Time: {:.2f} min.'.format(total_training_time / 60))
