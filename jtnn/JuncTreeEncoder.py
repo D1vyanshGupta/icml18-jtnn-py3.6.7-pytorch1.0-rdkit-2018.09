@@ -141,12 +141,12 @@ class JuncTreeEncoder(nn.Module):
         node_child_adjacency_graph = create_var(node_child_adjacency_graph)
         node_edge_adjacency_graph = create_var(node_edge_adjacency_graph)
         edge_node_adjacency_graph = create_var(edge_node_adjacency_graph)
-        root_scope = create_var(torch.LongTensor(root_scope))
 
         # implement convolution
         node_layer_input = node_feature_matrix
         edge_layer_input = edge_feature_matrix
 
+        print('Jai Mata Di 1.375')
         for conv_layer in self.conv_layers:
             # implement forward pass for this convolutional layer
             node_layer_output, edge_layer_output = conv_layer(node_layer_input, edge_layer_input, node_child_adjacency_graph,
@@ -158,9 +158,7 @@ class JuncTreeEncoder(nn.Module):
         # for each molecular graph, pool all the edge feature vectors
         # tree_vecs = self.pool_edge_features_for_junc_trees(node_layer_output, edge_layer_output, edge_node_adjacency_graph, scope)
 
-        # tree_vecs = node_layer_output[root_scope]
-        tree_vecs = torch.index_select(source=node_layer_output, dim=0, index=root_scope)
-        
+        tree_vecs = node_layer_output[root_scope]
         return tree_vecs 
         
     def pool_edge_features_for_junc_trees(self, node_layer_output, edge_layer_output, edge_node_adjacency_graph, scope):
