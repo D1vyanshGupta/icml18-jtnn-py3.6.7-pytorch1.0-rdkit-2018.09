@@ -141,6 +141,7 @@ class JuncTreeEncoder(nn.Module):
         node_child_adjacency_graph = create_var(node_child_adjacency_graph)
         node_edge_adjacency_graph = create_var(node_edge_adjacency_graph)
         edge_node_adjacency_graph = create_var(edge_node_adjacency_graph)
+        root_scope = create_var(torch.LongTensor(root_scope))
 
         # implement convolution
         node_layer_input = node_feature_matrix
@@ -157,7 +158,8 @@ class JuncTreeEncoder(nn.Module):
         # for each molecular graph, pool all the edge feature vectors
         # tree_vecs = self.pool_edge_features_for_junc_trees(node_layer_output, edge_layer_output, edge_node_adjacency_graph, scope)
 
-        tree_vecs = node_layer_output[root_scope]
+        # tree_vecs = node_layer_output[root_scope]
+        tree_vecs = torch.index_select(source=node_layer_output, dim=0, index=root_scope)
         
         return tree_vecs 
         

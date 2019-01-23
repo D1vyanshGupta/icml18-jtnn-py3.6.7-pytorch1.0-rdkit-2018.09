@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/jtnn/JTVAE.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/JTVAE.py" afterDir="false" />
-    </list>
+    <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,11 +28,51 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JTVAE.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="JTVAE.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="221" column="32" selection-start-line="221" selection-start-column="32" selection-end-line="221" selection-end-column="32" />
+            <state relative-caret-position="421">
+              <caret line="145" column="30" selection-start-line="145" selection-start-column="30" selection-end-line="145" selection-end-column="30" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JuncTreeEncoder.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/jtnn/JuncTreeEncoder.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4273">
+              <caret line="296" column="73" selection-start-line="296" selection-start-column="73" selection-end-line="296" selection-end-column="73" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MolGraphEncoder.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jtnn/MolGraphEncoder.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="940">
+              <caret line="255" lean-forward="true" selection-start-line="255" selection-end-line="255" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+                <element signature="e#1173#1673#0" />
+                <element signature="e#1711#2590#0" />
+                <element signature="e#2628#3472#0" />
+                <element signature="e#16922#25379#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="nnutils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jtnn/nnutils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="96">
+              <caret line="9" column="31" lean-forward="true" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -425,11 +463,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/jtnn/JuncTreeEncoder.py</url>
-          <line>161</line>
-          <option name="timeStamp" value="597" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/jtnn/JuncTreeEncoder.py</url>
           <line>315</line>
           <option name="timeStamp" value="599" />
         </line-breakpoint>
@@ -605,20 +638,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/MolGraphEncoder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="260" selection-start-line="218" selection-end-line="260" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-            <element signature="e#1173#1673#0" />
-            <element signature="e#1711#2590#0" />
-            <element signature="e#2628#3472#0" />
-            <element signature="e#16922#25379#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/JTNNEncoder.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="501">
@@ -681,16 +700,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/JuncTreeEncoder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="296" column="73" selection-start-line="296" selection-start-column="73" selection-end-line="296" selection-end-column="73" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/new_datautils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -718,16 +727,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/nnutils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="9" column="31" lean-forward="true" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/molvae/vaetrain.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -741,12 +740,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
+    <entry file="file://$PROJECT_DIR$/jtnn/nnutils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="221" column="32" selection-start-line="221" selection-start-column="32" selection-end-line="221" selection-end-column="32" />
+        <state relative-caret-position="96">
+          <caret line="9" column="31" lean-forward="true" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/MolGraphEncoder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="940">
+          <caret line="255" lean-forward="true" selection-start-line="255" selection-end-line="255" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#1173#1673#0" />
+            <element signature="e#1711#2590#0" />
+            <element signature="e#2628#3472#0" />
+            <element signature="e#16922#25379#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="145" column="30" selection-start-line="145" selection-start-column="30" selection-end-line="145" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/JuncTreeEncoder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4273">
+          <caret line="296" column="73" selection-start-line="296" selection-start-column="73" selection-end-line="296" selection-end-column="73" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
