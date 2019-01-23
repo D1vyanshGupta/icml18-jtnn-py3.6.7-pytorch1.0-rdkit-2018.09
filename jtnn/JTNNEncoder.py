@@ -36,7 +36,7 @@ class JTNNEncoder(nn.Module):
         # number of timesteps to implement the message passing for
         self.depth = depth
 
-        # embedding space for obtaining embeddings of atom features vectors.
+        # embedding space for obtaining embeddings of node features vectors.
         self.embedding = embedding
 
         # neural network to produce the output embedding

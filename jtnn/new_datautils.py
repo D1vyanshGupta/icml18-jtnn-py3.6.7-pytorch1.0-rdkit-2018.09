@@ -8,6 +8,7 @@ from JTNNEncoder import JTNNEncoder
 from MessPassNet import MessPassNet
 from JTMessPassNet import JTMessPassNet
 from MolGraphEncoder import MolGraphEncoder
+from JuncTreeEncoder import JuncTreeEncoder
 
 # class PairTreeFolder(object):
 #
@@ -116,13 +117,13 @@ class MolTreeDataset(Dataset):
 def tensorize(junc_tree_batch, vocab, use_graph_conv, assm=True):
     set_batch_nodeID(junc_tree_batch, vocab)
     smiles_batch = [junc_tree.smiles for junc_tree in junc_tree_batch]
-    jtenc_holder, mess_dict = JTNNEncoder.tensorize(junc_tree_batch)
 
     if use_graph_conv:
         molenc_holder = MolGraphEncoder.tensorize(smiles_batch)
+        jt_graph_enc_holder = JuncTreeEncoder.tensorize(junc_tree_batch)
 
         if assm is False:
-            return junc_tree_batch, jtenc_holder, molenc_holder
+            return junc_tree_batch, jt_graph_enc_holder, molenc_holder
 
         candidate_smiles = []
         cand_batch_idx = []
@@ -137,29 +138,31 @@ def tensorize(junc_tree_batch, vocab, use_graph_conv, assm=True):
         cand_molenc_holder = MolGraphEncoder.tensorize(candidate_smiles)
         cand_batch_idx = torch.LongTensor(cand_batch_idx)
 
-        stereo_candidates = []
-        stereo_batch_idx = []
-        stereo_labels = []
-        for idx, junc_tree in enumerate(junc_tree_batch):
-            candidates = junc_tree.stereo_candidates
-            if len(candidates) == 1:
-                continue
-            if junc_tree.smiles3D not in candidates:
-                candidates.append(junc_tree.smiles3D)
+        # stereo_candidates = []
+        # stereo_batch_idx = []
+        # stereo_labels = []
+        # for idx, junc_tree in enumerate(junc_tree_batch):
+        #     candidates = junc_tree.stereo_candidates
+        #     if len(candidates) == 1:
+        #         continue
+        #     if junc_tree.smiles3D not in candidates:
+        #         candidates.append(junc_tree.smiles3D)
+        #
+        #     stereo_candidates.extend(candidates)
+        #     stereo_batch_idx.extend([idx] * len(candidates))
+        #     stereo_labels.append( (candidates.index(junc_tree.smiles3D), len(candidates)) )
+        #
+        # stereo_molenc_holder = None
+        # if len(stereo_labels) > 0:
+        #     stereo_molenc_holder = MolGraphEncoder.tensorize(stereo_candidates)
+        # stereo_batch_idx = torch.LongTensor(stereo_batch_idx)
 
-            stereo_candidates.extend(candidates)
-            stereo_batch_idx.extend([idx] * len(candidates))
-            stereo_labels.append( (candidates.index(junc_tree.smiles3D), len(candidates)) )
-
-        stereo_molenc_holder = None
-        if len(stereo_labels) > 0:
-            stereo_molenc_holder = MolGraphEncoder.tensorize(stereo_candidates)
-        stereo_batch_idx = torch.LongTensor(stereo_batch_idx)
-
-        return junc_tree_batch, jtenc_holder, molenc_holder, (cand_molenc_holder, cand_batch_idx), (stereo_molenc_holder, stereo_batch_idx, stereo_labels)
+        # return junc_tree_batch, jtenc_holder, molenc_holder, (cand_molenc_holder, cand_batch_idx), (stereo_molenc_holder, stereo_batch_idx, stereo_labels)
+        return junc_tree_batch, jt_graph_enc_holder, molenc_holder, (cand_molenc_holder, cand_batch_idx)
 
     else:
         mpn_holder = MessPassNet.tensorize(smiles_batch)
+        jtenc_holder, mess_dict = JTNNEncoder.tensorize(junc_tree_batch)
 
         if assm is False:
             return junc_tree_batch, jtenc_holder, mpn_holder
@@ -177,28 +180,29 @@ def tensorize(junc_tree_batch, vocab, use_graph_conv, assm=True):
         jtmpn_holder = JTMessPassNet.tensorize(candidates, mess_dict)
         cand_batch_idx = torch.LongTensor(cand_batch_idx)
 
-        stereo_candidates = []
-        stereo_batch_idx = []
-        stereo_labels = []
-        for idx, junc_tree in enumerate(junc_tree_batch):
-            candidates = junc_tree.stereo_candidates
-            if len(candidates) == 1:
-                continue
-            if junc_tree.smiles3D not in candidates:
-                candidates.append(junc_tree.smiles3D)
+        # stereo_candidates = []
+        # stereo_batch_idx = []
+        # stereo_labels = []
+        # for idx, junc_tree in enumerate(junc_tree_batch):
+        #     candidates = junc_tree.stereo_candidates
+        #     if len(candidates) == 1:
+        #         continue
+        #     if junc_tree.smiles3D not in candidates:
+        #         candidates.append(junc_tree.smiles3D)
+        #
+        #     stereo_candidates.extend(candidates)
+        #     stereo_batch_idx.extend([idx] * len(candidates))
+        #     stereo_labels.append((candidates.index(junc_tree.smiles3D), len(candidates)))
+        #
+        # stereo_molenc_holder = None
+        # if len(stereo_labels) > 0:
+        #     stereo_molenc_holder = MessPassNet.tensorize(stereo_candidates)
+        # stereo_batch_idx = torch.LongTensor(stereo_batch_idx)
+        #
+        # stereo_batch_idx.to(stereo_batch_idx)
 
-            stereo_candidates.extend(candidates)
-            stereo_batch_idx.extend([idx] * len(candidates))
-            stereo_labels.append((candidates.index(junc_tree.smiles3D), len(candidates)))
-
-        stereo_molenc_holder = None
-        if len(stereo_labels) > 0:
-            stereo_molenc_holder = MessPassNet.tensorize(stereo_candidates)
-        stereo_batch_idx = torch.LongTensor(stereo_batch_idx)
-
-        stereo_batch_idx.to(stereo_batch_idx)
-
-        return junc_tree_batch, jtenc_holder, mpn_holder, (jtmpn_holder, cand_batch_idx), (stereo_molenc_holder, stereo_batch_idx, stereo_labels)
+        # return junc_tree_batch, jtenc_holder, mpn_holder, (jtmpn_holder, cand_batch_idx), (stereo_molenc_holder, stereo_batch_idx, stereo_labels)
+        return junc_tree_batch, jtenc_holder, mpn_holder, (jtmpn_holder, cand_batch_idx)
 
 def set_batch_nodeID(mol_batch, vocab):
     tot = 0

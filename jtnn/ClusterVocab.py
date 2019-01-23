@@ -1,13 +1,16 @@
+import os
+import sys
 import copy
+import argparse
+
 import rdkit
-from MolJuncTree import MolJuncTree
 import rdkit.Chem as Chem
 
+from MolJuncTree import MolJuncTree
 
 def get_slots(smiles):
     mol = Chem.MolFromSmiles(smiles)
     return [(atom.GetSymbol(), atom.GetFormalCharge(), atom.GetTotalNumHs()) for atom in mol.GetAtoms()]
-
 
 class ClusterVocab(object):
     """
@@ -67,21 +70,30 @@ class ClusterVocab(object):
     def get_slots(self, idx):
         return copy.deepcopy(self.slots[idx])
 
-# if __name__ == "__main__":
-#     import sys
-#     import os
-#     lg = rdkit.RDLogger.logger()
-#     lg.setLevel(rdkit.RDLogger.CRITICAL)
-#
-#     smiles_set = set()
-#     for idx, line in enumerate(sys.stdin):
-#         smiles = line.split()[0]
-#         junc_tree = MolJuncTree(smiles)
-#         for node in junc_tree.nodes:
-#             smiles_set.add(node.smiles)
-#     for smiles in smiles_set:
-#         print(smiles)
-#     WRITE_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', 'vocab_50.txt')
-#     with open(WRITE_PATH, 'w') as file:
-#         for smiles in smiles_set:
-#             file.write(smiles + "\n")
+if __name__ == "__main__":
+
+    lg = rdkit.RDLogger.logger()
+    lg.setLevel(rdkit.RDLogger.CRITICAL)
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--train', required=True)
+    parser.add_argument('--vocab_name', required=True)
+
+    args = parser.parse_args()
+
+    smiles_set = set()
+
+    with open(args.train, 'r') as file:
+        for idx, line in enumerate(file):
+            smiles = line.split()[0]
+            junc_tree = MolJuncTree(smiles)
+            for node in junc_tree.nodes:
+                smiles_set.add(node.smiles)
+
+    for smiles in smiles_set:
+        print(smiles)
+    WRITE_PATH = os.path.join(os.path.dirname(os.getcwd()), 'data', args.vocab_name + '.txt')
+
+    with open(WRITE_PATH, 'w') as file:
+        for smiles in smiles_set:
+            file.write(smiles + "\n")

@@ -11,7 +11,7 @@ MAX_NUM_NEIGHBORS = 8
 
 from ConvNetLayer import ConvNetLayer
 
-def get_bottom_up_traversal_order(self, root):
+def get_bottom_up_traversal_order(root):
     """
     This method, gets the bottom-up traversal order for implementing the graph convolution while traversing
     the junction-tree from bottom-up.
@@ -63,14 +63,14 @@ def get_bottom_up_traversal_order(self, root):
     return traversal_order
 
 
-class JTGraphEncoder(nn.Module):
+class JuncTreeEncoder(nn.Module):
     """
     Description: This module implements the Tree Convolutional Network.
     """
 
     def __init__(self, hidden_size, num_layers, embedding=None):
 
-        super(JTGraphEncoder, self).__init__()
+        super(JuncTreeEncoder, self).__init__()
 
         # the dimension of the hidden feature vectors to be used
         self.hidden_size = hidden_size
@@ -155,9 +155,9 @@ class JTGraphEncoder(nn.Module):
             node_layer_input, edge_layer_input = node_layer_output, edge_layer_output
 
         # for each molecular graph, pool all the edge feature vectors
-        tree_vecs = self.pool_edge_features_for_junc_trees(node_layer_output, edge_layer_output, edge_node_adjacency_graph, scope)
+        # tree_vecs = self.pool_edge_features_for_junc_trees(node_layer_output, edge_layer_output, edge_node_adjacency_graph, scope)
 
-        # tree_vecs = node_layer_output[root_scope]
+        tree_vecs = node_layer_output[root_scope]
         
         return tree_vecs 
         
@@ -242,7 +242,7 @@ class JTGraphEncoder(nn.Module):
                 node_wid = node.wid
                 node_wid_list.append(node_wid)
 
-                # append a sublist to store idxs of child ndoes for this node
+                # append a sublist to store idxs of child nodes for this node
                 node_child_adjacency_list.append([])
 
                 # append a sublist to store idxs of all edges, in which this is the initial node
@@ -292,7 +292,7 @@ class JTGraphEncoder(nn.Module):
 
         node_child_adjacency_graph = torch.zeros(total_num_nodes, MAX_NUM_NEIGHBORS).long()
 
-        node_edge_adjacency_graph = torch.zeros(total_num_edges, MAX_NUM_NEIGHBORS).long()
+        node_edge_adjacency_graph = torch.zeros(total_num_nodes, MAX_NUM_NEIGHBORS).long()
 
         edge_node_adjacency_graph = torch.zeros(total_num_edges, 2).long()
 
