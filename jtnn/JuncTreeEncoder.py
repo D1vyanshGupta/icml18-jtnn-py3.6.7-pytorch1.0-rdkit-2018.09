@@ -258,6 +258,8 @@ class JuncTreeEncoder(nn.Module):
 
         for traversal_order in traversal_order_list:
 
+            scope_len = 0
+
             for edge_tuple_list in traversal_order:
 
                 for node_x, node_y in edge_tuple_list:
@@ -281,12 +283,11 @@ class JuncTreeEncoder(nn.Module):
 
                     edge_offset_idx += 1
 
+                scope_len += len(edge_tuple_list)
 
-            _len = 2 * len(edge_tuple_list)
+            scope.append((edge_start_idx, scope_len))
 
-            scope.append((edge_start_idx, _len))
-
-            edge_start_idx += _len
+            edge_start_idx += scope_len
 
         total_num_nodes = len(node_child_adjacency_list)
 
