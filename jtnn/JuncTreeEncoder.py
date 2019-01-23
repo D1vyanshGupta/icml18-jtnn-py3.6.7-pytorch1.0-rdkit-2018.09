@@ -117,17 +117,12 @@ class JuncTreeEncoder(nn.Module):
 
     def forward(self, node_wid_list, node_child_adjacency_graph, node_edge_adjacency_graph, edge_node_adjacency_graph, scope, root_scope):
         # list to store embedding vectors for junction-tree nodes
-        print('Jai Mata Di a')
         node_feature_vecs = []
 
-        print('Jai Mata Di b')
         # padding vector for node features
         node_feature_padding = create_var(torch.zeros(self.hidden_size))
 
-        print('Jai Mata Di c')
         node_feature_vecs.append(node_feature_padding)
-
-        print('Jai Mata Di d')
 
         # put this tensor on the GPU
         node_wid_list = create_var(node_wid_list)
@@ -135,19 +130,14 @@ class JuncTreeEncoder(nn.Module):
         # obtain embedding vectors for all the junction-tree nodes
         node_embeddings = self.embedding(node_wid_list)
 
-        print('Jai Mata Di e')
         node_feature_vecs.extend(list(node_embeddings))
 
-        print('Jai Mata Di f')
         node_feature_matrix = torch.stack(node_feature_vecs, dim=0)
 
-        print('Jai Mata Di g')
         total_num_edges = edge_node_adjacency_graph.shape[0]
 
-        print('Jai Mata Di h')
         edge_feature_matrix = torch.zeros(total_num_edges, self.hidden_size)
 
-        print('Jai Mata Di i')
         # create PyTorch variables
         node_feature_matrix = create_var(node_feature_matrix)
         edge_feature_matrix = create_var(edge_feature_matrix)
@@ -155,12 +145,10 @@ class JuncTreeEncoder(nn.Module):
         node_edge_adjacency_graph = create_var(node_edge_adjacency_graph)
         edge_node_adjacency_graph = create_var(edge_node_adjacency_graph)
 
-        print('Jai Mata Di j')
         # implement convolution
         node_layer_input = node_feature_matrix
         edge_layer_input = edge_feature_matrix
 
-        print('Jai Mata Di 1.375')
         for conv_layer in self.conv_layers:
             # implement forward pass for this convolutional layer
             node_layer_output, edge_layer_output = conv_layer(node_layer_input, edge_layer_input, node_child_adjacency_graph,

@@ -143,9 +143,7 @@ class JTNNVAE(nn.Module):
     #     return tree_vecs, mol_vecs
 
     def encode_graph_conv(self, jt_graph_enc_holder, molenc_holder):
-        print('Jai Mata Di 1.25')
         tree_vecs = self.junc_tree_enc(*jt_graph_enc_holder)
-        print('Jai Mata Di 1.5')
         mol_vecs = self.graph_enc(*molenc_holder)
         return tree_vecs, mol_vecs
 
@@ -219,9 +217,7 @@ class JTNNVAE(nn.Module):
         if self.use_graph_conv:
             # x_junc_tree_batch, x_jtenc_holder, x_molenc_holder, x_cand_molenc_holder, x_stereo_molenc_holder = x_batch
             x_junc_tree_batch, x_jt_graph_enc_holder, x_molenc_holder, x_cand_molenc_holder = x_batch
-            print('Jai Mata Di 1')
             x_tree_vecs, x_mol_vecs = self.encode_graph_conv(x_jt_graph_enc_holder, x_molenc_holder)
-            print('Jai Mata Di 2')
             z_tree_vecs, tree_kl = self.rsample(x_tree_vecs, self.T_mean, self.T_var)
             z_mol_vecs, mol_kl = self.rsample(x_mol_vecs, self.G_mean, self.G_var)
 
