@@ -128,6 +128,10 @@ class JuncTreeEncoder(nn.Module):
         node_feature_vecs.append(node_feature_padding)
 
         print('Jai Mata Di d')
+
+        # put this tensor on the GPU
+        node_wid_list = create_var(node_wid_list)
+        
         # obtain embedding vectors for all the junction-tree nodes
         node_embeddings = self.embedding(node_wid_list)
 
