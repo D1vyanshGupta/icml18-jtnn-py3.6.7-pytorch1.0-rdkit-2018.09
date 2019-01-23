@@ -143,6 +143,7 @@ class JTNNVAE(nn.Module):
     #     return tree_vecs, mol_vecs
 
     def encode_graph_conv(self, jt_graph_enc_holder, molenc_holder):
+        print('Jai Mata Di 1.25')
         tree_vecs = self.junc_tree_enc(*jt_graph_enc_holder)
         print('Jai Mata Di 1.5')
         mol_vecs = self.graph_enc(*molenc_holder)
