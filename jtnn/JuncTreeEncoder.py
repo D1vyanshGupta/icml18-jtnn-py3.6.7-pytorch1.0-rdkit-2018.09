@@ -122,7 +122,7 @@ class JuncTreeEncoder(nn.Module):
 
         print('Jai Mata Di b')
         # padding vector for node features
-        node_feature_padding = torch.zeros(self.hidden_size)
+        node_feature_padding = create_var(torch.zeros(self.hidden_size))
 
         print('Jai Mata Di c')
         node_feature_vecs.append(node_feature_padding)
@@ -131,7 +131,7 @@ class JuncTreeEncoder(nn.Module):
 
         # put this tensor on the GPU
         node_wid_list = create_var(node_wid_list)
-        
+
         # obtain embedding vectors for all the junction-tree nodes
         node_embeddings = self.embedding(node_wid_list)
 
