@@ -66,9 +66,9 @@ parser.add_argument('--print_iter', type=int, default=1)
 parser.add_argument('--num_layers', type=int, default=2)
 parser.add_argument('--use_graph_conv', action='store_true')
 
-DEFAULT_CMD = ["--train", "zinc_processed_100_mols_batch_10/", "--vocab", "../data/vocab.txt",
-               "--log_dir", "../logs", "--plot_dir", "../plots", "--model_name",
-               "JTVAE + Graph ConvNet + Tree ConvNet", "--batch_size", "10", "--save_dir", "../models", "--use_graph_conv"]
+# DEFAULT_CMD = ["--train", "qm9_5k_processed/", "--vocab", "../data/vocab_qm9_5k.txt",
+#                "--log_dir", "../logs", "--plot_dir", "../plots", "--model_name",
+#                "JTVAE QM9 5K", "--batch_size", "10", "--save_dir", "../models"]
 
 args = parser.parse_args()
 print(args)
@@ -76,8 +76,8 @@ print(args)
 vocab = [x.strip("\r\n ") for x in open(args.vocab)]
 vocab = ClusterVocab(vocab)
 
-model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding)
-# model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding).cuda()
+# model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding)
+model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.share_embedding).cuda()
 print(model)
 
 # for all multi-dimensional parameters, initialize them using xavier initialization
