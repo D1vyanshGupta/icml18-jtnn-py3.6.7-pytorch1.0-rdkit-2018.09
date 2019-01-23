@@ -2,19 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train_100.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train_4000.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/ClusterVocab.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/ClusterVocab.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/JTNNEncoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/JTNNEncoder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/JTVAE.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/JTVAE.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/JuncTreeEncoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/JuncTreeEncoder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/new_datautils.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/new_datautils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/nnutils.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/nnutils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/tafri.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/tree_convnet_utils/JuncTreeConvEnc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/tree_convnet_utils/JuncTreeConvEncLayer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/01_molecule_qm9_regression_v1.ipynb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/new_molvae/vae_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_molvae/vae_train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,8 +33,8 @@
       <file leaf-file-name="vae_train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="72" selection-start-line="72" selection-end-line="72" selection-end-column="37" />
+            <state relative-caret-position="-130">
+              <caret line="68" selection-start-line="68" selection-end-line="70" selection-end-column="123" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -201,11 +188,11 @@
         <option value="$PROJECT_DIR$/jtnn/JTGraphEncoder.py" />
         <option value="$PROJECT_DIR$/jtnn/nnutils.py" />
         <option value="$PROJECT_DIR$/jtnn/new_datautils.py" />
-        <option value="$PROJECT_DIR$/new_molvae/vae_train.py" />
         <option value="$PROJECT_DIR$/jtnn/JuncTreeEncoder.py" />
         <option value="$PROJECT_DIR$/jtnn/ConvNetLayer.py" />
         <option value="$PROJECT_DIR$/jtnn/JTVAE.py" />
         <option value="$PROJECT_DIR$/jtnn/ClusterVocab.py" />
+        <option value="$PROJECT_DIR$/new_molvae/vae_train.py" />
       </list>
     </option>
   </component>
@@ -406,7 +393,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="960" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="12" weight="0.32908458" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
@@ -790,8 +776,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="72" selection-start-line="72" selection-end-line="72" selection-end-column="37" />
+        <state relative-caret-position="-130">
+          <caret line="68" selection-start-line="68" selection-end-line="70" selection-end-column="123" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>

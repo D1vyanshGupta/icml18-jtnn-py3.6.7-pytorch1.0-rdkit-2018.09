@@ -70,7 +70,7 @@ DEFAULT_CMD = ["--train", "zinc_processed_100_mols_batch_10/", "--vocab", "../da
                "--log_dir", "../logs", "--plot_dir", "../plots", "--model_name",
                "JTVAE + Graph ConvNet + Tree ConvNet", "--batch_size", "10", "--save_dir", "../models", "--use_graph_conv"]
 
-args = parser.parse_args(DEFAULT_CMD)
+args = parser.parse_args()
 print(args)
 
 vocab = [x.strip("\r\n ") for x in open(args.vocab)]
