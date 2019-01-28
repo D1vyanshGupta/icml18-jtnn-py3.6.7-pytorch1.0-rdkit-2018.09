@@ -792,10 +792,10 @@ class JTNNVAE(nn.Module):
     #             all_smiles.append(new_smiles)
     #     return all_smiles
 
-    def sample_prior(self, prob_decode=False):
-        z_tree = torch.randn(1, self.latent_size).cuda()
-        z_mol = torch.randn(1, self.latent_size).cuda()
-        return self.decode(z_tree, z_mol, prob_decode)
+    # def sample_prior(self):
+    #     z_tree = torch.randn(1, self.latent_size).cuda()
+    #     z_mol = torch.randn(1, self.latent_size).cuda()
+    #     return self.decode(z_tree, z_mol)
 
     # def sample_eval(self):
     #     tree_vec = create_var(torch.randn(1, self.latent_size // 2), False)
