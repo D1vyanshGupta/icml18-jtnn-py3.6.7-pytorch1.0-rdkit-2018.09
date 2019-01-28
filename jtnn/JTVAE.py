@@ -10,7 +10,8 @@ from MolGraphEncoder import MolGraphEncoder
 from JuncTreeEncoder import JuncTreeEncoder
 from MolJuncTree import MolJuncTree
 
-from chemutils import enum_assemble, set_atom_map, deep_copy_mol, attach_mols, decode_stereo
+from chemutils import enum_assemble, set_atom_map, deep_copy_mol, attach_mols
+from new_datautils import set_batch_nodeID
 
 import rdkit.Chem as Chem
 import copy
@@ -759,6 +760,9 @@ class JTNNVAE(nn.Module):
     def reconstruct(self, smiles):
         junc_tree = MolJuncTree(smiles)
         junc_tree.recover()
+
+        set_batch_nodeID([junc_tree], self.vocab)
+
         jtenc_holder = JTNNEncoder.tensorize([junc_tree])
         mpn_holder = MessPassNet.tensorize([smiles])
 
@@ -783,6 +787,8 @@ class JTNNVAE(nn.Module):
     def reconstruct_graph_conv(self, smiles):
         junc_tree = MolJuncTree(smiles)
         junc_tree.recover()
+
+        set_batch_nodeID([junc_tree], self.vocab)
 
         jt_graph_enc_holder = JuncTreeEncoder.tensorize([junc_tree])
         molenc_holder = MolGraphEncoder.tensorize([smiles])
