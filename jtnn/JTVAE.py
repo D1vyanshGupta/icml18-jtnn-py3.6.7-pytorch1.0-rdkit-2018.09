@@ -168,6 +168,13 @@ class JTNNVAE(nn.Module):
         # z_mol = torch.randn(1, self.latent_size)
         return self.decode(z_tree, z_mol)
 
+    def sample_prior_graph_conv(self):
+        z_tree = torch.randn(1, self.latent_size).cuda()
+        z_mol = torch.randn(1, self.latent_size).cuda()
+        # z_tree = torch.randn(1, self.latent_size)
+        # z_mol = torch.randn(1, self.latent_size)
+        return self.decode_graph_conv(z_tree, z_mol)
+
     # def encode(self, junc_tree_batch):
     #     """
     #     This method, given the junction trees for all the molecules in the dataset,
@@ -403,6 +410,47 @@ class JTNNVAE(nn.Module):
         cur_mol = Chem.MolFromSmiles(Chem.MolToSmiles(cur_mol))
         return Chem.MolToSmiles(cur_mol) if cur_mol is not None else None
 
+    def decode_graph_conv(self, x_tree_vecs, x_mol_vecs):
+        #currently do not support batch decoding
+        assert x_tree_vecs.size(0) == 1 and x_mol_vecs.size(0) == 1
+
+        pred_root, pred_nodes = self.decoder.decode(x_tree_vecs)
+        if len(pred_nodes) == 0:
+            return None
+        elif len(pred_nodes) == 1:
+            return pred_root.smiles
+
+        # mark nid & is_leaf & atommap
+        for idx, node in enumerate(pred_nodes):
+            node.nid = idx + 1
+            node.is_leaf = (len(node.neighbors) == 1)
+            if len(node.neighbors) > 1:
+                set_atom_map(node.mol, node.nid)
+
+        # scope = [(0, len(pred_nodes))]
+        # jtenc_holder, mess_dict = JTNNEncoder.tensorize_nodes(pred_nodes, scope)
+        # _, tree_mess = self.jtnn(*jtenc_holder)
+
+        # important: tree_mess is a matrix, mess_dict is a python dict
+        # tree_mess = (tree_mess, mess_dict)
+
+        # bilinear
+        x_mol_vecs = self.A_assm(x_mol_vecs).squeeze()
+
+        cur_mol = deep_copy_mol(pred_root.mol)
+        global_amap = [{}] + [{} for node in pred_nodes]
+        global_amap[1] = {atom.GetIdx():atom.GetIdx() for atom in cur_mol.GetAtoms()}
+
+        # cur_mol = self.dfs_assemble(tree_mess, x_mol_vecs, pred_nodes, cur_mol, global_amap, [], pred_root, None)
+        cur_mol = self.dfs_assemble_graph_conv(x_mol_vecs, pred_nodes, cur_mol, global_amap, [], pred_root, None)
+        if cur_mol is None:
+            return None
+
+        cur_mol = cur_mol.GetMol()
+        set_atom_map(cur_mol)
+        cur_mol = Chem.MolFromSmiles(Chem.MolToSmiles(cur_mol))
+        return Chem.MolToSmiles(cur_mol) if cur_mol is not None else None
+
     def dfs_assemble(self, y_tree_mess, x_mol_vecs, all_nodes, cur_mol, global_amap, fa_amap, cur_node, fa_node):
         fa_nid = fa_node.nid if fa_node is not None else -1
         prev_nodes = [fa_node] if fa_node is not None else []
@@ -452,6 +500,65 @@ class JTNNVAE(nn.Module):
                 if nei_node.is_leaf:
                     continue
                 cur_mol = self.dfs_assemble(y_tree_mess, x_mol_vecs, all_nodes, cur_mol, new_global_amap, pred_amap,
+                                            nei_node, cur_node)
+                if cur_mol is None:
+                    result = False
+                    break
+            if result:
+                return cur_mol
+
+    def dfs_assemble_graph_conv(self, x_mol_vecs, all_nodes, cur_mol, global_amap, fa_amap, cur_node, fa_node):
+        fa_nid = fa_node.nid if fa_node is not None else -1
+        prev_nodes = [fa_node] if fa_node is not None else []
+
+        children = [nei for nei in cur_node.neighbors if nei.nid != fa_nid]
+        neighbors = [nei for nei in children if nei.mol.GetNumAtoms() > 1]
+        neighbors = sorted(neighbors, key=lambda x: x.mol.GetNumAtoms(), reverse=True)
+        singletons = [nei for nei in children if nei.mol.GetNumAtoms() == 1]
+        neighbors = singletons + neighbors
+
+        cur_amap = [(fa_nid, a2, a1) for nid, a1, a2 in fa_amap if nid == cur_node.nid]
+        cands = enum_assemble(cur_node, neighbors, prev_nodes, cur_amap)
+        if len(cands) == 0:
+            return None
+
+        cand_smiles, cand_mols, cand_amap = zip(*cands)
+        cands = [(smiles, all_nodes, cur_node) for smiles in cand_smiles]
+
+        # jtmpn_holder = JTMessPassNet.tensorize(cands, y_tree_mess[1])
+        # fatoms, fbonds, agraph, bgraph, scope = jtmpn_holder
+        # cand_vecs = self.jtmpn(fatoms, fbonds, agraph, bgraph, scope, y_tree_mess[0])
+
+        jt_graph_enc_holder = MolGraphEncoder.tensorize(cand_smiles)
+        cand_vecs = self.graph_enc(jt_graph_enc_holder)
+
+        scores = torch.mv(cand_vecs, x_mol_vecs)
+        _, cand_idx = torch.sort(scores, descending=True)
+
+        backup_mol = Chem.RWMol(cur_mol)
+
+        for i in range(cand_idx.numel()):
+            cur_mol = Chem.RWMol(backup_mol)
+            pred_amap = cand_amap[cand_idx[i].item()]
+            new_global_amap = copy.deepcopy(global_amap)
+
+            for nei_id, ctr_atom, nei_atom in pred_amap:
+                if nei_id == fa_nid:
+                    continue
+                new_global_amap[nei_id][nei_atom] = new_global_amap[cur_node.nid][ctr_atom]
+
+            cur_mol = attach_mols(cur_mol, children, [], new_global_amap)  # father is already attached
+            new_mol = cur_mol.GetMol()
+            new_mol = Chem.MolFromSmiles(Chem.MolToSmiles(new_mol))
+
+            if new_mol is None:
+                continue
+
+            result = True
+            for nei_node in children:
+                if nei_node.is_leaf:
+                    continue
+                cur_mol = self.dfs_assemble_graph_conv(x_mol_vecs, all_nodes, cur_mol, new_global_amap, pred_amap,
                                             nei_node, cur_node)
                 if cur_mol is None:
                     result = False
@@ -685,10 +792,10 @@ class JTNNVAE(nn.Module):
     #             all_smiles.append(new_smiles)
     #     return all_smiles
 
-    # def sample_prior(self, prob_decode=False):
-    #     tree_vec = create_var(torch.randn(1, self.latent_size // 2), False)
-    #     mol_vec = create_var(torch.randn(1, self.latent_size // 2), False)
-    #     return self.decode(tree_vec, mol_vec, prob_decode)
+    def sample_prior(self, prob_decode=False):
+        z_tree = torch.randn(1, self.latent_size).cuda()
+        z_mol = torch.randn(1, self.latent_size).cuda()
+        return self.decode(z_tree, z_mol, prob_decode)
 
     # def sample_eval(self):
     #     tree_vec = create_var(torch.randn(1, self.latent_size // 2), False)
