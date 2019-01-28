@@ -338,7 +338,7 @@ class JTNNDecoder(nn.Module):
             # Predict stop
             cur_h = cur_h_nei.sum(dim=1)
             stop_hidden = torch.cat([cur_x, cur_h], dim=1)
-            stop_hiddens = F.relu(self.U(stop_hidden))
+            stop_hiddens = F.relu(self.U_i(stop_hidden))
             stop_score = self.aggregate(stop_hiddens, contexts, tree_vecs, 'stop')
 
             backtrack = (stop_score.item() < 0)
@@ -378,7 +378,7 @@ class JTNNDecoder(nn.Module):
                     # back to root, terminate
                     break
 
-                parent_node,_ = stack[-2]
+                parent_node, _ = stack[-2]
                 cur_h_nei = [ h[(node_y.idx,node_x.idx)] for node_y in node_x.neighbors if node_y.idx != parent_node.idx ]
                 if len(cur_h_nei) > 0:
                     cur_h_nei = torch.stack(cur_h_nei, dim=0).view(1,-1,self.hidden_size)
