@@ -48,7 +48,6 @@ for smiles in data:
     mol = Chem.MolFromSmiles(smiles)
     smiles3D = Chem.MolToSmiles(mol, isomericSmiles=True)
 
-    print(smiles3D)
     try:
         dec_smiles = model.reconstruct(smiles3D)
 
@@ -57,8 +56,9 @@ for smiles in data:
     except Exception as e:
         print(e)
     tot += 1
+    print(tot)
 
-print('Reconstruction Test Accuracy'.format(acc / tot))
+print('Reconstruction Test Accuracy: {}'.format(acc / tot))
 """
 dec_smiles = model.recon_eval(smiles3D)
 tot += len(dec_smiles)
