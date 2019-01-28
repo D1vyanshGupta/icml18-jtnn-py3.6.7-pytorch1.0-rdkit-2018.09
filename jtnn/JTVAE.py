@@ -162,7 +162,6 @@ class JTNNVAE(nn.Module):
         return z_vecs, kl_loss
 
     def sample_prior(self):
-        print(self.latent_size)
         z_tree = torch.randn(1, self.latent_size).cuda()
         z_mol = torch.randn(1, self.latent_size).cuda()
         # z_tree = torch.randn(1, self.latent_size)
@@ -467,7 +466,7 @@ class JTNNVAE(nn.Module):
         if len(cands) == 0:
             return None
 
-        cand_smiles, cand_amap = zip(*cands)
+        cand_smiles, cand_mols, cand_amap = zip(*cands)
         cands = [(smiles, all_nodes, cur_node) for smiles in cand_smiles]
 
         jtmpn_holder = JTMessPassNet.tensorize(cands, y_tree_mess[1])
