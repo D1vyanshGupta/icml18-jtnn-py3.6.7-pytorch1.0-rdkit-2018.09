@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="" />
+    <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/jtnn/JTVAE.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/JTVAE.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new_molvae/sample.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_molvae/sample.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="sample.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="sample.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/new_molvae/sample.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="48" column="32" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="32" />
+            <state relative-caret-position="423">
+              <caret line="52" column="25" selection-start-line="52" selection-start-column="25" selection-end-line="52" selection-end-column="25" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -28,17 +31,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JTVAE.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="JTVAE.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="163" column="8" selection-start-line="163" selection-start-column="8" selection-end-line="163" selection-end-column="8" />
+            <state relative-caret-position="167">
+              <caret line="164" column="30" selection-start-line="164" selection-start-column="30" selection-end-line="164" selection-end-column="30" />
               <folding>
                 <element signature="e#710#4287#0" />
                 <element signature="e#5397#5531#0" />
                 <element signature="e#5814#5951#0" />
                 <element signature="e#6007#6463#0" />
-                <element signature="e#16612#18097#0" />
               </folding>
             </state>
           </provider>
@@ -68,7 +70,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tensorize_pair</find>
       <find>atom_layer_output</find>
       <find>index_select</find>
       <find>bond_atom_adjacency_graph</find>
@@ -92,12 +93,13 @@
       <find>list_dir</find>
       <find>epoch</find>
       <find>bond</find>
-      <find>sample_prior</find>
       <find>def decode</find>
       <find>decode</find>
       <find>decode_gc</find>
       <find>y_tree_messy_tree_mess</find>
       <find>enum_assemble</find>
+      <find>return self.decode(z_tree, z_mol, prob_decode)</find>
+      <find>sample_prior</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -168,9 +170,9 @@
         <option value="$PROJECT_DIR$/jtnn/JuncTreeEncoder.py" />
         <option value="$PROJECT_DIR$/jupyter-notebooks/data_exploration.ipynb" />
         <option value="$PROJECT_DIR$/jupyter-notebooks/data_plotting.ipynb" />
+        <option value="$PROJECT_DIR$/jtnn/nnutils.py" />
         <option value="$PROJECT_DIR$/jtnn/JTVAE.py" />
         <option value="$PROJECT_DIR$/new_molvae/sample.py" />
-        <option value="$PROJECT_DIR$/jtnn/nnutils.py" />
       </list>
     </option>
   </component>
@@ -384,7 +386,7 @@
       <window_info anchor="bottom" id="Version Control" order="1" />
       <window_info anchor="bottom" id="Python Console" order="3" weight="0.32908458" />
       <window_info anchor="bottom" id="Run" order="8" weight="0.2653534" />
-      <window_info anchor="bottom" id="Terminal" order="4" weight="0.34762457" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="4" visible="true" weight="0.34762457" />
       <window_info content_ui="combo" id="Project" order="1" sideWeight="0.4980695" visible="true" weight="0.25213677" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="2" />
@@ -719,26 +721,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/new_molvae/sample.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="48" column="32" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="163" column="8" selection-start-line="163" selection-start-column="8" selection-end-line="163" selection-end-column="8" />
+        <state relative-caret-position="167">
+          <caret line="164" column="30" selection-start-line="164" selection-start-column="30" selection-end-line="164" selection-end-column="30" />
           <folding>
             <element signature="e#710#4287#0" />
             <element signature="e#5397#5531#0" />
             <element signature="e#5814#5951#0" />
             <element signature="e#6007#6463#0" />
-            <element signature="e#16612#18097#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/new_molvae/sample.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="52" column="25" selection-start-line="52" selection-start-column="25" selection-end-line="52" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>

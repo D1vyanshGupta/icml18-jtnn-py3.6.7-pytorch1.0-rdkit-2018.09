@@ -42,11 +42,15 @@ smiles = []
 
 if args.use_graph_conv:
     for i in range(args.nsample):
-        print(model.sample_prior_graph_conv())
+        smiles_str = model.sample_prior_graph_conv()
+        smiles.append(smiles_str)
+        print(smiles_str)
 
 else:
     for i in range(args.nsample):
-        print(model.sample_prior())
+        smiles_str = model.sample_prior()
+        smiles.append(smiles_str)
+        print(smiles_str)
 
 validity = len(smiles) / args.nsample
 
