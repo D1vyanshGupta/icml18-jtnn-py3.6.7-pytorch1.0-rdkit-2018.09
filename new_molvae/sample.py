@@ -34,7 +34,7 @@ vocab = ClusterVocab(vocab)
 
 model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv)
 model.load_state_dict(torch.load(args.model))
-# model = model.cuda()
+model = model.cuda()
 
 torch.manual_seed(0)
 
