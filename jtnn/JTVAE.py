@@ -8,6 +8,7 @@ from MessPassNet import MessPassNet
 from JTMessPassNet import JTMessPassNet
 from MolGraphEncoder import MolGraphEncoder
 from JuncTreeEncoder import JuncTreeEncoder
+from MolJuncTree import MolJuncTree
 
 from chemutils import enum_assemble, set_atom_map, deep_copy_mol, attach_mols, decode_stereo
 
@@ -755,21 +756,53 @@ class JTNNVAE(nn.Module):
     #     all_loss = sum(all_loss) / len(labels)
     #     return all_loss, acc * 1.0 / len(labels)
 
-    # def reconstruct(self, smiles, prob_decode=False):
-    #     junc_tree = MolJuncTree(smiles)
-    #     junc_tree.recover()
-    #     _, tree_vec, mol_vec = self.encode([junc_tree])
-    #
-    #     tree_mean = self.T_mean(tree_vec)
-    #     tree_log_var = -torch.abs(self.T_var(tree_vec))  # Following Mueller et al.
-    #     mol_mean = self.G_mean(mol_vec)
-    #     mol_log_var = -torch.abs(self.G_var(mol_vec))  # Following Mueller et al.
-    #
-    #     epsilon = create_var(torch.randn(1, self.latent_size // 2), False)
-    #     tree_vec = tree_mean + torch.exp(tree_log_var // 2) * epsilon
-    #     epsilon = create_var(torch.randn(1, self.latent_size // 2), False)
-    #     mol_vec = mol_mean + torch.exp(mol_log_var // 2) * epsilon
-    #     return self.decode(tree_vec, mol_vec, prob_decode)
+    def reconstruct(self, smiles):
+        junc_tree = MolJuncTree(smiles)
+        junc_tree.recover()
+        jtenc_holder = JTNNEncoder.tensorize([junc_tree])
+        mpn_holder = MessPassNet.tensorize([smiles])
+
+        tree_vec, tree_mess, mol_vec = self.encode(jtenc_holder, mpn_holder)
+
+        tree_mean = self.T_mean(tree_vec)
+        tree_log_var = -torch.abs(self.T_var(tree_vec))  # Following Mueller et al.
+        mol_mean = self.G_mean(mol_vec)
+        mol_log_var = -torch.abs(self.G_var(mol_vec))  # Following Mueller et al.
+
+        # epsilon = create_var(torch.randn(1, self.latent_size // 2), False)
+        # tree_vec = tree_mean + torch.exp(tree_log_var // 2) * epsilon
+        # epsilon = create_var(torch.randn(1, self.latent_size // 2), False)
+        # mol_vec = mol_mean + torch.exp(mol_log_var // 2) * epsilon
+        epsilon = create_var(torch.randn(1, self.latent_size), False)
+        tree_vec = tree_mean + torch.exp(tree_log_var / 2) * epsilon
+        epsilon = create_var(torch.randn(1, self.latent_size), False)
+        mol_vec = mol_mean + torch.exp(mol_log_var / 2) * epsilon
+
+        return self.decode(tree_vec, mol_vec)
+
+    def reconstruct_graph_conv(self, smiles):
+        junc_tree = MolJuncTree(smiles)
+        junc_tree.recover()
+
+        jt_graph_enc_holder = JuncTreeEncoder.tensorize([junc_tree])
+        molenc_holder = MolGraphEncoder.tensorize([smiles])
+
+        tree_vec, mol_vec = self.encode_graph_conv(jt_graph_enc_holder, molenc_holder)
+
+        tree_mean = self.T_mean(tree_vec)
+        tree_log_var = -torch.abs(self.T_var(tree_vec))  # Following Mueller et al.
+        mol_mean = self.G_mean(mol_vec)
+        mol_log_var = -torch.abs(self.G_var(mol_vec))  # Following Mueller et al.
+
+        # epsilon = create_var(torch.randn(1, self.latent_size // 2), False)
+        # tree_vec = tree_mean + torch.exp(tree_log_var // 2) * epsilon
+        # epsilon = create_var(torch.randn(1, self.latent_size // 2), False)
+        # mol_vec = mol_mean + torch.exp(mol_log_var // 2) * epsilon
+        epsilon = create_var(torch.randn(1, self.latent_size), False)
+        tree_vec = tree_mean + torch.exp(tree_log_var / 2) * epsilon
+        epsilon = create_var(torch.randn(1, self.latent_size), False)
+        mol_vec = mol_mean + torch.exp(mol_log_var / 2) * epsilon
+        return self.decode_graph_conv(tree_vec, mol_vec)
 
     # def recon_eval(self, smiles):
     #     junc_tree = MolJuncTree(smiles)
