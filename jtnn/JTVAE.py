@@ -530,7 +530,7 @@ class JTNNVAE(nn.Module):
         # cand_vecs = self.jtmpn(fatoms, fbonds, agraph, bgraph, scope, y_tree_mess[0])
 
         jt_graph_enc_holder = MolGraphEncoder.tensorize(cand_smiles)
-        cand_vecs = self.graph_enc(jt_graph_enc_holder)
+        cand_vecs = self.graph_enc(*jt_graph_enc_holder)
 
         scores = torch.mv(cand_vecs, x_mol_vecs)
         _, cand_idx = torch.sort(scores, descending=True)
