@@ -763,10 +763,10 @@ class JTNNVAE(nn.Module):
 
         set_batch_nodeID([junc_tree], self.vocab)
 
-        jtenc_holder = JTNNEncoder.tensorize([junc_tree])
+        jtenc_holder, _ = JTNNEncoder.tensorize([junc_tree])
         mpn_holder = MessPassNet.tensorize([smiles])
 
-        tree_vec, tree_mess, mol_vec = self.encode(jtenc_holder, mpn_holder)
+        tree_vec, _, mol_vec = self.encode(jtenc_holder, mpn_holder)
 
         tree_mean = self.T_mean(tree_vec)
         tree_log_var = -torch.abs(self.T_var(tree_vec))  # Following Mueller et al.
