@@ -2,6 +2,8 @@ import os
 import sys
 import argparse
 
+from timeit import default_timer as timer
+
 import torch
 
 import rdkit
@@ -44,6 +46,7 @@ with open(args.test) as f:
 
 acc = 0.0
 tot = 0
+start_time = timer()
 for smiles in data:
     mol = Chem.MolFromSmiles(smiles)
     smiles3D = Chem.MolToSmiles(mol, isomericSmiles=True)
@@ -58,7 +61,10 @@ for smiles in data:
     tot += 1
     print(tot)
 
-print('Reconstruction Test Accuracy: {}'.format(acc / tot))
+end_time = timer()
+
+total_time = (end_time - start_time)
+print('Reconstruction Test Accuracy: {}. Time taken: {}'.format(acc / tot, total_time/60))
 """
 dec_smiles = model.recon_eval(smiles3D)
 tot += len(dec_smiles)
