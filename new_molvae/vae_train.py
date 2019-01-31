@@ -233,7 +233,7 @@ plt.legend()
 
 plot_name = (args.model_name).lower().replace(' ', '_') + "_kl_div"
 
-fig_path = os.path.join(args.plot_dir, 'plots', plot_name + '.png')
+fig_path = os.path.join(args.plot_dir, plot_name + '.png')
 plt.savefig(fig_path, dpi=200)
 plt.close(fig)
 
