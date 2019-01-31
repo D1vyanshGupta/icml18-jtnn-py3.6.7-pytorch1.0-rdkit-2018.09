@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/new_molvae/vae_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_molvae/vae_train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new_molvae/reconstruct.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_molvae/reconstruct.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,8 +22,32 @@
       <file leaf-file-name="vae_train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1652">
-              <caret line="146" lean-forward="true" selection-start-line="146" selection-end-line="146" />
+            <state relative-caret-position="179">
+              <caret line="218" column="30" lean-forward="true" selection-start-line="218" selection-start-column="30" selection-end-line="219" selection-end-column="14" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JTVAE.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-312">
+              <caret line="414" column="8" selection-start-line="414" selection-start-column="8" selection-end-line="414" selection-end-column="8" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="reconstruct.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/new_molvae/reconstruct.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="412">
+              <caret line="29" column="52" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -68,10 +93,10 @@
       <find>tensorize</find>
       <find>forward</find>
       <find>reconstr</find>
-      <find>reconstruct</find>
       <find>jtnn</find>
-      <find>reconstruct_gra</find>
       <find>self.jtnn</find>
+      <find>reconstruct</find>
+      <find>reconstruct_gra</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -134,7 +159,6 @@
         <option value="$PROJECT_DIR$/jtnn/JTNNEncoder.py" />
         <option value="$PROJECT_DIR$/jtnn/JTGraphEncoder.py" />
         <option value="$PROJECT_DIR$/jtnn/new_datautils.py" />
-        <option value="$PROJECT_DIR$/jtnn/ConvNetLayer.py" />
         <option value="$PROJECT_DIR$/jtnn/ClusterVocab.py" />
         <option value="$PROJECT_DIR$/jtnn/JuncTreeEncoder.py" />
         <option value="$PROJECT_DIR$/jupyter-notebooks/data_exploration.ipynb" />
@@ -143,8 +167,9 @@
         <option value="$PROJECT_DIR$/new_molvae/sample.py" />
         <option value="$PROJECT_DIR$/jtnn/JTNNDecoder.py" />
         <option value="$PROJECT_DIR$/jtnn/JTVAE.py" />
-        <option value="$PROJECT_DIR$/new_molvae/reconstruct.py" />
         <option value="$PROJECT_DIR$/new_molvae/vae_train.py" />
+        <option value="$PROJECT_DIR$/jtnn/ConvNetLayer.py" />
+        <option value="$PROJECT_DIR$/new_molvae/reconstruct.py" />
       </list>
     </option>
   </component>
@@ -353,6 +378,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="960" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="12" weight="0.32908458" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
@@ -360,8 +386,8 @@
       <window_info anchor="bottom" id="Version Control" order="1" />
       <window_info anchor="bottom" id="Python Console" order="3" weight="0.32908458" />
       <window_info anchor="bottom" id="Run" order="8" weight="0.2653534" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="4" visible="true" weight="0.34762457" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.4980695" visible="true" weight="0.25518927" />
+      <window_info anchor="bottom" id="Terminal" order="4" visible="true" weight="0.34762457" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.4980695" visible="true" weight="0.25824177" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="2" />
       <window_info anchor="right" id="SciView" order="0" />
@@ -382,26 +408,26 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
-      <window_info id="Favorites" order="0" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.4980695" visible="true" weight="0.25213677" />
       <window_info id="Structure" order="2" sideWeight="0.5019305" side_tool="true" weight="0.22527473" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="12" weight="0.32908458" />
+      <window_info anchor="bottom" id="Version Control" order="1" />
       <window_info anchor="bottom" id="Run" order="8" visible="true" weight="0.40903825" />
-      <window_info anchor="bottom" id="Message" order="6" />
+      <window_info anchor="bottom" id="Find" order="7" weight="0.32908458" />
+      <window_info anchor="bottom" id="Python Console" order="3" weight="0.32908458" />
       <window_info anchor="bottom" id="Debug" order="9" weight="0.39976826" />
       <window_info anchor="right" x="0" y="0" width="370" height="760" id="Documentation" order="5" side_tool="true" weight="0.32967034" />
       <window_info anchor="right" id="Database" order="2" />
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.29432213" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="2" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="1" />
+      <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="right" id="SciView" order="0" />
-      <window_info anchor="bottom" id="Find" order="7" weight="0.32908458" />
+      <window_info anchor="bottom" id="Message" order="6" />
       <window_info active="true" anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.32908458" />
-      <window_info anchor="bottom" id="Python Console" order="3" weight="0.32908458" />
+      <window_info id="Favorites" order="0" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -546,13 +572,6 @@
         <state relative-caret-position="-1739" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/ConvNetLayer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="81" column="64" selection-start-line="81" selection-start-column="64" selection-end-line="81" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/prev_datautils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="516">
@@ -595,6 +614,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-700">
           <caret line="210" selection-start-line="210" selection-end-line="210" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#1912#3601#0" />
+            <element signature="e#3750#5790#0" />
+            <element signature="e#5930#7773#0" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -650,6 +675,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2146">
           <caret line="391" column="8" selection-start-line="391" selection-start-column="8" selection-end-line="391" selection-end-column="8" />
+          <folding>
+            <element signature="e#1711#2590#0" />
+            <element signature="e#2628#3472#0" />
+            <element signature="e#3693#6111#0" />
+            <element signature="e#6269#8973#0" />
+            <element signature="e#9098#10941#0" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -680,30 +712,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/new_molvae/reconstruct.py">
+    <entry file="file://$PROJECT_DIR$/jtnn/ConvNetLayer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="66" selection-start-line="66" selection-end-line="66" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="297">
+          <caret line="91" column="79" selection-start-line="91" selection-start-column="79" selection-end-line="91" selection-end-column="79" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="85" column="25" selection-start-line="85" selection-start-column="16" selection-end-line="85" selection-end-column="25" />
+        <state relative-caret-position="-312">
+          <caret line="414" column="8" selection-start-line="414" selection-start-column="8" selection-end-line="414" selection-end-column="8" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/new_molvae/reconstruct.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="29" column="52" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1652">
-          <caret line="146" lean-forward="true" selection-start-line="146" selection-end-line="146" />
+        <state relative-caret-position="179">
+          <caret line="218" column="30" lean-forward="true" selection-start-line="218" selection-start-column="30" selection-end-line="219" selection-end-column="14" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
