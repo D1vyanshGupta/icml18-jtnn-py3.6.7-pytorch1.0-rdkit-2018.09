@@ -70,7 +70,7 @@ parser.add_argument('--use_graph_conv', action='store_true')
 
 # DEFAULT_CMD = ["--train", "qm9_5k_processed/", "--vocab", "../data/vocab_qm9_5k.txt",
 #                "--log_dir", "../logs", "--plot_dir", "../plots", "--model_name",
-#                "JTVAE QM9 5K", "--batch_size", "10", "--save_dir", "../models"]
+#                "JTVAE QM9 5K", "--batch_size", "10", "--save_dir", "../models", "--use_graph_conv"]
 
 args = parser.parse_args()
 print(args)

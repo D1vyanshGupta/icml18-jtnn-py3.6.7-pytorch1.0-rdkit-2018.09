@@ -29,6 +29,10 @@ class ConvNetLayer(nn.Module):
         # the dimension of the hidden vectors
         self.hidden_size = hidden_size
 
+        self.atom_feature_dim = atom_feature_dim
+
+        self.bond_feature_dim = bond_feature_dim
+
         if atom_feature_dim != 0 and bond_feature_dim != 0:
             # weight matrices for the node features (as per Prof. Bresson's equations)
             self.U = nn.Linear(atom_feature_dim, hidden_size, bias=True)
@@ -89,7 +93,10 @@ class ConvNetLayer(nn.Module):
 
         # apply ReLU activation for computing new bond features
         # add residual
-        bond_layer_output = F.relu(edge_gate_synaptic_input) + bond_layer_input
+        if self.bond_feature_dim == 0:
+            bond_layer_output = F.relu(edge_gate_synaptic_input) + bond_layer_input
+        else:
+            bond_layer_output = F.relu(edge_gate_synaptic_input)
 
         # implement node features computation
 
@@ -112,7 +119,10 @@ class ConvNetLayer(nn.Module):
 
         # apply ReLU activation for computing new atom features
         # add residual
-        atom_layer_output = F.relu(atom_features_synaptic_input) + atom_layer_input
+        if self.atom_feature_dim == 0:
+            atom_layer_output = F.relu(atom_features_synaptic_input) + atom_layer_input
+        else:
+            atom_layer_output = F.relu(atom_features_synaptic_input)
 
         return atom_layer_output, bond_layer_output
 
@@ -159,7 +169,6 @@ class ConvNetLayer(nn.Module):
         #
         #     # set the atom's feature vector to the new value
         #     atom_layer_output[atom_idx] = new_atom_vec
-        print('Jai Mata Di!! 2')
         return atom_layer_output, bond_layer_output
 
     # def evaluate_bond_features_synaptic_input(self, atom_feature_vec, bond_feature_vecs, neighbor_atom_feature_vecs):
