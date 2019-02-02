@@ -93,10 +93,12 @@ class ConvNetLayer(nn.Module):
 
         # apply ReLU activation for computing new bond features
         # add residual
-        if self.bond_feature_dim == 0:
-            bond_layer_output = F.relu(edge_gate_synaptic_input) + bond_layer_input
-        else:
-            bond_layer_output = F.relu(edge_gate_synaptic_input)
+        # if self.bond_feature_dim == 0:
+        #     bond_layer_output = F.relu(edge_gate_synaptic_input) + bond_layer_input
+        # else:
+        #     bond_layer_output = F.relu(edge_gate_synaptic_input)
+
+        bond_layer_output = F.relu(edge_gate_synaptic_input)
 
         # implement node features computation
 
@@ -119,10 +121,12 @@ class ConvNetLayer(nn.Module):
 
         # apply ReLU activation for computing new atom features
         # add residual
-        if self.atom_feature_dim == 0:
-            atom_layer_output = F.relu(atom_features_synaptic_input) + atom_layer_input
-        else:
-            atom_layer_output = F.relu(atom_features_synaptic_input)
+        # if self.atom_feature_dim == 0:
+        #     atom_layer_output = F.relu(atom_features_synaptic_input) + atom_layer_input
+        # else:
+        #     atom_layer_output = F.relu(atom_features_synaptic_input)
+
+        atom_layer_output = F.relu(atom_features_synaptic_input)
 
         return atom_layer_output, bond_layer_output
 
