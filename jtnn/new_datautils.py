@@ -117,13 +117,13 @@ class MolTreeDataset(Dataset):
 def tensorize(junc_tree_batch, vocab, use_graph_conv, assm=True):
     set_batch_nodeID(junc_tree_batch, vocab)
     smiles_batch = [junc_tree.smiles for junc_tree in junc_tree_batch]
+    jtenc_holder, mess_dict = JTNNEncoder.tensorize(junc_tree_batch)
 
     if use_graph_conv:
         molenc_holder = MolGraphEncoder.tensorize(smiles_batch)
-        jt_graph_enc_holder = JuncTreeEncoder.tensorize(junc_tree_batch)
 
         if assm is False:
-            return junc_tree_batch, jt_graph_enc_holder, molenc_holder
+            return junc_tree_batch, jtenc_holder, molenc_holder
 
         candidate_smiles = []
         cand_batch_idx = []
@@ -158,11 +158,11 @@ def tensorize(junc_tree_batch, vocab, use_graph_conv, assm=True):
         # stereo_batch_idx = torch.LongTensor(stereo_batch_idx)
 
         # return junc_tree_batch, jtenc_holder, molenc_holder, (cand_molenc_holder, cand_batch_idx), (stereo_molenc_holder, stereo_batch_idx, stereo_labels)
-        return junc_tree_batch, jt_graph_enc_holder, molenc_holder, (cand_molenc_holder, cand_batch_idx)
+        return junc_tree_batch, jtenc_holder, molenc_holder, (cand_molenc_holder, cand_batch_idx)
 
     else:
         mpn_holder = MessPassNet.tensorize(smiles_batch)
-        jtenc_holder, mess_dict = JTNNEncoder.tensorize(junc_tree_batch)
+        # jtenc_holder, mess_dict = JTNNEncoder.tensorize(junc_tree_batch)
 
         if assm is False:
             return junc_tree_batch, jtenc_holder, mpn_holder

@@ -71,29 +71,20 @@ class JTNNVAE(nn.Module):
             # for encoding molecular graphs, to hidden vector representation
             self.graph_enc = MolGraphEncoder(hidden_size, num_layers)
 
-            if share_embedding:
-                self.embedding = nn.Embedding(vocab.size(), hidden_size)
-                self.junc_tree_enc = JuncTreeEncoder(hidden_size, num_layers, self.embedding)
-                self.decoder = JTNNDecoder(vocab, hidden_size, latent_size, self.embedding)
-            else:
-                self.junc_tree_enc = JuncTreeEncoder(hidden_size, num_layers, nn.Embedding(vocab.size(), hidden_size))
-                self.decoder = JTNNDecoder(vocab, hidden_size, latent_size, nn.Embedding(vocab.size(), hidden_size))
-
         else:
-
-            if share_embedding:
-                self.embedding = nn.Embedding(vocab.size(), hidden_size)
-                self.jtnn = JTNNEncoder(hidden_size, depthT, self.embedding)
-                self.decoder = JTNNDecoder(vocab, hidden_size, latent_size, self.embedding)
-            else:
-                self.jtnn = JTNNEncoder(hidden_size, depthT, nn.Embedding(vocab.size(), hidden_size))
-                self.decoder = JTNNDecoder(vocab, hidden_size, latent_size, nn.Embedding(vocab.size(), hidden_size))
-
             # encoder for producing the molecule graph encoding given batch of molecules
             self.mpn = MessPassNet(hidden_size, depthG)
 
             # for encoding candidate subgraphs, in the graph decoding phase (section 2.5)
             self.jtmpn = JTMessPassNet(hidden_size, depthG)
+
+        if share_embedding:
+            self.embedding = nn.Embedding(vocab.size(), hidden_size)
+            self.jtnn = JTNNEncoder(hidden_size, depthT, self.embedding)
+            self.decoder = JTNNDecoder(vocab, hidden_size, latent_size, self.embedding)
+        else:
+            self.jtnn = JTNNEncoder(hidden_size, depthT, nn.Embedding(vocab.size(), hidden_size))
+            self.decoder = JTNNDecoder(vocab, hidden_size, latent_size, nn.Embedding(vocab.size(), hidden_size))
 
         # weight matrices for calculating mean and log_var vectors, for implementing the VAE
         self.T_mean = nn.Linear(hidden_size, latent_size)
@@ -104,7 +95,6 @@ class JTNNVAE(nn.Module):
 
         self.G_var = nn.Linear(hidden_size, latent_size)
 
-        #
         self.A_assm = nn.Linear(latent_size, hidden_size, bias=False)
 
         # reconstruction loss
@@ -144,8 +134,8 @@ class JTNNVAE(nn.Module):
     #     mol_vecs = self.graph_enc(*molenc_holder)
     #     return tree_vecs, mol_vecs
 
-    def encode_graph_conv(self, jt_graph_enc_holder, molenc_holder):
-        tree_vecs = self.junc_tree_enc(*jt_graph_enc_holder)
+    def encode_graph_conv(self, jtenc_holder, molenc_holder):
+        tree_vecs, _ = self.jtnn(*jtenc_holder)
         mol_vecs = self.graph_enc(*molenc_holder)
         return tree_vecs, mol_vecs
 
@@ -224,9 +214,9 @@ class JTNNVAE(nn.Module):
 
     def forward(self, x_batch, beta):
         if self.use_graph_conv:
-            # x_junc_tree_batch, x_jtenc_holder, x_molenc_holder, x_cand_molenc_holder, x_stereo_molenc_holder = x_batch
-            x_junc_tree_batch, x_jt_graph_enc_holder, x_molenc_holder, x_cand_molenc_holder = x_batch
-            x_tree_vecs, x_mol_vecs = self.encode_graph_conv(x_jt_graph_enc_holder, x_molenc_holder)
+            x_junc_tree_batch, x_jtenc_holder, x_molenc_holder, x_cand_molenc_holder = x_batch
+            # x_junc_tree_batch, x_jt_graph_enc_holder, x_molenc_holder, x_cand_molenc_holder = x_batch
+            x_tree_vecs, x_mol_vecs = self.encode_graph_conv(x_jtenc_holder, x_molenc_holder)
             z_tree_vecs, tree_kl = self.rsample(x_tree_vecs, self.T_mean, self.T_var)
             z_mol_vecs, mol_kl = self.rsample(x_mol_vecs, self.G_mean, self.G_var)
 
