@@ -45,7 +45,7 @@ parser.add_argument('--batch_size', type=int, default=32)
 parser.add_argument('--latent_size', type=int, default=56)
 # parser.add_argument('--latent_size', type=int, default=20)
 # parser.add_argument('--depthT', type=int, default=20)
-parser.add_argument('--depthT', type=int, default=1)
+parser.add_argument('--depthT', type=int, default=20)
 parser.add_argument('--depthG', type=int, default=3)
 parser.add_argument('--share_embedding', action='store_true')
 
