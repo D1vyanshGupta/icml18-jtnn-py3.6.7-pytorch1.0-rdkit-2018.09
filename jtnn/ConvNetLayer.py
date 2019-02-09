@@ -34,10 +34,10 @@ class ConvNetLayer(nn.Module):
         self.bond_feature_dim = bond_feature_dim
 
         # batch normalization for bond/edge features
-        self.bn_bond_features = nn.BatchNorm1d(num_features=hidden_size)
+        # self.bn_bond_features = nn.BatchNorm1d(num_features=hidden_size)
 
         # batch normalization for atom/node features
-        self.bn_atom_features = nn.BatchNorm1d(num_features=hidden_size)
+        # self.bn_atom_features = nn.BatchNorm1d(num_features=hidden_size)
 
 
         if atom_feature_dim != 0 and bond_feature_dim != 0:
@@ -99,7 +99,7 @@ class ConvNetLayer(nn.Module):
         edge_gates = F.sigmoid(edge_gate_synaptic_input)
 
         # implement batch normalization for bond/edge features
-        edge_gate_synaptic_input = self.bn_bond_features(edge_gate_synaptic_input)
+        # edge_gate_synaptic_input = self.bn_bond_features(edge_gate_synaptic_input)
 
         # apply ReLU activation for computing new bond features
         # add residual
@@ -130,7 +130,7 @@ class ConvNetLayer(nn.Module):
         atom_features_synaptic_input = self.U(atom_layer_input) + atom_neighbor_message_sum
 
         # implement batch normalization
-        atom_features_synaptic_input = self.bn_atom_features(atom_features_synaptic_input)
+        # atom_features_synaptic_input = self.bn_atom_features(atom_features_synaptic_input)
 
         # apply ReLU activation for computing new atom features
         # add residual
