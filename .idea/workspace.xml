@@ -54,11 +54,23 @@
       <file leaf-file-name="run_bo.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bo/run_bo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="752">
-              <caret line="182" column="29" lean-forward="true" selection-start-line="182" selection-start-column="29" selection-end-line="182" selection-end-column="29" />
+            <state relative-caret-position="274">
+              <caret line="102" column="39" selection-start-line="102" selection-start-column="39" selection-end-line="102" selection-end-column="39" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
-                <marker date="1549784541953" expanded="true" signature="1599:1698" ph="..." />
+                <marker date="1549786481090" expanded="true" signature="1599:1698" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sparse_gp.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bo/sparse_gp.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1925">
+              <caret line="302" column="8" selection-start-line="302" selection-start-column="8" selection-end-line="302" selection-end-column="8" />
+              <folding>
+                <element signature="e#56#93#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -116,8 +128,8 @@
       <find>.txt</find>
       <find>encode_latent</find>
       <find>_fscores</find>
-      <find>casting</find>
       <find>processed_path</find>
+      <find>casting</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -735,26 +747,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="123" column="30" selection-start-line="123" selection-start-column="23" selection-end-line="123" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bo/sparse_gp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5055">
-          <caret line="337" column="22" selection-start-line="337" selection-start-column="22" selection-end-line="337" selection-end-column="22" />
-          <folding>
-            <element signature="e#56#93#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bo/sparse_gp_theano_internal.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5445">
@@ -782,6 +774,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bo/gen_latent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-346">
+          <caret line="4" column="41" lean-forward="true" selection-start-line="4" selection-end-line="4" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bo/sparse_gp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1925">
+          <caret line="302" column="8" selection-start-line="302" selection-start-column="8" selection-end-line="302" selection-end-column="8" />
+          <folding>
+            <element signature="e#56#93#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bo/gauss.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -792,20 +801,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bo/gen_latent.py">
+    <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-346">
-          <caret line="4" column="41" lean-forward="true" selection-start-line="4" selection-end-line="4" selection-end-column="41" />
+        <state relative-caret-position="491">
+          <caret line="123" column="30" selection-start-line="123" selection-start-column="23" selection-end-line="123" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bo/run_bo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="752">
-          <caret line="182" column="29" lean-forward="true" selection-start-line="182" selection-start-column="29" selection-end-line="182" selection-end-column="29" />
+        <state relative-caret-position="274">
+          <caret line="102" column="39" selection-start-line="102" selection-start-column="39" selection-end-line="102" selection-end-column="39" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <marker date="1549784541953" expanded="true" signature="1599:1698" ph="..." />
+            <marker date="1549786481090" expanded="true" signature="1599:1698" ph="..." />
           </folding>
         </state>
       </provider>
