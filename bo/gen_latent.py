@@ -95,12 +95,10 @@ for idx, batch in enumerate(loader):
     print(i, 'latent points')
     if args.use_graph_conv:
         _, jtenc_holder, molenc_holder, _ = batch
-        batch_ = (jtenc_holder, molenc_holder)
-        mol_vec = model.encode_latent_mean_graph_conv(batch_)
+        mol_vec = model.encode_latent_mean_graph_conv(jtenc_holder, molenc_holder)
     else:
         _, jtenc_holder, mpn_holder, _ = batch
-        batch_ = (jtenc_holder, mpn_holder)
-        mol_vec = model.encode_latent_mean(batch_)
+        mol_vec = model.encode_latent_mean(jtenc_holder, mpn_holder)
     latent_points.append(mol_vec.data.cpu().numpy())
 
 # latent_points = []
