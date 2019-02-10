@@ -92,7 +92,7 @@ cycle_scores_normalized = (np.array(cycle_scores) - np.mean(cycle_scores)) / np.
 latent_points = []
 loader = MolTreeFolder(args.processed_path, vocab, args.use_graph_conv, batch_size, num_workers=5)
 for idx, batch in enumerate(loader):
-    print(i, 'latent points')
+    print(idx, 'latent points')
     if args.use_graph_conv:
         _, jtenc_holder, molenc_holder, _ = batch
         mol_vec = model.encode_latent_mean_graph_conv(jtenc_holder, molenc_holder)

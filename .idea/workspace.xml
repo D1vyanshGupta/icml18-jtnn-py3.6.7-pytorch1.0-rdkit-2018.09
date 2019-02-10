@@ -19,7 +19,7 @@
       <file leaf-file-name="vae_train.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="635">
+            <state relative-caret-position="643">
               <caret line="125" column="26" selection-start-line="125" selection-start-column="13" selection-end-line="125" selection-end-column="26" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -28,13 +28,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gen_latent.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="gen_latent.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bo/gen_latent.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="408">
               <caret line="99" column="46" selection-start-line="99" selection-start-column="46" selection-end-line="99" selection-end-column="46" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JTVAE.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="511">
+              <caret line="220" column="54" selection-start-line="220" selection-start-column="54" selection-end-line="220" selection-end-column="54" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -153,8 +165,8 @@
         <option value="$PROJECT_DIR$/bo/sascorer.py" />
         <option value="$PROJECT_DIR$/bo/gauss.py" />
         <option value="$PROJECT_DIR$/jtnn/nnutils.py" />
-        <option value="$PROJECT_DIR$/jtnn/JTVAE.py" />
         <option value="$PROJECT_DIR$/bo/gen_latent.py" />
+        <option value="$PROJECT_DIR$/jtnn/JTVAE.py" />
       </list>
     </option>
   </component>
@@ -724,26 +736,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="635">
-          <caret line="125" column="26" selection-start-line="125" selection-start-column="13" selection-end-line="125" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="204" column="8" selection-start-line="204" selection-start-column="8" selection-end-line="204" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/new_datautils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="603">
@@ -757,6 +749,26 @@
           <caret line="99" column="46" selection-start-line="99" selection-start-column="46" selection-end-line="99" selection-end-column="46" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="643">
+          <caret line="125" column="26" selection-start-line="125" selection-start-column="13" selection-end-line="125" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="511">
+          <caret line="220" column="54" selection-start-line="220" selection-start-column="54" selection-end-line="220" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
