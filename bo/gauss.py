@@ -2,8 +2,6 @@ import theano
 import theano.tensor as T
 
 import numpy as np
-from scipy.spatial.distance import cdist
-
 
 def casting(x):
     return np.array(x).astype(theano.config.floatX)

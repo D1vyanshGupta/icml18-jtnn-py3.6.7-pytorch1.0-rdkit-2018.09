@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/bo/gen_latent.py" beforeDir="false" afterPath="$PROJECT_DIR$/bo/gen_latent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jtnn/JTVAE.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/JTVAE.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bo/run_bo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bo/sparse_gp.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bo/sparse_gp_theano_internal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/icml18-jtnn-py3.6.7-pytorch1.0-rdkit-2018.09.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bo/gauss.py" beforeDir="false" afterPath="$PROJECT_DIR$/bo/gauss.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jtnn/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/__init__.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,10 +27,22 @@
       <file leaf-file-name="vae_train.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="120" selection-start-line="120" selection-end-line="120" selection-end-column="23" />
+            <state relative-caret-position="491">
+              <caret line="123" column="30" selection-start-line="123" selection-start-column="23" selection-end-line="123" selection-end-column="30" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gauss.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bo/gauss.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -34,8 +51,8 @@
       <file leaf-file-name="gen_latent.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bo/gen_latent.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="99" column="53" selection-start-line="99" selection-start-column="24" selection-end-line="99" selection-end-column="53" />
+            <state relative-caret-position="611">
+              <caret line="54" selection-start-line="54" selection-end-line="56" selection-end-column="20" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -43,11 +60,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JTVAE.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="run_bo.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bo/run_bo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+                <marker date="1549784007269" expanded="true" signature="1556:1655" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JTVAE.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="208" selection-start-line="208" selection-end-line="209" selection-end-column="52" />
+            <state relative-caret-position="271">
+              <caret line="412" column="8" selection-start-line="412" selection-start-column="8" selection-end-line="412" selection-end-column="8" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -67,7 +97,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>load_epoch</find>
       <find>list_dir</find>
       <find>epoch</find>
       <find>bond</find>
@@ -97,6 +126,7 @@
       <find>.txt</find>
       <find>encode_latent</find>
       <find>_fscores</find>
+      <find>casting</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -119,9 +149,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/experiments/nnutils.py" />
-        <option value="$PROJECT_DIR$/experiments/GraphEncoder.py" />
-        <option value="$PROJECT_DIR$/experiments/JuncTree_Enc.py" />
         <option value="$PROJECT_DIR$/experiments/JTVAE.py" />
         <option value="$PROJECT_DIR$/experiments/JuncTreeDecoder.py" />
         <option value="$PROJECT_DIR$/experiments/GraphDecoder.py" />
@@ -139,7 +166,6 @@
         <option value="$PROJECT_DIR$/jtnn/chemutils.py" />
         <option value="$PROJECT_DIR$/jtnn/datautils.py" />
         <option value="$PROJECT_DIR$/jtnn/GraphGRU.py" />
-        <option value="$PROJECT_DIR$/jtnn/__init__.py" />
         <option value="$PROJECT_DIR$/jtnn/JTProp_VAE.py" />
         <option value="$PROJECT_DIR$/jtnn/tafri.ipynb" />
         <option value="$PROJECT_DIR$/molvae/test.py" />
@@ -166,10 +192,14 @@
         <option value="$PROJECT_DIR$/bo/LICENCE.txt" />
         <option value="$PROJECT_DIR$/bo/NEWS.txt" />
         <option value="$PROJECT_DIR$/bo/sascorer.py" />
-        <option value="$PROJECT_DIR$/bo/gauss.py" />
         <option value="$PROJECT_DIR$/jtnn/nnutils.py" />
-        <option value="$PROJECT_DIR$/bo/gen_latent.py" />
         <option value="$PROJECT_DIR$/jtnn/JTVAE.py" />
+        <option value="$PROJECT_DIR$/bo/gen_latent.py" />
+        <option value="$PROJECT_DIR$/bo/sparse_gp.py" />
+        <option value="$PROJECT_DIR$/bo/sparse_gp_theano_internal.py" />
+        <option value="$PROJECT_DIR$/bo/gauss.py" />
+        <option value="$PROJECT_DIR$/jtnn/__init__.py" />
+        <option value="$PROJECT_DIR$/bo/run_bo.py" />
       </list>
     </option>
   </component>
@@ -485,28 +515,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/molvae/pretrain.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" selection-start-line="7" selection-end-line="9" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/JTProp_VAE.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="113" column="25" selection-start-line="113" selection-start-column="25" selection-end-line="113" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/tafri.ipynb" />
-    <entry file="file://$PROJECT_DIR$/jtnn/MolJuncTreeNode.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-691">
-          <caret line="50" column="8" selection-start-line="50" selection-start-column="8" selection-end-line="50" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///anaconda3/envs/pytorch/lib/python3.6/site-packages/torch/utils/data/dataloader.py" />
     <entry file="file:///anaconda3/envs/pytorch/lib/python3.6/site-packages/torch/nn/modules/module.py" />
     <entry file="file:///anaconda3/envs/pytorch/lib/python3.6/multiprocessing/process.py" />
@@ -702,16 +710,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bo/gauss.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1500">
-          <caret line="100" column="12" selection-start-line="100" selection-start-column="12" selection-end-line="100" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/nnutils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -748,30 +746,78 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="120" selection-start-line="120" selection-end-line="120" selection-end-column="23" />
+        <state relative-caret-position="491">
+          <caret line="123" column="30" selection-start-line="123" selection-start-column="23" selection-end-line="123" selection-end-column="30" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bo/sparse_gp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5055">
+          <caret line="337" column="22" selection-start-line="337" selection-start-column="22" selection-end-line="337" selection-end-column="22" />
+          <folding>
+            <element signature="e#56#93#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bo/sparse_gp_theano_internal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5445">
+          <caret line="363" column="46" selection-start-line="363" selection-start-column="46" selection-end-line="363" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bo/gen_latent.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="99" column="53" selection-start-line="99" selection-start-column="24" selection-end-line="99" selection-end-column="53" />
+        <state relative-caret-position="611">
+          <caret line="54" selection-start-line="54" selection-end-line="56" selection-end-column="20" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/JTVAE.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="208" selection-start-line="208" selection-end-line="209" selection-end-column="52" />
+        <state relative-caret-position="271">
+          <caret line="412" column="8" selection-start-line="412" selection-start-column="8" selection-end-line="412" selection-end-column="8" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bo/gauss.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bo/run_bo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <marker date="1549784007269" expanded="true" signature="1556:1655" ph="..." />
           </folding>
         </state>
       </provider>
