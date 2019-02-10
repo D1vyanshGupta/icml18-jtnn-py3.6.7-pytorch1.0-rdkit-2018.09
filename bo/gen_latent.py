@@ -24,6 +24,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--data', required=True)
 parser.add_argument('--vocab', required=True)
 parser.add_argument('--model', required=True)
+parser.add_argument('--dir_name', required=True)
 parser.add_argument('--hidden_size', type=int, default=450)
 # parser.add_argument('--hidden_size', type=int, default=200)
 parser.add_argument('--latent_size', type=int, default=56)
@@ -88,18 +89,34 @@ logP_values_normalized = (np.array(logP_values) - np.mean(logP_values)) / np.std
 cycle_scores_normalized = (np.array(cycle_scores) - np.mean(cycle_scores)) / np.std(cycle_scores)
 
 latent_points = []
-for i in range(0, len(smiles), batch_size):
+loader = MolTreeFolder(args.data, vocab, args.use_graph_conv, batch_size, num_workers=5)
+for idx, batch in enumerate(loader):
     print(i, 'latent points')
-    batch = smiles[i:i+batch_size]
-    mol_vec = model.encode_latent_mean(batch)
+    if args.use_graph_conv:
+        _, jtenc_holder, molenc_holder, _ = batch
+        batch_ = (jtenc_holder, molenc_holder)
+        mol_vec = model.encode_latent_mean_graph_conv(batch_)
+    else:
+        _, jtenc_holder, mpn_holder, _ = batch
+        batch_ = (jtenc_holder, mpn_holder)
+        mol_vec = model.encode_latent_mean(batch_)
     latent_points.append(mol_vec.data.cpu().numpy())
+
+# latent_points = []
+# for i in range(0, len(smiles), batch_size):
+#     print(i, 'latent points')
+#     batch = smiles[i:i+batch_size]
+#     mol_vec = model.encode_latent_mean(batch)
+#     latent_points.append(mol_vec.data.cpu().numpy())
 
 # We store the results
 latent_points = np.vstack(latent_points)
-np.savetxt('latent_features.txt', latent_points)
+
+os.makedirs(args.dir_name)
+np.savetxt(os.path.join(args.dir_name, 'latent_features.txt'), latent_points)
 
 targets = SA_scores_normalized + logP_values_normalized + cycle_scores_normalized
-np.savetxt('targets.txt', targets)
-np.savetxt('logP_values.txt', np.array(logP_values))
-np.savetxt('SA_scores.txt', np.array(SA_scores))
-np.savetxt('cycle_scores.txt', np.array(cycle_scores))
+np.savetxt(os.path.join(args.dir_name, 'targets.txt'), targets)
+np.savetxt(os.path.join(args.dir_name, 'logP_values.txt'), np.array(logP_values))
+np.savetxt(os.path.join(args.dir_name, 'SA_scores.txt'), np.array(SA_scores))
+np.savetxt(os.path.join(args.dir_name, 'cycle_scores.txt'), np.array(cycle_scores))

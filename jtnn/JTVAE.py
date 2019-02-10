@@ -202,15 +202,21 @@ class JTNNVAE(nn.Module):
     #         mol_vecs = self.mpn(smiles_batch)
     #         return tree_mess, tree_vecs, mol_vecs
 
-    # def encode_latent_mean(self, smiles_list):
-    #     mol_batch = [MolJuncTree(s) for s in smiles_list]
-    #     for mol_tree in mol_batch:
-    #         mol_tree.recover()
-    #
-    #     _, tree_vec, mol_vec = self.encode(mol_batch)
-    #     tree_mean = self.T_mean(tree_vec)
-    #     mol_mean = self.G_mean(mol_vec)
-    #     return torch.cat([tree_mean, mol_mean], dim=1)
+    def encode_latent_mean(self, jtenc_holder, mpn_holder):
+        tree_vecs, _, mol_vecs = self.encode(jtenc_holder, mpn_holder)
+        tree_mean = self.T_mean(tree_vecs)
+        mol_mean = self.G_mean(mol_vecs)
+        tree_var = -torch.abs(self.T_var(tree_vecs))
+        mol_var = -torch.abs(self.G_var(mol_vecs))
+        return torch.cat([tree_mean, mol_mean], dim=1), torch.cat([tree_var, mol_var], dim=1)
+
+    def encode_latent_mean_graph_conv(self, jtenc_holder, molenc_holder):
+        tree_vecs, mol_vecs = self.encode_graph_conv(jtenc_holder, molenc_holder)
+        tree_mean = self.T_mean(tree_vecs)
+        mol_mean = self.G_mean(mol_vecs)
+        tree_var = -torch.abs(self.T_var(tree_vecs))
+        mol_var = -torch.abs(self.G_var(mol_vecs))
+        return torch.cat([tree_mean, mol_mean], dim=1), torch.cat([tree_var, mol_var], dim=1)
 
     def forward(self, x_batch, beta):
         if self.use_graph_conv:
