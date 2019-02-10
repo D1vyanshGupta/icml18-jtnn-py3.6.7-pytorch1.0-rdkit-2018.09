@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/bo/run_bo.py" beforeDir="false" afterPath="$PROJECT_DIR$/bo/run_bo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bo/gen_latent.py" beforeDir="false" afterPath="$PROJECT_DIR$/bo/gen_latent.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,20 +43,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gen_latent.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="gen_latent.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bo/gen_latent.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-346">
-              <caret line="4" column="41" lean-forward="true" selection-start-line="4" selection-end-line="4" selection-end-column="41" />
+            <state relative-caret-position="670">
+              <caret line="110" column="57" lean-forward="true" selection-start-line="110" selection-start-column="57" selection-end-line="110" selection-end-column="57" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="run_bo.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="run_bo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bo/run_bo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="102" column="40" selection-start-line="102" selection-start-column="40" selection-end-line="102" selection-end-column="40" />
+            <state relative-caret-position="1407">
+              <caret line="117" column="39" selection-start-line="117" selection-start-column="22" selection-end-line="117" selection-end-column="39" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
                 <marker date="1549787030599" expanded="true" signature="1599:1698" ph="..." />
@@ -67,8 +71,8 @@
       <file leaf-file-name="sparse_gp.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bo/sparse_gp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="496">
-              <caret line="37" column="60" selection-start-line="37" selection-start-column="60" selection-end-line="37" selection-end-column="60" />
+            <state relative-caret-position="976">
+              <caret line="302" column="25" selection-start-line="302" selection-start-column="8" selection-end-line="302" selection-end-column="25" />
               <folding>
                 <element signature="e#56#93#0" expanded="true" />
               </folding>
@@ -100,7 +104,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>epoch</find>
       <find>bond</find>
       <find>def decode</find>
       <find>decode</find>
@@ -121,15 +124,16 @@
       <find>reconstruct</find>
       <find>reconstruct_gra</find>
       <find>.cuda</find>
-      <find>print</find>
       <find>size</find>
       <find>mess_dict</find>
       <find>size()</find>
       <find>.txt</find>
       <find>encode_latent</find>
       <find>_fscores</find>
-      <find>casting</find>
       <find>processed_path</find>
+      <find>casting</find>
+      <find>batched_greedy_ei</find>
+      <find>print</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -197,12 +201,12 @@
         <option value="$PROJECT_DIR$/bo/sascorer.py" />
         <option value="$PROJECT_DIR$/jtnn/nnutils.py" />
         <option value="$PROJECT_DIR$/jtnn/JTVAE.py" />
-        <option value="$PROJECT_DIR$/bo/gen_latent.py" />
         <option value="$PROJECT_DIR$/bo/sparse_gp_theano_internal.py" />
         <option value="$PROJECT_DIR$/bo/gauss.py" />
         <option value="$PROJECT_DIR$/jtnn/__init__.py" />
         <option value="$PROJECT_DIR$/bo/sparse_gp.py" />
         <option value="$PROJECT_DIR$/bo/run_bo.py" />
+        <option value="$PROJECT_DIR$/bo/gen_latent.py" />
       </list>
     </option>
   </component>
@@ -773,23 +777,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bo/gen_latent.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-346">
-          <caret line="4" column="41" lean-forward="true" selection-start-line="4" selection-end-line="4" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bo/gauss.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/new_molvae/vae_train.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="491">
@@ -807,10 +794,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bo/gauss.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bo/sparse_gp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="37" column="60" selection-start-line="37" selection-start-column="60" selection-end-line="37" selection-end-column="60" />
+        <state relative-caret-position="976">
+          <caret line="302" column="25" selection-start-line="302" selection-start-column="8" selection-end-line="302" selection-end-column="25" />
           <folding>
             <element signature="e#56#93#0" expanded="true" />
           </folding>
@@ -819,11 +816,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bo/run_bo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="102" column="40" selection-start-line="102" selection-start-column="40" selection-end-line="102" selection-end-column="40" />
+        <state relative-caret-position="1407">
+          <caret line="117" column="39" selection-start-line="117" selection-start-column="22" selection-end-line="117" selection-end-column="39" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
             <marker date="1549787030599" expanded="true" signature="1599:1698" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bo/gen_latent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="670">
+          <caret line="110" column="57" lean-forward="true" selection-start-line="110" selection-start-column="57" selection-end-line="110" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
