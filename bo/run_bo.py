@@ -88,7 +88,7 @@ cycle_scores_normalized = (np.array(cycle_scores) - np.mean(cycle_scores)) / np.
 
 iteration = 0
 while iteration < 5:
-    print("Iteration: {]".format(iteration + 1))
+    print("Iteration: {}".format(iteration + 1))
     # We fit the GP
     np.random.seed(iteration * random_seed)
     M = 500
