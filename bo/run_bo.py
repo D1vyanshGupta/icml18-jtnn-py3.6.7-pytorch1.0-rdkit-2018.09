@@ -100,7 +100,7 @@ while iteration < 5:
     # sgp.train_via_ADAM(X_train, 0 * X_train, y_train, X_test, X_test * 0, y_test, minibatch_size=10 * M,
     #                    max_iterations=100, learning_rate=0.001)
     sgp.train_via_ADAM(X_train, 0 * X_train, y_train, X_test, X_test * 0, y_test, minibatch_size=10 * M,
-                       max_iterations=1, learning_rate=0.001)
+                       max_iterations=20, learning_rate=0.001)
 
     pred, uncert = sgp.predict(X_test, 0 * X_test)
     error = np.sqrt(np.mean((pred - y_test) ** 2))
@@ -119,6 +119,7 @@ while iteration < 5:
     valid_smiles = []
     new_features = []
     for i in range(60):
+        print(i, 'decoding')
         all_vec = next_inputs[i].reshape((1, -1))
         tree_vec, mol_vec = np.hsplit(all_vec, 2)
         tree_vec = create_var(torch.from_numpy(tree_vec).float())
@@ -146,6 +147,7 @@ while iteration < 5:
 
     scores = []
     for i in range(len(valid_smiles)):
+        print(i, 'calculating scores')
         current_log_P_value = Descriptors.MolLogP(MolFromSmiles(valid_smiles[i]))
         current_SA_score = -sascorer.calculateScore(MolFromSmiles(valid_smiles[i]))
         cycle_list = nx.cycle_basis(nx.Graph(rdmolops.GetAdjacencyMatrix(MolFromSmiles(valid_smiles[i]))))
