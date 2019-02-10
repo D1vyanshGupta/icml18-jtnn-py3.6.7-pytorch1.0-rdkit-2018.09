@@ -25,6 +25,7 @@ parser.add_argument('--data', required=True)
 parser.add_argument('--vocab', required=True)
 parser.add_argument('--model', required=True)
 parser.add_argument('--dir_name', required=True)
+parser.add_argument('--processed_path', required=True)
 parser.add_argument('--hidden_size', type=int, default=450)
 # parser.add_argument('--hidden_size', type=int, default=200)
 parser.add_argument('--latent_size', type=int, default=56)
@@ -89,7 +90,7 @@ logP_values_normalized = (np.array(logP_values) - np.mean(logP_values)) / np.std
 cycle_scores_normalized = (np.array(cycle_scores) - np.mean(cycle_scores)) / np.std(cycle_scores)
 
 latent_points = []
-loader = MolTreeFolder(args.data, vocab, args.use_graph_conv, batch_size, num_workers=5)
+loader = MolTreeFolder(args.processed_path, vocab, args.use_graph_conv, batch_size, num_workers=5)
 for idx, batch in enumerate(loader):
     print(i, 'latent points')
     if args.use_graph_conv:
