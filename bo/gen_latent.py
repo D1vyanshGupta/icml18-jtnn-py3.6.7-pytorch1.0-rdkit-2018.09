@@ -2,6 +2,8 @@ import os
 import sys
 import argparse
 
+from timeit import default_timer as timer
+
 import numpy as np
 
 import torch
@@ -45,7 +47,7 @@ for i in range(len(smiles)):
 vocab = [x.strip("\r\n ") for x in open(args.vocab)]
 vocab = ClusterVocab(vocab)
 
-batch_size = 100
+batch_size = 32
 # hidden_size = int(args.hidden_size)
 # latent_size = int(args.latent_size)
 # depth = int(opts.depth)
@@ -89,10 +91,11 @@ SA_scores_normalized = (np.array(SA_scores) - np.mean(SA_scores)) / np.std(SA_sc
 logP_values_normalized = (np.array(logP_values) - np.mean(logP_values)) / np.std(logP_values)
 cycle_scores_normalized = (np.array(cycle_scores) - np.mean(cycle_scores)) / np.std(cycle_scores)
 
+total_latent_time = 0
 latent_points = []
 loader = MolTreeFolder(args.processed_path, vocab, args.use_graph_conv, batch_size, num_workers=5)
 for idx, batch in enumerate(loader):
-    print(idx, 'latent points')
+    batch_start = timer()
     if args.use_graph_conv:
         _, jtenc_holder, molenc_holder, _ = batch
         mol_vec = model.encode_latent_mean_graph_conv(jtenc_holder, molenc_holder)
@@ -100,7 +103,12 @@ for idx, batch in enumerate(loader):
         _, jtenc_holder, mpn_holder, _ = batch
         mol_vec = model.encode_latent_mean(jtenc_holder, mpn_holder)
     latent_points.append(mol_vec.data.cpu().numpy())
+    batch_end = timer()
+    batch_time = batch_end - batch_start
+    print('Latent Encoding for Batch: {}, Time Taken: {} s'.format(idx, batch_time))
+    total_latent_time += batch_time
 
+print('Total Time for encoding the training set: {} min'.format(total_latent_time/60))
 # latent_points = []
 # for i in range(0, len(smiles), batch_size):
 #     print(i, 'latent points')

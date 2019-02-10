@@ -206,8 +206,8 @@ class JTNNVAE(nn.Module):
         tree_vecs, _, mol_vecs = self.encode(jtenc_holder, mpn_holder)
         tree_mean = self.T_mean(tree_vecs)
         mol_mean = self.G_mean(mol_vecs)
-        tree_var = -torch.abs(self.T_var(tree_vecs))
-        mol_var = -torch.abs(self.G_var(mol_vecs))
+        # tree_var = -torch.abs(self.T_var(tree_vecs))
+        # mol_var = -torch.abs(self.G_var(mol_vecs))
         # return torch.cat([tree_mean, mol_mean], dim=1), torch.cat([tree_var, mol_var], dim=1)
         return torch.cat([tree_mean, mol_mean], dim=1)
 
@@ -215,8 +215,8 @@ class JTNNVAE(nn.Module):
         tree_vecs, mol_vecs = self.encode_graph_conv(jtenc_holder, molenc_holder)
         tree_mean = self.T_mean(tree_vecs)
         mol_mean = self.G_mean(mol_vecs)
-        tree_var = -torch.abs(self.T_var(tree_vecs))
-        mol_var = -torch.abs(self.G_var(mol_vecs))
+        # tree_var = -torch.abs(self.T_var(tree_vecs))
+        # mol_var = -torch.abs(self.G_var(mol_vecs))
         # return torch.cat([tree_mean, mol_mean], dim=1), torch.cat([tree_var, mol_var], dim=1)
         return torch.cat([tree_mean, mol_mean], dim=1)
 
