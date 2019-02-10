@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="" />
+    <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/bo/run_bo.py" beforeDir="false" afterPath="$PROJECT_DIR$/bo/run_bo.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,11 +45,8 @@
       <file leaf-file-name="gen_latent.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bo/gen_latent.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="611">
-              <caret line="54" selection-start-line="54" selection-end-line="56" selection-end-column="20" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-346">
+              <caret line="4" column="41" lean-forward="true" selection-start-line="4" selection-end-line="4" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -55,11 +54,11 @@
       <file leaf-file-name="run_bo.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bo/run_bo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1350">
-              <caret line="90" column="46" selection-start-line="90" selection-start-column="46" selection-end-line="90" selection-end-column="46" />
+            <state relative-caret-position="752">
+              <caret line="182" column="29" lean-forward="true" selection-start-line="182" selection-start-column="29" selection-end-line="182" selection-end-column="29" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
-                <marker date="1549784111632" expanded="true" signature="1556:1655" ph="..." />
+                <marker date="1549784541953" expanded="true" signature="1599:1698" ph="..." />
               </folding>
             </state>
           </provider>
@@ -89,7 +88,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>list_dir</find>
       <find>epoch</find>
       <find>bond</find>
       <find>def decode</find>
@@ -119,6 +117,7 @@
       <find>encode_latent</find>
       <find>_fscores</find>
       <find>casting</find>
+      <find>processed_path</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -766,16 +765,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bo/gen_latent.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
-          <caret line="54" selection-start-line="54" selection-end-line="56" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jtnn/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -803,13 +792,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bo/gen_latent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-346">
+          <caret line="4" column="41" lean-forward="true" selection-start-line="4" selection-end-line="4" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bo/run_bo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1350">
-          <caret line="90" column="46" selection-start-line="90" selection-start-column="46" selection-end-line="90" selection-end-column="46" />
+        <state relative-caret-position="752">
+          <caret line="182" column="29" lean-forward="true" selection-start-line="182" selection-start-column="29" selection-end-line="182" selection-end-column="29" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <marker date="1549784111632" expanded="true" signature="1556:1655" ph="..." />
+            <marker date="1549784541953" expanded="true" signature="1599:1698" ph="..." />
           </folding>
         </state>
       </provider>

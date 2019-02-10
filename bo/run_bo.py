@@ -2,6 +2,8 @@ import os
 import sys
 import argparse
 
+from timeit import default_timer as timer
+
 import pickle
 import gzip
 from sparse_gp import SparseGP
@@ -87,7 +89,9 @@ logP_values_normalized = (np.array(logP_values) - np.mean(logP_values)) / np.std
 cycle_scores_normalized = (np.array(cycle_scores) - np.mean(cycle_scores)) / np.std(cycle_scores)
 
 iteration = 0
+total_time = 0
 while iteration < 5:
+    iter_start = timer()
     print("Iteration: {}".format(iteration + 1))
     # We fit the GP
     np.random.seed(iteration * random_seed)
@@ -171,3 +175,9 @@ while iteration < 5:
         y_train = np.concatenate([y_train, np.array(scores)[:, None]], 0)
 
     iteration += 1
+    iter_end = timer()
+    iter_time = iter_end - iter_start
+    print('Total Iteration Time: {} s'.format(iter_time))
+    total_time += iter_time
+
+print('Total Time Taken: {} min'.format(total_time / 60))
