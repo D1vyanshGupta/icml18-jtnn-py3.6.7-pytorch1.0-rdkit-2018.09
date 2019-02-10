@@ -36,6 +36,8 @@ def global_optimization(grid, lower, upper, function_grid, function_scalar, func
         return np.float(value), gradient_value.astype(np.float)
 
     lbfgs_bounds = zip(lower.tolist(), upper.tolist())
+    print(lbfgs_bounds)
+    print(type(lbfgs_bounds))
     x_optimal, y_opt, opt_info = spo.fmin_l_bfgs_b(objective, X_initial, bounds=lbfgs_bounds, iprint=0, maxiter=150)
     x_optimal = x_optimal.reshape((1, grid.shape[1]))
 
