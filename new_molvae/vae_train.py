@@ -144,7 +144,7 @@ for epoch in range(args.epochs):
             loss.backward()
 
             # implement gradient clipping
-            nn.utils.clip_grad_norm_(model.parameters(), args.clip_norm)
+            # nn.utils.clip_grad_norm_(model.parameters(), args.clip_norm)
 
             # update model parameters
             optimizer.step()
@@ -168,8 +168,8 @@ for epoch in range(args.epochs):
             print("learning rate: %.6f" % scheduler.get_lr()[0])
 
         # implement beta-annealing
-        if args.enable_beta_anneal and total_step % args.beta_anneal_iter == 0 and total_step >= args.warmup:
-            beta = min(args.max_beta, beta + args.step_beta)
+        # if args.enable_beta_anneal and total_step % args.beta_anneal_iter == 0 and total_step >= args.warmup:
+        #     beta = min(args.max_beta, beta + args.step_beta)
 
 
     # save the model after this epoch
