@@ -95,7 +95,7 @@ class JTNNVAE_Prop(nn.Module):
         self.assm_loss = nn.CrossEntropyLoss(size_average=False)
 
         self.propNN = nn.Sequential(
-            nn.Linear(self.latent_size, self.hidden_size),
+            nn.Linear(self.latent_size * 2, self.hidden_size),
             nn.Tanh(),
             nn.Linear(self.hidden_size, 1)
         )
