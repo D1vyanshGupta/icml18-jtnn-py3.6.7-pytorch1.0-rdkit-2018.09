@@ -44,6 +44,7 @@ parser.add_argument('--training_prop_pred', action='store_true')
 parser.add_argument('--lr', type=float, default=1e-3)
 parser.add_argument('--clip_norm', type=float, default=50.0)
 parser.add_argument('--beta', type=float, default=0.0)
+parser.add_argument('--lambd', type=float, default=0.0)
 parser.add_argument('--warmup', type=int, default=20000)
 
 parser.add_argument('--epochs', type=int, default=3)
@@ -67,7 +68,7 @@ print(args)
 vocab = [x.strip("\r\n ") for x in open(args.vocab)]
 vocab = ClusterVocab(vocab)
 
-model = JTNNVAE(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.training_prop_pred).cuda()
+model = JTNNVAE_Prop(vocab, args.hidden_size, args.latent_size, args.depthT, args.depthG, args.num_layers, args.use_graph_conv, args.training_prop_pred).cuda()
 print(model)
 
 for param in model.parameters():
@@ -94,6 +95,7 @@ if args.enable_lr_anneal:
 
 total_step = args.load_epoch
 beta = args.beta
+_lamba = args.lambd
 meters = np.zeros(6)
 
 # list to store loss and accuracies
@@ -122,7 +124,7 @@ for epoch in range(args.epochs):
             model.zero_grad()
             # implement forward pass
             if args.training_prop_pred:
-                loss, kl_div, wacc, tacc, aacc, prop_loss = model(batch, beta)
+                loss, kl_div, wacc, tacc, aacc, prop_loss = model(batch, beta, _lamba)
 
                 # append items to list
                 loss_lst.append(loss.item())
@@ -133,7 +135,7 @@ for epoch in range(args.epochs):
                 prop_loss_lst.append(prop_loss)
 
             else:
-                loss, kl_div, wacc, tacc, aacc, prop_mean = model(batch, beta)
+                loss, kl_div, wacc, tacc, aacc, prop_mean = model(batch, beta, _lamba)
 
                 # append items to list
                 loss_lst.append(loss.item())

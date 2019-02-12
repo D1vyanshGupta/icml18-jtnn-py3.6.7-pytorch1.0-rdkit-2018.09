@@ -8,3 +8,4 @@ from prev_datautils import MoleculeDataset
 from new_datautils import MolTreeFolder
 from prop_new_datautils import PropMolTreeFolder
 from nnutils import *
+from JTVAE_Prop import JTNNVAE_Prop

@@ -16,7 +16,7 @@ import rdkit.Chem as Chem
 import copy
 
 
-class JTNNVAE(nn.Module):
+class JTNNVAE_Prop(nn.Module):
     """
     Description: This class is the implementation of the Junction Tree Variational Auto Encoder.
     """
@@ -49,7 +49,7 @@ class JTNNVAE(nn.Module):
         """
 
         # invoke superclass constructor
-        super(JTNNVAE, self).__init__()
+        super(JTNNVAE_Prop, self).__init__()
 
         # whether to use message passing or graph convnet
         self.use_graph_conv = use_graph_conv
