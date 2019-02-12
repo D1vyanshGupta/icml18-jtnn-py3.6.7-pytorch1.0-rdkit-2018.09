@@ -6,4 +6,5 @@ from ClusterVocab import ClusterVocab
 from JTVAE import JTNNVAE
 from prev_datautils import MoleculeDataset
 from new_datautils import MolTreeFolder
+from prop_new_datautils import PropMolTreeFolder
 from nnutils import *

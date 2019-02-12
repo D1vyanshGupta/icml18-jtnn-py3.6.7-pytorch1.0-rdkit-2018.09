@@ -99,6 +99,14 @@ class JTNNVAE(nn.Module):
 
         # reconstruction loss
         self.assm_loss = nn.CrossEntropyLoss(size_average=False)
+
+        self.propNN = nn.Sequential(
+                nn.Linear(self.latent_size, self.hidden_size),
+                nn.Tanh(),
+                nn.Linear(self.hidden_size, 1)
+        )
+        self.prop_loss = nn.MSELoss()
+
         # self.stereo_loss = nn.CrossEntropyLoss(size_average=False)
 
     # def set_batch_node_id(self, junc_tree_batch, vocab):
@@ -232,12 +240,10 @@ class JTNNVAE(nn.Module):
             word_loss, topo_loss, word_acc, topo_acc = self.decoder(x_junc_tree_batch, z_tree_vecs)
             assm_loss, assm_acc = self.assm_graph_conv(x_junc_tree_batch, x_cand_molenc_holder, z_mol_vecs)
             # stereo_loss, stereo_acc = self.stereo_graph_conv(x_stereo_molenc_holder, z_mol_vecs)
-
-            # return word_loss + topo_loss + assm_loss + stereo_loss + beta * kl_div, kl_div.item(), word_acc, topo_acc, assm_acc, stereo_acc
             return word_loss + topo_loss + assm_loss + beta * kl_div, kl_div.item(), word_acc, topo_acc, assm_acc
         else:
             # x_junc_tree_batch, x_jtenc_holder, x_mpn_holder, x_jtmpn_holder, x_stereo_molenc_holder = x_batch
-            x_junc_tree_batch, x_jtenc_holder, x_mpn_holder, x_jtmpn_holder = x_batch
+            x_junc_tree_batch, x_jtenc_holder, x_mpn_holder, x_jtmpn_holder, prop_batch = x_batch
             x_tree_vecs, x_tree_mess, x_mol_vecs = self.encode(x_jtenc_holder, x_mpn_holder)
             z_tree_vecs, tree_kl = self.rsample(x_tree_vecs, self.T_mean, self.T_var)
             z_mol_vecs, mol_kl = self.rsample(x_mol_vecs, self.G_mean, self.G_var)
@@ -246,7 +252,6 @@ class JTNNVAE(nn.Module):
             word_loss, topo_loss, word_acc, topo_acc = self.decoder(x_junc_tree_batch, z_tree_vecs)
             assm_loss, assm_acc = self.assm(x_junc_tree_batch, x_jtmpn_holder, z_mol_vecs, x_tree_mess)
             # stereo_loss, stereo_acc = self.stereo(x_stereo_molenc_holder, z_mol_vecs)
-
             # return word_loss + topo_loss + assm_loss + stereo_loss + beta * kl_div, kl_div.item(), word_acc, topo_acc, assm_acc, stereo_acc
             return word_loss + topo_loss + assm_loss + beta * kl_div, kl_div.item(), word_acc, topo_acc, assm_acc
 
