@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="298a1017-52d5-46b9-8ab0-e0f14071cbf4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/jtnn/JTVAE_Prop.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/JTVAE_Prop.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/new_molvae/vae_train_prop.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_molvae/vae_train_prop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jtnn/prop_new_datautils.py" beforeDir="false" afterPath="$PROJECT_DIR$/jtnn/prop_new_datautils.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="prop_new_datautils.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="prop_new_datautils.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jtnn/prop_new_datautils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-631">
-              <caret line="16" column="21" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
+            <state relative-caret-position="574">
+              <caret line="114" column="100" selection-start-line="114" selection-start-column="100" selection-end-line="114" selection-end-column="100" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -34,8 +33,8 @@
       <file leaf-file-name="vae_train_prop.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/new_molvae/vae_train_prop.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="70" column="15" selection-start-line="70" selection-start-column="8" selection-end-line="70" selection-end-column="15" />
+            <state relative-caret-position="443">
+              <caret line="126" column="65" selection-start-line="126" selection-start-column="60" selection-end-line="126" selection-end-column="65" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -43,10 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JTProp_VAE.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jtnn/JTProp_VAE.py">
+      <file leaf-file-name="JTVAE_Prop.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jtnn/JTVAE_Prop.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-204">
+            <state relative-caret-position="-1088">
+              <caret line="51" column="26" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -54,14 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JTVAE_Prop.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/jtnn/JTVAE_Prop.py">
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jtnn/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="150">
+              <caret line="10" column="23" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -78,7 +75,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>return self.decode(z_tree, z_mol, prob_decode)</find>
       <find>sample_prior</find>
       <find>rec</find>
       <find>reconstruc</find>
@@ -108,6 +104,7 @@
       <find>training_prop_pred</find>
       <find>Logp</find>
       <find>MolFromSmiles</find>
+      <find>beta</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -177,10 +174,10 @@
         <option value="$PROJECT_DIR$/jtnn/JTVAE.py" />
         <option value="$PROJECT_DIR$/jtnn/new_datautils.py" />
         <option value="$PROJECT_DIR$/jupyter-notebooks/data_exploration.ipynb" />
-        <option value="$PROJECT_DIR$/jtnn/prop_new_datautils.py" />
         <option value="$PROJECT_DIR$/jtnn/__init__.py" />
-        <option value="$PROJECT_DIR$/new_molvae/vae_train_prop.py" />
         <option value="$PROJECT_DIR$/jtnn/JTVAE_Prop.py" />
+        <option value="$PROJECT_DIR$/new_molvae/vae_train_prop.py" />
+        <option value="$PROJECT_DIR$/jtnn/prop_new_datautils.py" />
       </list>
     </option>
   </component>
@@ -752,13 +749,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="31" lean-forward="true" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/new_molvae/reconstruct.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
@@ -797,41 +787,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/prop_new_datautils.py">
+    <entry file="file://$PROJECT_DIR$/jtnn/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-631">
-          <caret line="16" column="21" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
+        <state relative-caret-position="150">
+          <caret line="10" column="23" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jtnn/JTProp_VAE.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1088">
           <folding>
-            <element signature="e#0#17#0" expanded="true" />
+            <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/new_molvae/vae_train_prop.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="70" column="15" selection-start-line="70" selection-start-column="8" selection-end-line="70" selection-end-column="15" />
+        <state relative-caret-position="443">
+          <caret line="126" column="65" selection-start-line="126" selection-start-column="60" selection-end-line="126" selection-end-column="65" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/JTProp_VAE.py">
+    <entry file="file://$PROJECT_DIR$/jtnn/JTVAE_Prop.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-204">
+        <state relative-caret-position="-1088">
+          <caret line="51" column="26" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jtnn/JTVAE_Prop.py">
+    <entry file="file://$PROJECT_DIR$/jtnn/prop_new_datautils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+        <state relative-caret-position="574">
+          <caret line="114" column="100" selection-start-line="114" selection-start-column="100" selection-end-line="114" selection-end-column="100" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#0#17#0" expanded="true" />
           </folding>
         </state>
       </provider>

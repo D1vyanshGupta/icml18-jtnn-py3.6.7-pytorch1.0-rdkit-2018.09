@@ -91,7 +91,7 @@ def tensorize(junc_tree_batch, vocab, use_graph_conv, assm=True):
         cand_molenc_holder = MolGraphEncoder.tensorize(candidate_smiles)
         cand_batch_idx = torch.LongTensor(cand_batch_idx)
 
-        return junc_tree_batch, jtenc_holder, molenc_holder, (cand_molenc_holder, cand_batch_idx)
+        return junc_tree_batch, jtenc_holder, molenc_holder, (cand_molenc_holder, cand_batch_idx), prop_batch
 
     else:
         mpn_holder = MessPassNet.tensorize(smiles_batch)
@@ -112,7 +112,7 @@ def tensorize(junc_tree_batch, vocab, use_graph_conv, assm=True):
         jtmpn_holder = JTMessPassNet.tensorize(candidates, mess_dict)
         cand_batch_idx = torch.LongTensor(cand_batch_idx)
 
-        return junc_tree_batch, jtenc_holder, mpn_holder, (jtmpn_holder, cand_batch_idx)
+        return junc_tree_batch, jtenc_holder, mpn_holder, (jtmpn_holder, cand_batch_idx), prop_batch
 
 def set_batch_nodeID(mol_batch, vocab):
     tot = 0
