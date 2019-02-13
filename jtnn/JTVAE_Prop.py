@@ -191,7 +191,7 @@ class JTNNVAE_Prop(nn.Module):
                 prop_label = create_var(torch.Tensor(prop_batch))
                 prop_val = self.propNN(all_vec)
                 prop_mean = prop_val.mean()
-                return _lambda * (word_loss + topo_loss + assm_loss + beta * kl_div) + \
+                return _lambda * (word_loss + topo_loss + assm_loss + beta * kl_div) - \
                        (1 - _lambda) * prop_mean, kl_div.item(), word_acc, topo_acc, assm_acc, prop_mean
 
             return word_loss + topo_loss + assm_loss + beta * kl_div, kl_div.item(), word_acc, topo_acc, assm_acc
