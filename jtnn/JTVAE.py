@@ -100,12 +100,12 @@ class JTNNVAE(nn.Module):
         # reconstruction loss
         self.assm_loss = nn.CrossEntropyLoss(size_average=False)
 
-        self.propNN = nn.Sequential(
-                nn.Linear(self.latent_size, self.hidden_size),
-                nn.Tanh(),
-                nn.Linear(self.hidden_size, 1)
-        )
-        self.prop_loss = nn.MSELoss()
+        # self.propNN = nn.Sequential(
+        #         nn.Linear(self.latent_size, self.hidden_size),
+        #         nn.Tanh(),
+        #         nn.Linear(self.hidden_size, 1)
+        # )
+        # self.prop_loss = nn.MSELoss()
 
         # self.stereo_loss = nn.CrossEntropyLoss(size_average=False)
 
