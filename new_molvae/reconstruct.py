@@ -54,12 +54,12 @@ start_time = timer()
 if args.use_graph_conv:
     for smiles in data:
         mol = Chem.MolFromSmiles(smiles)
-        smiles3D = Chem.MolToSmiles(mol, isomericSmiles=True)
+        # smiles3D = Chem.MolToSmiles(mol, isomericSmiles=True)
 
         try:
-            dec_smiles = model.reconstruct_graph_conv(smiles3D)
+            dec_smiles = model.reconstruct_graph_conv(smiles)
 
-            if dec_smiles == smiles3D:
+            if dec_smiles == smiles:
                 acc += 1
         except Exception as e:
             print(e)
@@ -74,12 +74,12 @@ if args.use_graph_conv:
 else:
     for smiles in data:
         mol = Chem.MolFromSmiles(smiles)
-        smiles3D = Chem.MolToSmiles(mol, isomericSmiles=True)
+        # smiles3D = Chem.MolToSmiles(mol, isomericSmiles=True)
 
         try:
-            dec_smiles = model.reconstruct(smiles3D)
+            dec_smiles = model.reconstruct(smiles)
 
-            if dec_smiles == smiles3D:
+            if dec_smiles == smiles:
                 acc += 1
         except Exception as e:
             print(e)

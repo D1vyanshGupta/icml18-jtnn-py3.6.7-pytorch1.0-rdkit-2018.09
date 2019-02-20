@@ -10,7 +10,7 @@ from JTMessPassNet import JTMessPassNet
 from MolGraphEncoder import MolGraphEncoder
 
 from rdkit.Chem import Descriptors
-from rdkit.Chem import MolFromSmiles, MolToSmiles
+from rdkit.Chem import MolFromSmiles
 
 class PropMolTreeFolder(object):
 
