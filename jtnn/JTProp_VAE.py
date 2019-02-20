@@ -46,6 +46,8 @@ class JTPropVAE(nn.Module):
         self.propNN = nn.Sequential(
             nn.Linear(self.latent_size, self.hidden_size),
             nn.Tanh(),
+            nn.Linear(self.latent_size, self.hidden_size),
+            nn.Tanh(),
             nn.Linear(self.hidden_size, 1)
         )
         self.prop_loss = nn.MSELoss()

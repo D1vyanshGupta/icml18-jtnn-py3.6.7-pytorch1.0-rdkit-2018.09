@@ -168,7 +168,7 @@ class JTNNVAE_Prop(nn.Module):
                 all_vec = torch.cat([z_tree_vecs, z_mol_vecs], dim=1)
                 prop_val = self.propNN(all_vec)
                 prop_mean = prop_val.mean()
-                return _lambda * (word_loss + topo_loss + assm_loss + beta * kl_div) + (1 - _lambda) * prop_mean, kl_div.item(), word_acc, topo_acc, assm_acc, prop_mean
+                return _lambda * (word_loss + topo_loss + assm_loss + beta * kl_div) - (1 - _lambda) * prop_mean, kl_div.item(), word_acc, topo_acc, assm_acc, prop_mean
 
         else:
             x_junc_tree_batch, x_jtenc_holder, x_mpn_holder, x_jtmpn_holder, prop_batch = x_batch
